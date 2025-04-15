@@ -16,6 +16,7 @@ export default defineConfig({
 		rehypePlugins: [rehypeKatex],
 	},
 	site: "https://hengin-eer.github.io/",
+	base: '/',
 	vite: {
 		optimizeDeps: {
 			noDiscovery: true,
