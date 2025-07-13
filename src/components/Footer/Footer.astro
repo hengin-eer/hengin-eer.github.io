@@ -3,33 +3,35 @@ import Link from "../Link.astro";
 import SNSNavButton from "../button/SNSNavButton.astro";
 ---
 
-<footer class="sticky top-[100%] px-10 md:px-20 pt-10 pb-5 text-white bg-primary-blue">
-    <h3 class="mb-2 text-3xl font-hina">
-			&lt;Timtim /&gt;
-    </h3>
-    <div class="pt-6 flex flex-col md:flex-row items-center gap-7 justify-between">
-        <ul class="flex items-center flex-wrap gap-x-5 gap-y-2">
-            <li class="text-lg">
-                <a href="#about">About</a>
-            </li>
-            <li class="text-lg">
-                <a href="#hobby">Hobby</a>
-            </li>
-            <li class="text-lg">
-                <a href="#blog">Blog</a>
-            </li>
-            <li class="text-lg">
-                <a href="#works">Works</a>
-            </li>
-            <li class="text-lg">
-                <a href="#contact">Contact</a>
-            </li>
-        </ul>
-        <SNSNavButton />
-    </div>
-    <p class="mt-16 text-base text-center">
-        &copy; 2024~ | timtim.tech | Created with 
-        <span class="text-primary-red">❤</span> by 
-        <Link href="https://x.com/timdaik" classes="underline">@timdaik</Link>
-    </p>
+<footer
+	class="sticky top-[100%] px-10 md:px-20 pt-10 pb-5 text-white bg-primary-blue"
+>
+	<h3 class="mb-2 text-3xl font-hina">&lt;Timtim /&gt;</h3>
+	<div
+		class="pt-6 flex flex-col md:flex-row items-center gap-7 justify-between"
+	>
+		<ul class="flex items-center flex-wrap gap-x-5 gap-y-2">
+			<li class="text-lg">
+				<a href="#about">About</a>
+			</li>
+			<li class="text-lg">
+				<a href="#hobby">Hobby</a>
+			</li>
+			<li class="text-lg">
+				<a href="#blog">Blog</a>
+			</li>
+			<li class="text-lg">
+				<a href="#works">Works</a>
+			</li>
+			<li class="text-lg">
+				<a href="#contact">Contact</a>
+			</li>
+		</ul>
+		<SNSNavButton />
+	</div>
+	<p class="mt-16 text-base text-center">
+		&copy; 2024~ | timtim.tech | Created with
+		<span class="text-primary-red">❤</span> by
+		<Link href="https://x.com/timdaik" className="underline">@timdaik</Link>
+	</p>
 </footer>

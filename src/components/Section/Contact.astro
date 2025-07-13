@@ -5,68 +5,76 @@ import Link from "../Link.astro";
 import SectionHeading from "./SectionHeading.astro";
 
 const SNSProfiles = [
-    {
-        "linkIcon": "ri:twitter-x-fill",
-        "username": "tim_daik",
-        "snslink": "https://x.com/tim_daik",
-        "description": "DMを開放しているので気軽にどうぞ！日常のちょっと嬉しかったことや発見を呟いている1人ごとアカウントです。気軽にフォローして頂けると嬉しいです。",
-    },
-    {
-        "linkIcon": "ri:github-fill",
-        "username": "hengin-eer",
-        "snslink": "https://github.com/hengin-eer",
-        "description": "普段の開発に使っているアカウントです。他人のリポジトリを見たりすることも好きなので、フォローお待ちしております🙇",
-    },
-    {
-        "linkIcon": "ri:instagram-line",
-        "username": "timdaik",
-        "snslink": "https://instagram.com/timdaik",
-        "description": "完全にプライベートアカウントなので実際にあった人や友達がメインターゲットです。お会いしたけどフォローしていない方は是非！",
-    },
-]
+	{
+		linkIcon: "ri:twitter-x-fill",
+		username: "tim_daik",
+		snslink: "https://x.com/tim_daik",
+		description:
+			"DMを開放しているので気軽にどうぞ！日常のちょっと嬉しかったことや発見を呟いている1人ごとアカウントです。気軽にフォローして頂けると嬉しいです。",
+	},
+	{
+		linkIcon: "ri:github-fill",
+		username: "hengin-eer",
+		snslink: "https://github.com/hengin-eer",
+		description:
+			"普段の開発に使っているアカウントです。他人のリポジトリを見たりすることも好きなので、フォローお待ちしております🙇",
+	},
+	{
+		linkIcon: "ri:instagram-line",
+		username: "timdaik",
+		snslink: "https://instagram.com/timdaik",
+		description:
+			"完全にプライベートアカウントなので実際にあった人や友達がメインターゲットです。お会いしたけどフォローしていない方は是非！",
+	},
+];
 ---
 
 <section id="contact" class="w-full mt-20">
-    <SectionHeading title="Contact" isBlue={true} />
-    <p class="mt-10 text-lg leading-[2] text-center">
-        Timdaikへのお問い合わせは内容によって使い分けることが出来ます。<br />
-        お気軽にお問い合わせください！
-    </p>
-    <div class="w-min mx-auto py-20">
-        <h3 class="mb-10 text-3xl">気軽な交流・SNS</h3>
-        <div class="flex items-start gap-20">
-            {
-                SNSProfiles.map((item) => (
-                    <ContactLinkCard
-                        linkIcon={item.linkIcon}
-                        username={item.username}
-                        snslink={item.snslink}
-                        description={item.description}
-                    />
-                ))
-            }
-        </div>
-        <div class="mt-20">
-            <div>
-                <h3 class="flex items-center gap-1 mb-6 text-3xl text-primary-blue underline decoration-primary-blue">
-                    <Link href="https://forms.gle/TsJdqQWK7mzzeSyq6">
-                        お問い合わせフォーム
-                    </Link>
-                    <Icon name="ri:external-link-fill" class="size-6 text-primary-blue" />
-                </h3>
-                <p class="text-lg leading-[1.8]">
-                    Google Formを利用しております。
-                    リンク先でご回答よろしくお願いします。
-                </p>
-            </div>
-            <div class="mt-14">
-                <h3 class="mb-6 text-3xl">メールでのお問い合わせ</h3>
-                <p class="text-lg leading-[1.8]">
-                    もしフォームでなく自由な形式でお問合せしたい場合はメールも可能です。
-                    <a href="mailto:timdaik@gmail.com" class="text-primary-blue underline decoration-primary-blue">timdaik@gmail.com</a> 
-                    宛へご連絡お願い致します。
-                </p>
-            </div>
-        </div>
-    </div>
+	<SectionHeading isBlue={true}>Contact</SectionHeading>
+	<p class="mt-10 text-lg leading-[2] text-center">
+		Timdaikへのお問い合わせは内容によって使い分けることが出来ます。<br />
+		お気軽にお問い合わせください！
+	</p>
+	<div class="w-min mx-auto py-20">
+		<h3 class="mb-10 text-3xl">気軽な交流・SNS</h3>
+		<div class="flex items-start gap-20">
+			{
+				SNSProfiles.map((item) => (
+					<ContactLinkCard
+						linkIcon={item.linkIcon}
+						username={item.username}
+						snslink={item.snslink}
+						description={item.description}
+					/>
+				))
+			}
+		</div>
+		<div class="mt-20">
+			<div>
+				<h3
+					class="flex items-center gap-1 mb-6 text-3xl text-primary-blue underline decoration-primary-blue"
+				>
+					<Link href="https://forms.gle/TsJdqQWK7mzzeSyq6">
+						お問い合わせフォーム
+					</Link>
+					<Icon name="ri:external-link-fill" class="size-6 text-primary-blue" />
+				</h3>
+				<p class="text-lg leading-[1.8]">
+					Google Formを利用しております。 リンク先でご回答よろしくお願いします。
+				</p>
+			</div>
+			<div class="mt-14">
+				<h3 class="mb-6 text-3xl">メールでのお問い合わせ</h3>
+				<p class="text-lg leading-[1.8]">
+					もしフォームでなく自由な形式でお問合せしたい場合はメールも可能です。
+					<a
+						href="mailto:timdaik@gmail.com"
+						class="text-primary-blue underline decoration-primary-blue"
+						>timdaik@gmail.com</a
+					>
+					宛へご連絡お願い致します。
+				</p>
+			</div>
+		</div>
+	</div>
 </section>

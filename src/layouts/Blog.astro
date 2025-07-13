@@ -4,51 +4,49 @@ import Layout from "./Layout.astro";
 import Link from "@components/Link.astro";
 
 type Props = MarkdownLayoutProps<{
-  title: string;
-  author: string;
-  updatedAt: string;
-  tag: string[];
-  cover?: string;
+	title: string;
+	author: string;
+	updatedAt: string;
+	tag: string[];
+	cover?: string;
 }>;
 
 const { frontmatter: blog } = Astro.props;
 
 const date = new Date(blog.updatedAt);
 const formattedDate =
-  date.getFullYear() +
-  "/" +
-  String(date.getMonth() + 1).padStart(2, "0") +
-  "/" +
-  String(date.getDate()).padStart(2, "0");
+	date.getFullYear() +
+	"/" +
+	String(date.getMonth() + 1).padStart(2, "0") +
+	"/" +
+	String(date.getDate()).padStart(2, "0");
 
-  console.log("😨😨😨", blog.cover)
+console.log("😨😨😨", blog.cover);
 ---
 
 <Layout title={`${blog} | timtim.tech`}>
-  <main class="w-full max-w-5xl mx-auto px-5 my-10">
-    <div class="Header flex flex-col items-center">
-      <!-- 残念ながらfrontmatterからサムネイル参照できないっぽい -->
-      <img
-        class="h-full w-full max-w-[800px] mx-auto my-10 rounded-xl border"
-        src={blog.cover}
-        alt="サムネイル画像"
-      />
-      <h1 class="max-w-[800px] text-2xl leading-[1.6]">{blog.title}</h1>
-      <div class="my-4 flex gap-5">
-        <p>
-          <span>筆者: </span>
-          <Link classes="" href={`https://x.com/${blog.author}`}
-            >@{blog.author}</Link
-          >
-        </p>
-        <p>最終更新: {formattedDate}</p>
-      </div>
-      <ul>
-        {blog.tag.map((tag) => <li>{tag}</li>)}
-      </ul>
-    </div>
-    <div class="Contents">
-      <slot />
-    </div>
-  </main>
+	<main class="w-full max-w-5xl mx-auto px-5 my-10">
+		<div class="Header flex flex-col items-center">
+			<!-- 残念ながらfrontmatterからサムネイル参照できないっぽい -->
+			<img
+				class="h-full w-full max-w-[800px] mx-auto my-10 rounded-xl border"
+				src={blog.cover}
+				alt="サムネイル画像"
+			/>
+			<h1 class="max-w-[800px] text-2xl leading-[1.6]">{blog.title}</h1>
+			<div class="my-4 flex gap-5">
+				<p>
+					<span>筆者: </span>
+					<Link href={`https://x.com/${blog.author}`}>@{blog.author}</Link>
+				</p>
+				<p>最終更新: {formattedDate}</p>
+			</div>
+			<ul>
+				{blog.tag.map((tag) => <li>{tag}</li>)}
+			</ul>
+		</div>
+		<div class="Contents">
+			<slot />
+		</div>
+	</main>
 </Layout>
