@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import Section from "src/layouts/Section.astro";
 import BlogCard from "../BlogCard.astro";
 import SectionHeading from "./SectionHeading.astro";
 import Icon from "astro-iconify";
@@ -11,7 +12,7 @@ const blogs = blogContents
 	.slice(0, 6);
 ---
 
-<section id="blog" class="px-10 pt-10 pb-20">
+<Section id="blog">
 	<div class="text-center">
 		<SectionHeading title="Blogs" />
 		<p class="py-5 text-lg leading-[2]">
@@ -59,4 +60,4 @@ const blogs = blogContents
 			<p>全コンテンツを見る</p>
 		</a>
 	</div>
-</section>
+</Section>
