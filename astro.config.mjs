@@ -4,9 +4,18 @@ import tailwind from "@astrojs/tailwind";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
+import partytown from "@astrojs/partytown";
+
 // https://astro.build/config
 export default defineConfig({
-	integrations: [tailwind()],
+	integrations: [
+		tailwind(),
+		partytown({
+			config: {
+				forward: ["dataLayer.push"],
+			},
+		}),
+	],
 	markdown: {
 		shikiConfig: {
 			theme: "github-dark",
@@ -16,7 +25,7 @@ export default defineConfig({
 		rehypePlugins: [rehypeKatex],
 	},
 	site: "https://hengin-eer.github.io/",
-	base: '/',
+	base: "/",
 	vite: {
 		optimizeDeps: {
 			noDiscovery: true,

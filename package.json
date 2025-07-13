@@ -11,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/partytown": "^2.1.4",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource/fira-code": "^5.1.0",
     "@fontsource/hina-mincho": "^5.0.18",
