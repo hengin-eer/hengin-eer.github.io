@@ -1,5 +1,7 @@
 ---
 import Link from "@components/Link.astro";
+import Icon from "astro-iconify";
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "src/layouts/Layout.astro";
 
@@ -17,41 +19,60 @@ const { Content } = await entry.render();
 
 <Layout title={`Works: ${work.title} | timtim.tech`}>
 	<main class="w-full max-w-5xl mx-auto px-5">
-		<!--
-			TODO: レイアウト・スタイルを整える
-		-->
-		<div id="header" class="flex flex-col items-center">
-			{
-				work.thumbnail && (
-					<img
-						class="w-full max-w-[600px] aspect-[4/3] object-cover mx-auto mb-4 rounded-xl"
-						src={work.thumbnail.src}
-						alt={`${work.title}のサムネイル画像`}
-					/>
-				)
-			}
-			<h1 class="text-3xl md:text-4xl font-bold mb-4">{work.title}</h1>
-			<p class="text-gray-dark text-sm mb-2">{work.ruby}</p>
-			<p class="mb-4">{work.summary}</p>
-			<div class="flex gap-4">
+		<div id="header" class="mx-auto max-w-[600px] flex flex-col items-center">
+			<div
+				class="relative w-full aspect-[3/1] bg-gradient-to-br from-primary-blue/50 to-gray-light my-16 md:my-24 rounded-xl"
+			>
+				{
+					work.thumbnail && (
+						<Image
+							class="absolute z-10 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] aspect[4/3] object-cover"
+							src={work.thumbnail}
+							alt={`${work.title}のサムネイル`}
+							loading={"lazy"}
+							quality={"low"}
+						/>
+					)
+				}
+			</div>
+			<p class="text-gray-dark text-base mb-1">{work.ruby}</p>
+			<h1 class="text-3xl md:text-4xl font-bold mb-2">{work.title}</h1>
+			<div class="mb-4">
+				{
+					work.worksCategory.map((cat) => (
+						<span class="mr-3 text-gray-dark text-sm">- {cat}</span>
+					))
+				}
+			</div>
+			<p class="mb-2">
+				開発期間: {work.termFrom} 〜 {work.termTo}
+			</p>
+			<p class="mb-5">{work.summary}</p>
+			<div class="mb-5 flex items-center gap-4 text-primary-blue underline">
 				{
 					work.worksLink && (
 						<Link href={work.worksLink}>
-							<span class="text-primary-blue underline">作品リンク</span>
+							<div class="flex items-center gap-1">
+								<Icon class="size-6" name="ri:links-line" />
+								<p>作品リンク</p>
+							</div>
 						</Link>
 					)
 				}
 				{
 					work.githubLink && (
 						<Link href={work.githubLink}>
-							<span class="text-primary-blue underline">GitHubリポジトリ</span>
+							<div class="flex items-center gap-1">
+								<Icon class="size-6" name="ri:github-line" />
+								<p>GitHubリポジトリ</p>
+							</div>
 						</Link>
 					)
 				}
 			</div>
-			<p class="mt-2 text-gray-dark">期間: {work.termFrom} 〜 {work.termTo}</p>
-			<p class="mt-2 text-gray-dark">技術: {work.techCategory.join(", ")}</p>
+			<p class="text-gray-dark">技術: {work.techCategory.join(", ")}</p>
 		</div>
+
 		<div id="contents" class="py-10">
 			<Content />
 		</div>
