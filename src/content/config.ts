@@ -30,7 +30,7 @@ const workCollection = defineCollection({
 			ruby: z.string(),
 			summary: z.string(),
 			thumbnail: image().optional(),
-			worksLink: z.string().optional(),
+			worksLink: z.string().url().optional(),
 			githubLink: z.string().url().optional(),
 			worksCategory: z
 				.array(
