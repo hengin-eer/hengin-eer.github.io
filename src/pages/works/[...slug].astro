@@ -1,0 +1,172 @@
+---
+import Link from "@components/Link.astro";
+import { getCollection } from "astro:content";
+import Layout from "src/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+	const worksEntries = await getCollection("work");
+	return worksEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry, work: entry.data },
+	}));
+}
+
+const { entry, work } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={`Works: ${work.title} | timtim.tech`}>
+	<main class="w-full max-w-5xl mx-auto px-5">
+		<div id="header" class="flex flex-col items-center">
+			{
+				work.thumbnail && (
+					<img
+						class="w-full max-w-[600px] aspect-[4/3] object-cover mx-auto mb-4 rounded-xl"
+						src={work.thumbnail.src}
+						alt={`${work.title}のサムネイル画像`}
+					/>
+				)
+			}
+			<h1 class="text-3xl md:text-4xl font-bold mb-4">{work.title}</h1>
+			<p class="text-gray-dark text-sm mb-2">{work.ruby}</p>
+			<p class="mb-4">{work.summary}</p>
+			<div class="flex gap-4">
+				{
+					work.worksLink && (
+						<Link href={work.worksLink}>
+							<span class="text-primary-blue underline">作品リンク</span>
+						</Link>
+					)
+				}
+				{
+					work.githubLink && (
+						<Link href={work.githubLink}>
+							<span class="text-primary-blue underline">GitHubリポジトリ</span>
+						</Link>
+					)
+				}
+			</div>
+			<p class="mt-2 text-gray-dark">期間: {work.termFrom} 〜 {work.termTo}</p>
+			<p class="mt-2 text-gray-dark">技術: {work.techCategory.join(", ")}</p>
+		</div>
+		<div id="contents" class="py-10">
+			<Content />
+		</div>
+	</main>
+</Layout>
+
+<style is:global>
+	#contents {
+		line-height: 1.8;
+	}
+	#contents > :first-child {
+		margin-top: 0;
+	}
+	#contents h1 {
+		margin-block: 52px 16px;
+		padding-bottom: 6px;
+		border-bottom: solid 1px var(--gray-base);
+		font-size: 32px;
+		line-height: 1.6;
+	}
+	#contents h2 {
+		margin-block: 40px 16px;
+		padding-bottom: 6px;
+		border-bottom: solid 1px var(--gray-base);
+		font-size: 28px;
+		line-height: 1.5;
+	}
+	#contents h3 {
+		margin-block: 32px 12px;
+		font-size: 24px;
+		line-height: 1.5;
+	}
+	#contents h1 + p,
+	#contents h2 + p,
+	#contents h3 + p,
+	#contents h4 + p,
+	#contents h5 + p,
+	#contents h6 + p {
+		margin-top: 4px;
+	}
+	#contents p + p {
+		margin-top: 20px;
+	}
+	#contents a {
+		text-decoration: underline;
+		color: var(--primary-dark-green);
+	}
+	#contents ul,
+	ol {
+		margin-block: 24px;
+		padding-left: 28px;
+
+		> li::marker {
+			color: var(--gray-dark);
+		}
+	}
+	#contents ol ol,
+	#contents ol ul,
+	#contents ul ol,
+	#contents ul ul {
+		margin-block: 4px;
+	}
+	#contents ul {
+		list-style: disc;
+	}
+	#contents ol {
+		list-style: decimal;
+	}
+	#contents img {
+		margin-block: 24px;
+		max-width: 100%;
+		max-height: 500px;
+		width: auto;
+		height: auto;
+	}
+	#contents blockquote {
+		margin-block: 20px;
+		padding-block: 4px;
+		padding-left: 12px;
+		border-left: solid 3px var(--gray-base);
+
+		p + p {
+			margin-top: 0px;
+		}
+	}
+	#contents pre {
+		margin-block: 20px;
+		border-radius: 8px;
+		display: flex;
+
+		&::after {
+			content: "";
+			width: 8px;
+			flex-shrink: 0;
+		}
+
+		> code {
+			display: block;
+			padding: 16px 20px;
+		}
+	}
+	#contents table {
+		display: block;
+		margin-block: 20px;
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 16px;
+		line-height: 1.5;
+		word-break: normal;
+
+		th,
+		td {
+			padding: 8px;
+			border: solid 1px var(--gray-base);
+		}
+
+		th {
+			background: var(--gray-light);
+		}
+	}
+</style>
