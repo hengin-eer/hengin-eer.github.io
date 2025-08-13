@@ -22,6 +22,66 @@ const blogCollection = defineCollection({
 		}),
 });
 
+const workCollection = defineCollection({
+	type: "content",
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			ruby: z.string(),
+			summary: z.string(),
+			thumbnail: image().optional(),
+			worksLink: z.string().url().optional(),
+			githubLink: z.string().url().optional(),
+			worksCategory: z
+				.array(
+					z.enum([
+						"ホームページ",
+						"Webアプリ",
+						"モバイルアプリ",
+						"Web製作研究部",
+						"課外研究",
+						"ハッカソン",
+						"その他",
+					])
+				)
+				.default([]),
+			termFrom: z.string(),
+			termTo: z.string(),
+			isPickup: z.boolean().default(false),
+			techCategory: z
+				.array(
+					z.enum([
+						"HTML",
+						"CSS",
+						"Tailwind CSS",
+						"JavaScript",
+						"jQuery",
+						"React",
+						"Next.js",
+						"Astro",
+						"Recoil",
+						"NextAuth.js",
+						"Chakra UI",
+						"PWA",
+						"Flutter",
+						"Markdown",
+						"Marp",
+						"Web Push API",
+						"OpenAI API",
+						"Google Apps Script",
+						"Google Spreadsheet API",
+						"Firebase",
+						"Firestore",
+						"Vercel",
+						"GitHub",
+						"Figma",
+					])
+				)
+				.default([]),
+		}),
+});
+
 export const collections = {
 	blog: blogCollection,
+	work: workCollection,
 };

@@ -40,7 +40,8 @@ console.log("😨😨😨", blog.cover);
 				<p>
 					<span>筆者: </span>
 					<Link href={`https://x.com/${blog.author}`}>
-						<span class="text-primary-dark-green underline">@{blog.author}</span>
+						<span class="text-primary-dark-green underline">@{blog.author}</span
+						>
 					</Link>
 				</p>
 				<p>最終更新: {formattedDate}</p>
@@ -109,7 +110,7 @@ console.log("😨😨😨", blog.cover);
 		padding-left: 28px;
 
 		> li::marker {
-			color: var(--gray-base);
+			color: var(--gray-dark);
 		}
 	}
 	#contents ol ol,
