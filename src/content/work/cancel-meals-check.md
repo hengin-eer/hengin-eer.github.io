@@ -1,22 +1,15 @@
 ---
 title: "欠食確認くん"
-ruby: ""
+ruby: "Kesshoku Kakunin-kun"
 summary: "明石高専の寮生向けの欠食確認アプリです。寮食の欠食状況を簡単に確認できます。"
-thumbnail: ""
-worksLink: ""
+# thumbnail: ""
+# worksLink: ""
 githubLink: "https://github.com/hengin-eer/cancel-meals-check"
-worksCategory:
-	- "モバイルアプリ"
-	- "ハッカソン"
+worksCategory: ["モバイルアプリ", "ハッカソン"]
 termFrom: 2023-04
 termTo: 2023-04
 isPickup: false
-techCategory:
-	- "Flutter"
-	- "Firebase"
-	- "Firestore"
-	- "GitHub"
-	- "Marp"
+techCategory: ["Flutter", "Firebase", "Firestore", "GitHub", "Marp"]
 ---
 ## 概要
 2023年4月29日に開催された技育CAMPハッカソン@京都 にて発表したプロダクトです。

@@ -1,31 +1,15 @@
 ---
-title: "Bocchi Talk"
-ruby: "ぽっちトーク"
+title: "ぼっちトーク"
+ruby: "Bocchi Talk"
 summary: "高機能なAI英会話アプリ。人間とのコミュニケーション・ストレスから逃れた英会話を体験しよう！"
-thumbnail: "./thumbnail_bocchitalk.png"
+thumbnail: "./bocchi-talk/thumbnail_bocchitalk.png"
 worksLink: "https://bocchi-talk.nitacwpl.tech/"
 githubLink: "https://github.com/hengin-eer/bocchi-talk"
-worksCategory:
-	- "Webアプリ"
-	- "課外研究"
+worksCategory: ["Webアプリ", "課外研究"]
 termFrom: 2023-07
 termTo: 2023-12
 isPickup: true
-techCategory:
-	- "JavaScript"
-	- "React"
-	- "Next.js"
-	- "NextAuth.js"
-	- "Recoil"
-	- "Chakra UI"
-	- "Markdown"
-	- "PWA"
-	- "OpenAI API"
-	- "Firebase"
-	- "Firestore"
-	- "Vercel"
-	- "GitHub"
-	- "Figma"
+techCategory: ["JavaScript", "React", "Next.js", "NextAuth.js", "Recoil", "Chakra UI", "Markdown", "PWA", "OpenAI API", "Firebase", "Firestore", "Vercel", "GitHub", "Figma"]
 ---
 ## 概要
 2023年12月にタイ王国のルーイで開催された、TJ-SSF 2023(日タイ高校生サイエンスフェア)にて、研究発表のために制作したプロダクトです。
@@ -48,7 +32,7 @@ techCategory:
 また、__メッセージ校正機能__ は優れものです。スペルミスの修正や、より適切な文章の提案をしてくれます。
 また、__分からない単語を一旦母国語に置き替えて、校正メッセージで翻訳してもらうテクニック__ があります。
 
-![bocchitalk-chat-2 proofread-huck](./bocchitalk-chat-2_proofread-huck.png)
+![bocchitalk-chat-2 proofread-huck](./bocchi-talk/bocchitalk-chat-2_proofread-huck.png)
 
 ### ターゲット
 __アプリ名の”ぼっち”トークから分かるように人間の会話相手が不要です。__ そのため以下のような方々におすすめです。
@@ -68,12 +52,12 @@ AIが相手であれば、会話を考える時間や、相手への気遣いと
 
 ### デモ
 以下のようにモードを選択してからチャットを開始します。
-![bocchitalk-chat-1](./bocchitalk-chat-1.gif)
+![bocchitalk-chat-1](./bocchi-talk/bocchitalk-chat-1.gif)
 
 校正モードをオンにすることで、スペルミスの修正や、適切な単語の提案を行ってくれる優れものです。
-![bocchitalk-chat-2_proofread](./bocchitalk-chat-2_proofread.png)
+![bocchitalk-chat-2_proofread](./bocchi-talk/bocchitalk-chat-2_proofread.png)
 
-![bocchitalk-chat-2_proofread](./bocchitalk-chat-2_proofread.gif)
+![bocchitalk-chat-2_proofread](./bocchi-talk/bocchitalk-chat-2_proofread.gif)
 
 ## 取り組み
 ### UXの配慮

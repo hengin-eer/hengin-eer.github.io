@@ -1,23 +1,15 @@
 ---
-title: "2023年度高専祭「浪漫」ホームページ"
-ruby: ""
+title: "高専祭2023「浪漫」"
+ruby: "Kosensai 2023 Romance"
 summary: "2023年度に開催された高専祭のホームページです。「浪漫」をテーマとした大正ロマンを感じさせる原稿用紙をめくり進めていくようなデザインを実装しました。"
-thumbnail: "./thumbnail.png"
+thumbnail: "./nitac-festa-2023/thumbnail.png"
 worksLink: "https://www.nitacfesta.com/kousensai2023_archive/"
-githubLink: ""
-worksCategory:
-	- "ホームページ"
-	- "Web製作研究部"
+# githubLink: ""
+worksCategory: ["ホームページ", "Web製作研究部"]
 termFrom: 2023-09
 termTo: 2023-10
 isPickup: false
-techCategory:
-	- "HTML"
-	- "CSS"
-	- "JavaScript"
-	- "jQuery"
-	- "GitHub"
-	- "Figma"
+techCategory: ["HTML", "CSS", "JavaScript", "jQuery", "GitHub", "Figma"]
 ---
 ## 概要
 昨年度まで高専祭実行委員がWixで作成していた高専祭HPをWeb製作研究部が担当することになりました。
