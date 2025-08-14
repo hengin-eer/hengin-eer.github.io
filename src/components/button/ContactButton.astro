@@ -3,14 +3,20 @@ import { Icon } from "astro-iconify";
 ---
 
 <a
-    href="mailto:timdaik@gmail.com"
-    class="w-max px-5 py-2 flex items-center gap-3 bg-primary-green hover:bg-primary-blue transition-all shadow-md rounded-xl"
+	href="mailto:timdaik.tech@gmail.com"
+	class="w-max pl-7 pr-2 py-2 flex items-center gap-3 bg-primary-green hover:bg-primary-blue transition-all shadow-md rounded-full"
 >
-    <div>
-        <p class="text-xl font-bold">Contact Me</p>
-        <p class="text-sm">timdaik@gmail.com</p>
-    </div>
-    <div class="size-8">
-        <Icon name="ri:send-plane-line" />
-    </div>
+	<div>
+		<p class="text-lg font-bold">Contact Me</p>
+		<p class="text-sm">timdaik.tech@gmail.com</p>
+	</div>
+	<div class="size-14 p-4 text-black bg-white rounded-full">
+		<Icon class="mail-icon transition-all" name="ri:record-mail-line" />
+	</div>
 </a>
+
+<style>
+	a:hover .mail-icon {
+		rotate: 180deg;
+	}
+</style>
