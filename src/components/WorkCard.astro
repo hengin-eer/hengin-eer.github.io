@@ -50,22 +50,23 @@ const {
 		}
 	</a>
 	<div>
-		<div class="mb-3">
+		<div class="mb-4">
 			<p class="pl-[2px] text-gray-dark text-sm">{ruby && ruby}</p>
 			<h2 class="mb-2 text-black text-3xl">{title}</h2>
-			<div>
+			<div class="mb-4">
 				{
 					worksCategory.map((cat) => (
 						<span class="mr-3 text-gray-dark text-sm">- {cat}</span>
 					))
 				}
 			</div>
+			<div class="w-max mb-3 rounded-md flex items-center gap-3 text-gray-dark">
+				<Icon class="size-5" name="ri:calendar-schedule-line" />
+				<p class="text-sm font-semibold">{termFrom} 〜 {termTo}</p>
+			</div>
 		</div>
-		<p class="mb-2">
-			開発期間: {termFrom} 〜 {termTo}
-		</p>
-		<p class="mb-5">{summary}</p>
-		<div class="flex items-center gap-4 text-primary-blue underline">
+		<p class="mb-4">{summary}</p>
+		<div class="mb-5 flex items-center gap-4 text-primary-blue underline">
 			{
 				worksLink && (
 					<Link href={worksLink}>
