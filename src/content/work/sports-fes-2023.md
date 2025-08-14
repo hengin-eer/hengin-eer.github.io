@@ -2,7 +2,7 @@
 title: "スポーツ大会2023"
 ruby: "Sports Festival 2023"
 summary: "2023年度の学内のスポーツ大会のために制作したホームページです。運営情報やトーナメント情報を学生向けにリアルタイムで配信します。"
-# thumbnail: ""
+thumbnail: "./sports-fes-2023/thumbnail.png"
 worksLink: "https://sports2023.nitacwpl.tech/"
 githubLink: "https://github.com/NITACwpl/sports-fes-2023"
 worksCategory: ["ホームページ", "Web製作研究部"]
