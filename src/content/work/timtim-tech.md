@@ -2,7 +2,7 @@
 title: "Timtim.tech - HP"
 ruby: "Timtim.tech"
 summary: "私のポートフォリオサイトであり、デザインの0からコンテンツ作成まで時間を惜しまず丹精込めて作り上げているオーガニックなページです。これまでの作品や取り組みについて紹介しています。"
-# thumbnail: ""
+thumbnail: "./timtim-tech/thumbnail.png"
 worksLink: "https://hengin-eer.github.io/"
 githubLink: "https://github.com/hengin-eer/hengin-eer.github.io"
 worksCategory: ["ホームページ"]
