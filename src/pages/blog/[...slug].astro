@@ -27,7 +27,11 @@ console.log("😨😨😨", blog.cover);
 
 <Layout title={`${blog.title} | timtim.tech`}>
 	<main class="w-full max-w-5xl mx-auto px-5 my-10">
-		<div id="header" class="flex flex-col items-center">
+		<div
+			id={`blogCard-${entry.slug}`}
+			class="flex flex-col items-center"
+			transition:name={`blogCard-${entry.slug}`}
+		>
 			<img
 				class="w-full max-w-[800px] aspect-video object-cover mx-auto mb-8 rounded-xl"
 				src={blog.cover.src}
@@ -176,3 +180,35 @@ console.log("😨😨😨", blog.cover);
 		}
 	}
 </style>
+
+<script is:inline define:vars={{ entry }}>
+	function setupImageTransition() {
+		const blogCardElement = document.querySelector(`#blogCard-${entry.slug}`);
+		if (!blogCardElement) return;
+
+		const initialScope = blogCardElement.getAttribute(
+			"data-astro-transition-scope"
+		);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting && initialScope) {
+						blogCardElement.setAttribute(
+							"data-astro-transition-scope",
+							initialScope
+						);
+					} else {
+						blogCardElement.removeAttribute("data-astro-transition-scope");
+					}
+				});
+			},
+			{
+				threshold: 0.1,
+			}
+		);
+
+		observer.observe(blogCardElement);
+	}
+
+	document.addEventListener("astro:page-load", setupImageTransition);
+</script>

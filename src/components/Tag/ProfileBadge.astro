@@ -1,0 +1,17 @@
+---
+import Icon from "astro-iconify";
+
+interface Props {
+	icon: string;
+	text: string;
+}
+
+const { icon, text } = Astro.props;
+---
+
+<div
+	class="flex items-center gap-2 px-4 py-1 rounded-full border-black border-2"
+>
+	<Icon name={icon} class="size-5" />
+	<p>{text}</p>
+</div>

@@ -2,19 +2,38 @@
 import { Image } from "astro:assets";
 import ContactButton from "../button/ContactButton.astro";
 import HERO_IMG from "../../../public/hero.jpg";
+import ProfileBadge from "@components/Tag/ProfileBadge.astro";
 
 const profileTags = [
-	"🧑‍🎓 Kosen Student",
-	"💻 Web Programmer",
-	"🐟 Fish lover",
-	"📚 Bookworm",
-	"🤪 Oddball",
-	"🔰 Learning Chinese, Swahili",
+	{
+		icon: "fluent-emoji-flat:student",
+		text: "Kosen Student",
+	},
+	{
+		icon: "fluent-emoji-flat:desktop-computer",
+		text: "Web Programmer",
+	},
+	{
+		icon: "fluent-emoji-flat:fish",
+		text: "Fish lover",
+	},
+	{
+		icon: "fluent-emoji-flat:books",
+		text: "Bookworm",
+	},
+	{
+		icon: "fluent-emoji-flat:zany-face",
+		text: "Oddball",
+	},
+	{
+		icon: "fluent-emoji-flat:japanese-symbol-for-beginner",
+		text: "Learning Chinese, Swahili",
+	},
 ];
 ---
 
 <section
-	class="max-w-5xl mx-auto mt-10 mb-20 lg:my-[80px] px-10 lg:px-16 flex flex-col-reverse lg:flex-row items-center gap-y-10 lg:justify-between"
+	class="max-w-5xl mx-auto mt-10 mb-20 lg:mt-20 lg:mb-40 px-10 lg:px-16 flex flex-col-reverse lg:flex-row items-center gap-y-10 lg:justify-between"
 >
 	<div class="lg:w-min">
 		<h1
@@ -26,10 +45,8 @@ const profileTags = [
 		</h1>
 		<div class="py-8 flex flex-wrap gap-4">
 			{
-				profileTags.map((texts) => (
-					<div class=" px-4 py-1 rounded-full border-black border-2">
-						{texts}
-					</div>
+				profileTags.map((item) => (
+					<ProfileBadge icon={item.icon} text={item.text} />
 				))
 			}
 		</div>
