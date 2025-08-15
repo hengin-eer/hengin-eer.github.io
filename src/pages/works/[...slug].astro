@@ -21,7 +21,11 @@ const { Content } = await entry.render();
 
 <Layout title={`Works: ${work.title} | timtim.tech`}>
 	<main class="w-full max-w-5xl mx-auto px-5">
-		<div id="header" class="mx-auto max-w-[600px] flex flex-col items-center">
+		<div
+			id={`workCard-${entry.slug}`}
+			class="mx-auto max-w-[600px] flex flex-col items-center"
+			transition:name={`workCard-${entry.slug}`}
+		>
 			<div
 				class="relative w-full aspect-[3/1] bg-gradient-to-br from-primary-blue/50 to-gray-light my-16 md:my-24 rounded-xl"
 			>
@@ -214,3 +218,36 @@ const { Content } = await entry.render();
 		max-width: 480px !important;
 	}
 </style>
+
+<script is:inline define:vars={{ entry }}>
+	console.log("slug:", entry.slug);
+	function setupImageTransition() {
+		const workCardElement = document.querySelector(`#workCard-${entry.slug}`);
+		if (!workCardElement) return;
+
+		const initialScope = workCardElement.getAttribute(
+			"data-astro-transition-scope"
+		);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting && initialScope) {
+						workCardElement.setAttribute(
+							"data-astro-transition-scope",
+							initialScope
+						);
+					} else {
+						workCardElement.removeAttribute("data-astro-transition-scope");
+					}
+				});
+			},
+			{
+				threshold: 0.1,
+			}
+		);
+
+		observer.observe(workCardElement);
+	}
+
+	document.addEventListener("astro:page-load", setupImageTransition);
+</script>
