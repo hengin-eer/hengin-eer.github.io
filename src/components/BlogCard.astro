@@ -12,6 +12,7 @@ const { title, slug, updatedAt, eyecatch } = Astro.props;
 <a
 	class="w-full md:max-w-[400px] flex flex-col justify-start gap-6"
 	href={`/blog/${slug}`}
+	transition:name={`blogCard-${slug}`}
 >
 	<img
 		class="w-full aspect-video object-cover rounded-xl"
