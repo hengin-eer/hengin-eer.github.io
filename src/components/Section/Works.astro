@@ -8,6 +8,7 @@ import { getCollection } from "astro:content";
 
 const worksContents = await getCollection("work");
 
+// TODO: filter by isPickup
 const works = worksContents
 	.sort((a, b) => {
 		return b.data.termFrom.localeCompare(a.data.termFrom);
