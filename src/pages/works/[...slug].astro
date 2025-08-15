@@ -220,7 +220,6 @@ const { Content } = await entry.render();
 </style>
 
 <script is:inline define:vars={{ entry }}>
-	console.log("slug:", entry.slug);
 	function setupImageTransition() {
 		const workCardElement = document.querySelector(`#workCard-${entry.slug}`);
 		if (!workCardElement) return;
