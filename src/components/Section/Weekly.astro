@@ -1,0 +1,54 @@
+---
+import { fetchAllRssArticles } from "src/lib/fetchRssArticles";
+import SectionHeading from "./SectionHeading.astro";
+import Link from "@components/Link.astro";
+import Icon from "astro-iconify";
+
+const rssUrlLists = {
+	sizume: {
+		url: "https://sizu.me/tim_daik/rss",
+	},
+};
+const rssArticles = await fetchAllRssArticles(rssUrlLists);
+const sizumeArticles = rssArticles.sizume;
+
+const weeklyReports = sizumeArticles
+	.filter((item) => {
+		return item.title.includes("[週報]");
+	})
+	.splice(0, 5);
+---
+
+<section id="weekly-reports" class="px-10 py-10">
+	<div class="text-center">
+		<SectionHeading title="Weekly" />
+		<p class="py-5 text-lg leading-[2]">
+			<Link
+				classes="inline-flex items-center gap-1 text-primary-blue"
+				href="https://sizu.me/tim_daik?tag=週報"
+			>
+				<Icon name="ri:external-link-line" class="size-4" />
+				<span class="underline">静かなインターネット</span>
+			</Link>
+			にて週報を連載しています！<br />
+			日常の出来事からふと思ったことや気になったことなどを気ままに書き散らしています。
+		</p>
+		<div class="flex flex-col flex-wrap justify-center gap-3 mt-6">
+			{
+				weeklyReports.map((article) => (
+					<article class="mx-auto w-full max-w-5xl">
+						<Link href={article.link}>
+							<div class="px-2 py-4 flex items-center gap-4 border-b border-gray-">
+								<p class="mt-1 ml-1">
+									{new Date(article.pubDate).toLocaleDateString("ja-JP")}
+								</p>
+								<h2 class="ml-1 text-base sm:text-lg">{article.title}</h2>
+								{/* <p class="mt-2 hidden sm:line-clamp-1">{article.description}</p> */}
+							</div>
+						</Link>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
