@@ -22,6 +22,7 @@
 		"contentful": "^10.6.16",
 		"rehype-katex": "^7.0.1",
 		"remark-math": "^6.0.0",
+		"rss-parser": "^3.13.0",
 		"sharp": "^0.33.5",
 		"tailwindcss": "^3.4.3"
 	}
