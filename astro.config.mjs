@@ -6,6 +6,8 @@ import rehypeKatex from "rehype-katex";
 
 import partytown from "@astrojs/partytown";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
 	prefetch: true,
@@ -16,6 +18,7 @@ export default defineConfig({
 				forward: ["dataLayer.push"],
 			},
 		}),
+		react(),
 	],
 	markdown: {
 		shikiConfig: {
