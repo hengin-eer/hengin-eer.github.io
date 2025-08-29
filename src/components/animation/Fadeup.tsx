@@ -1,34 +1,41 @@
-import { useRef, type ReactNode } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { type ReactNode, useRef } from "react";
 
 interface FadeupProps {
-  uid: string;
-  delay?: number;
-  children: ReactNode;
+	uid: string;
+	delay?: number;
+	children: ReactNode;
 }
 
 export default function Fadeup({ uid, delay = 0, children }: FadeupProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    gsap.from(containerRef.current, {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none"
-      },
-      y: 120,
-      opacity: 0,
-      delay,
-      duration: 0.6,
-      ease: "power2.out"
-    });
-  }, { scope: containerRef });
+	useGSAP(
+		() => {
+			gsap.from(containerRef.current, {
+				scrollTrigger: {
+					trigger: containerRef.current,
+					start: "top 90%",
+					toggleActions: "play none none none",
+				},
+				y: 120,
+				opacity: 0,
+				/**
+				 * TODO: 表示できている部分まではこのままindex利用で良いが、一度連続したフェードアップが終わったら、もう一度delayを0にして再スタートしたい
+				 * 現状、フェードアップにスクロールが間に合わなければ、indexの分だけ表示に遅れが生じる
+				 */
+				delay,
+				duration: 0.6,
+				ease: "power2.out",
+			});
+		},
+		{ scope: containerRef },
+	);
 
-  return (
-    <div ref={containerRef} className={`fadeup-${uid}`}>
-      {children}
-    </div>
-  );
+	return (
+		<div ref={containerRef} className={`fadeup-${uid}`}>
+			{children}
+		</div>
+	);
 }
