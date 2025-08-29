@@ -1,6 +1,10 @@
 {
 	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.eslint": "explicit"
+	},
 	"[astro]": {
 		"editor.defaultFormatter": "astro-build.astro-vscode"
 	}
