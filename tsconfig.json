@@ -8,6 +8,8 @@
 			"@layoutBlog": ["src/layouts/Blog.astro"]
 		},
 		"strictNullChecks": true,
-		"allowJs": true
+		"allowJs": true,
+		"jsx": "react-jsx",
+		"jsxImportSource": "react"
 	}
 }
