@@ -1,12 +1,9 @@
-import { defineConfig } from "astro/config";
-
-import tailwind from "@astrojs/tailwind";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-
 import partytown from "@astrojs/partytown";
-
 import react from "@astrojs/react";
+import tailwind from "@astrojs/tailwind";
+import { defineConfig } from "astro/config";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 
 // https://astro.build/config
 export default defineConfig({
