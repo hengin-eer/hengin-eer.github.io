@@ -1,4 +1,5 @@
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { type ReactNode, useRef } from "react";
 
 interface Props {
