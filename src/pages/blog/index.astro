@@ -1,8 +1,8 @@
 ---
+import { getCollection } from "astro:content";
+import Fadeup from "@components/animation/Fadeup";
 import BlogCard from "@components/BlogCard.astro";
 import SectionHeading from "@components/Section/SectionHeading.astro";
-import Icon from "astro-iconify";
-import { getCollection } from "astro:content";
 import Layout from "src/layouts/Layout.astro";
 
 const blogContents = await getCollection("blog");
@@ -27,13 +27,15 @@ const blogs = blogContents.sort((a, b) => {
 					class="w-fit mx-auto grid gap-x-10 gap-y-5 md:grid-cols-2 lg:grid-cols-3"
 				>
 					{
-						blogs.map((item) => (
-							<BlogCard
-								title={item.data.title}
-								slug={item.slug}
-								updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
-								eyecatch={item.data.cover.src}
-							/>
+						blogs.map((item, index) => (
+							<Fadeup delay={index * 0.15} client:only="react">
+								<BlogCard
+									title={item.data.title}
+									slug={item.slug}
+									updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
+									eyecatch={item.data.cover.src}
+								/>
+							</Fadeup>
 						))
 					}
 				</ul>

@@ -33,7 +33,7 @@ const works = worksContents
 	>
 		{
 			works.map((item, index) => (
-				<Fadeup uid={item.slug} delay={index * 0.15} client:only="react">
+				<Fadeup delay={index * 0.15} client:only="react">
 					<WorkCard
 						slug={item.slug}
 						title={item.data.title}

@@ -3,12 +3,11 @@ import gsap from "gsap";
 import { type ReactNode, useRef } from "react";
 
 interface FadeupProps {
-	uid: string;
 	delay?: number;
 	children: ReactNode;
 }
 
-export default function Fadeup({ uid, delay = 0, children }: FadeupProps) {
+export default function Fadeup({ delay = 0, children }: FadeupProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useGSAP(
@@ -33,9 +32,5 @@ export default function Fadeup({ uid, delay = 0, children }: FadeupProps) {
 		{ scope: containerRef },
 	);
 
-	return (
-		<div ref={containerRef} className={`fadeup-${uid}`}>
-			{children}
-		</div>
-	);
+	return <div ref={containerRef}>{children}</div>;
 }

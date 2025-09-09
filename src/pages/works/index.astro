@@ -1,7 +1,8 @@
 ---
-import Layout from "src/layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import Fadeup from "@components/animation/Fadeup";
 import WorkCard from "@components/WorkCard.astro";
+import Layout from "src/layouts/Layout.astro";
 
 const worksContents = await getCollection("work");
 
@@ -20,20 +21,22 @@ const works = worksContents
 			class="mb-20 px-5 w-full flex justify-center gap-x-10 gap-y-16 flex-wrap"
 		>
 			{
-				works.map((item) => (
-					<WorkCard
-						slug={item.slug}
-						title={item.data.title}
-						ruby={item.data.ruby}
-						summary={item.data.summary}
-						termFrom={item.data.termFrom}
-						termTo={item.data.termTo}
-						worksCategory={item.data.worksCategory}
-						techCategory={item.data.techCategory}
-						worksLink={item.data.worksLink}
-						githubLink={item.data.githubLink}
-						thumbnail={item.data?.thumbnail}
-					/>
+				works.map((item, index) => (
+					<Fadeup uid={item.slug} delay={index * 0.15} client:only="react">
+						<WorkCard
+							slug={item.slug}
+							title={item.data.title}
+							ruby={item.data.ruby}
+							summary={item.data.summary}
+							termFrom={item.data.termFrom}
+							termTo={item.data.termTo}
+							worksCategory={item.data.worksCategory}
+							techCategory={item.data.techCategory}
+							worksLink={item.data.worksLink}
+							githubLink={item.data.githubLink}
+							thumbnail={item.data?.thumbnail}
+						/>
+					</Fadeup>
 				))
 			}
 		</div>
