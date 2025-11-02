@@ -1,0 +1,33 @@
+---
+interface Props {
+	contentsType: "carrier" | "life" | "blog";
+	isImportant?: boolean;
+}
+
+const { contentsType, isImportant } = Astro.props;
+---
+
+<div class={`node ${isImportant && "isImportant"} ${contentsType || ""}`}></div>
+
+<style>
+	.node {
+		--node-size: 16px;
+		width: var(--node-size);
+		height: var(--node-size);
+		background: var(--primary-red);
+		border: solid 2px var(--gray-base);
+		border-radius: 50%;
+
+		&.isImportant {
+			--node-size: 24px;
+		}
+
+		&.life {
+			background: var(--primary-blue);
+		}
+
+		&.blog {
+			background: var(--primary-dark-green);
+		}
+	}
+</style>
