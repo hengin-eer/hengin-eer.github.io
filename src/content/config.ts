@@ -90,6 +90,7 @@ const workCollection = defineCollection({
 					])
 				)
 				.default([]),
+			draft: z.boolean().default(false),
 		}),
 });
 
