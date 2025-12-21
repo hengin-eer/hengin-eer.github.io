@@ -1,10 +1,10 @@
-
 ---
 cover: "./no-cover.png"
 title: "Hack U Kosen 2025を振り返って"
 author: timdaik
 updatedAt: "2025-12-21"
 tag: ["振り返り"]
+draft: true
 ---
 こんにちは、[timdaik](https://x.com/timdaik)です。
 久々の更新になります。
