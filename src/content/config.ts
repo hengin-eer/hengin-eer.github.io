@@ -19,6 +19,7 @@ const blogCollection = defineCollection({
 					"教養",
 				])
 			),
+			draft: z.boolean().default(false),
 		}),
 });
 
