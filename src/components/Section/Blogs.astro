@@ -5,8 +5,9 @@ import SectionHeading from "./SectionHeading.astro";
 import Icon from "astro-iconify";
 
 const blogContents = await getCollection("blog");
+const publishedBlogs = blogContents.filter((item) => !item.data.draft);
 
-const blogs = blogContents
+const blogs = publishedBlogs
 	.sort((a, b) => b.data.updatedAt.localeCompare(a.data.updatedAt))
 	.slice(0, 6);
 ---
