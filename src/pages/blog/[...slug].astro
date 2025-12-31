@@ -21,8 +21,6 @@ const formattedDate =
 	String(date.getMonth() + 1).padStart(2, "0") +
 	"/" +
 	String(date.getDate()).padStart(2, "0");
-
-console.log("😨😨😨", blog.cover);
 ---
 
 <Layout title={`${blog.title} | timtim.tech`}>
@@ -179,6 +177,13 @@ console.log("😨😨😨", blog.cover);
 			background: var(--gray-light);
 		}
 	}
+	#contents hr {
+		margin: 40px auto;
+		border: none;
+		border-top: solid 2px var(--gray-base);
+		border-radius: 4px;
+		width: 90%;
+	}
 </style>
 
 <script is:inline define:vars={{ entry }}>
@@ -187,7 +192,7 @@ console.log("😨😨😨", blog.cover);
 		if (!blogCardElement) return;
 
 		const initialScope = blogCardElement.getAttribute(
-			"data-astro-transition-scope"
+			"data-astro-transition-scope",
 		);
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -195,7 +200,7 @@ console.log("😨😨😨", blog.cover);
 					if (entry.isIntersecting && initialScope) {
 						blogCardElement.setAttribute(
 							"data-astro-transition-scope",
-							initialScope
+							initialScope,
 						);
 					} else {
 						blogCardElement.removeAttribute("data-astro-transition-scope");
@@ -204,7 +209,7 @@ console.log("😨😨😨", blog.cover);
 			},
 			{
 				threshold: 0.1,
-			}
+			},
 		);
 
 		observer.observe(blogCardElement);
