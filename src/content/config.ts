@@ -14,6 +14,7 @@ const blogCollection = defineCollection({
 					"日常",
 					"ポエム",
 					"振り返り",
+					"年の総括",
 					"イベント",
 					"Tech",
 					"教養",
