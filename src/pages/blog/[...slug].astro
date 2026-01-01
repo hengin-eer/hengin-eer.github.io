@@ -107,7 +107,7 @@ const formattedDate =
 		color: var(--primary-dark-green);
 	}
 	#contents strong {
-		display: inline-block;
+		display: inline;
 		font-weight: normal;
 		background: linear-gradient(
 			to top,
@@ -198,6 +198,13 @@ const formattedDate =
 		border-top: solid 2px var(--gray-base);
 		border-radius: 4px;
 		width: 90%;
+	}
+	#contents iframe {
+		margin-block: 32px;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16/9;
+		box-shadow: 0 4px 12px var(--shadow-color);
 	}
 </style>
 
