@@ -18,6 +18,8 @@ const blogCollection = defineCollection({
 					"イベント",
 					"Tech",
 					"教養",
+					"高専",
+					"NUT"
 				])
 			),
 			draft: z.boolean().default(false),
