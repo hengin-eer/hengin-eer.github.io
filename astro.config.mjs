@@ -5,18 +5,16 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
 import partytown from "@astrojs/partytown";
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
 	prefetch: true,
-	integrations: [
-		tailwind(),
-		partytown({
-			config: {
-				forward: ["dataLayer.push"],
-			},
-		}),
-	],
+	integrations: [tailwind(), partytown({
+		config: {
+			forward: ["dataLayer.push"],
+		},
+	}), mdx()],
 	markdown: {
 		shikiConfig: {
 			theme: "github-dark",
