@@ -18,7 +18,7 @@
 		"@fontsource/hina-mincho": "^5.0.18",
 		"@fontsource/shippori-antique-b1": "^5.0.12",
 		"@fontsource/zen-kaku-gothic-new": "^5.0.18",
-		"astro": "^5.13.0",
+		"astro": "^5.16.6",
 		"astro-embed": "^0.9.2",
 		"astro-iconify": "^1.2.0",
 		"contentful": "^10.6.16",
