@@ -20,7 +20,7 @@ draft: true
 
 公式HP: [Hack U KOSEN 2025 OSAKA | Hack U - Yahoo! JAPAN](https://hacku.yahoo.co.jp/kosen2025/)
 
-<iframe width="100%" height="auto" style="aspect-ratio:16/9;" src="https://www.youtube.com/embed/jdonjW2NpKw?si=uGtfnEYQS-NjslRF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jdonjW2NpKw?si=pGUz5N4ORMphUm0F" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## アイデア出しと仕様・設計
 - キックオフ以前からDiscordサーバーを立てて、各自アイデアを投げていた
