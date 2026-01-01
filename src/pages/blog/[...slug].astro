@@ -24,7 +24,7 @@ const formattedDate =
 ---
 
 <Layout title={`${blog.title} | timtim.tech`}>
-	<main class="w-full max-w-5xl mx-auto px-5 my-10">
+	<main class="w-full max-w-3xl mx-auto px-5 my-10">
 		<div
 			id={`blogCard-${entry.slug}`}
 			class="flex flex-col items-center"
@@ -106,6 +106,16 @@ const formattedDate =
 		text-decoration: underline;
 		color: var(--primary-dark-green);
 	}
+	#contents strong {
+		display: inline-block;
+		font-weight: normal;
+		background: linear-gradient(
+			to top,
+			transparent 15%,
+			var(--primary-green) 15% 40%,
+			transparent 40%
+		);
+	}
 	#contents ul,
 	ol {
 		margin-block: 24px;
@@ -128,9 +138,14 @@ const formattedDate =
 		list-style: decimal;
 	}
 	#contents img {
-		margin-block: 24px;
+		display: block;
+		margin-block: 32px;
+		margin-inline: auto;
+		width: auto;
 		max-width: 100%;
 		height: auto;
+		max-height: 60dvh;
+		box-shadow: 0 4px 12px var(--shadow-color);
 	}
 	#contents blockquote {
 		margin-block: 20px;
