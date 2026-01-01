@@ -13,6 +13,7 @@ const blogCollection = defineCollection({
 					"ニュース",
 					"日常",
 					"ポエム",
+					"読書",
 					"振り返り",
 					"年の総括",
 					"イベント",
