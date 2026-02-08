@@ -4,60 +4,59 @@ import SectionHeading from "./SectionHeading.astro";
 import SNSNavButton from "../button/SNSNavButton.astro";
 
 const catchcopies = [
-    {
-        title: "好奇",
-        subtitle: "Curiosity",
-        description:
-            "記憶では幼稚園児の頃から様々なことに関心を持って取り組んできた。インドア・アウトドア問わず物事を楽しく取り組める。なんなら何ともない散歩でも気分が向上してきてハイになってしまう時もある。ただし飽き性の一面もあるのでバランスを取っていくことが人生の課題。",
-    },
-    {
-        title: "好奇",
-        subtitle: "Curiosity",
-        description:
-            "記憶では幼稚園児の頃から様々なことに関心を持って取り組んできた。インドア・アウトドア問わず物事を楽しく取り組める。なんなら何ともない散歩でも気分が向上してきてハイになってしまう時もある。ただし飽き性の一面もあるのでバランスを取っていくことが人生の課題。",
-    },
+	{
+		title: "好奇",
+		subtitle: "Curiosity",
+		description:
+			"記憶では幼稚園児の頃から様々なことに関心を持って取り組んできた。インドア・アウトドア問わず物事を楽しく取り組める。なんなら何ともない散歩でも気分が向上してきてハイになってしまう時もある。ただし飽き性の一面もあるのでバランスを取っていくことが人生の課題。",
+	},
+	{
+		title: "好奇",
+		subtitle: "Curiosity",
+		description:
+			"記憶では幼稚園児の頃から様々なことに関心を持って取り組んできた。インドア・アウトドア問わず物事を楽しく取り組める。なんなら何ともない散歩でも気分が向上してきてハイになってしまう時もある。ただし飽き性の一面もあるのでバランスを取っていくことが人生の課題。",
+	},
 ];
 ---
 
 <section id="about">
-    <SectionHeading title="About" />
-    <div class="max-w-5xl w-full mx-auto my-5">
-        <!-- catchcopy -->
-        <div class="flex items-start justify-between"> <!-- 横レイアウト限界:: 960px = Card:320px*2 + ProfileImg:200px + gap:60px*2 -->
-            {
-                catchcopies.map((item) => (
-                    <div class="max-w-[320px]">
-                        <h2 class="text-8xl font-shippori">{item.title}</h2>
-                        <h3 class="mt-2 ml-1 text-2xl text-primary-blue font-shippori">
-                            {item.subtitle}
-                        </h3>
-                        <p class="text-base leading-[1.8] mt-4 ml-1">
-                            {item.description}
-                        </p>
-                    </div>
-                ))
-            }
-        </div>
+	<SectionHeading>About</SectionHeading>
+	<div class="max-w-5xl w-full mx-auto my-5">
+		<!-- catchcopy -->
+		<div class="flex items-start justify-between">
+			<!-- 横レイアウト限界:: 960px = Card:320px*2 + ProfileImg:200px + gap:60px*2 -->
+			{
+				catchcopies.map((item) => (
+					<div class="max-w-[320px]">
+						<h2 class="text-8xl font-shippori">{item.title}</h2>
+						<h3 class="mt-2 ml-1 text-2xl text-primary-blue font-shippori">
+							{item.subtitle}
+						</h3>
+						<p class="text-base leading-[1.8] mt-4 ml-1">{item.description}</p>
+					</div>
+				))
+			}
+		</div>
 
-        <!-- profile -->
-        <div class="max-w-[520px] mx-auto mt-[-160px] flex flex-col items-center">
-            <Image
-                class="rounded-full"
-                src={"/tim-bird.png"}
-                alt="Tim Bird Icon 🐦"
-                height={200}
-                width={200}
-            />
-            <p class="my-3 text-3xl">Tim daik</p>
-            <SNSNavButton />
-            <div class="my-4 h-5 w-[1px] bg-black rounded-sm"></div>
-            <p class="text-base leading-[1.8]">
-                魚好きな情報高専生です🐟
-                プログラミングは高専1年終わりごろから始めました。
-                Reactを使ったWebアプリケーションやAstroを用いたHP制作など、フロントエンドエンジニアリングが好きです！
-                FlutterやRustも楽しいので齧りついています🤤
-                能天気なので何事でも楽しんで取り組めます！よろしくお願い致します！！
-            </p>
-        </div>
-    </div>
+		<!-- profile -->
+		<div class="max-w-[520px] mx-auto mt-[-160px] flex flex-col items-center">
+			<Image
+				class="rounded-full"
+				src={"/tim-bird.png"}
+				alt="Tim Bird Icon 🐦"
+				height={200}
+				width={200}
+			/>
+			<p class="my-3 text-3xl">Tim daik</p>
+			<SNSNavButton />
+			<div class="my-4 h-5 w-[1px] bg-black rounded-sm"></div>
+			<p class="text-base leading-[1.8]">
+				魚好きな情報高専生です🐟
+				プログラミングは高専1年終わりごろから始めました。
+				Reactを使ったWebアプリケーションやAstroを用いたHP制作など、フロントエンドエンジニアリングが好きです！
+				FlutterやRustも楽しいので齧りついています🤤
+				能天気なので何事でも楽しんで取り組めます！よろしくお願い致します！！
+			</p>
+		</div>
+	</div>
 </section>

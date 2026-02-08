@@ -9,7 +9,7 @@ import { getCollection } from "astro:content";
 const worksContents = await getCollection("work");
 
 const filteredWorks = worksContents.filter(
-	(item) => item.data.isPickup && !item.data.draft
+	(item) => item.data.isPickup && !item.data.draft,
 );
 const works = filteredWorks
 	.sort((a, b) => {
@@ -23,7 +23,7 @@ const works = filteredWorks
 
 <section id="works" class="w-full mt-10">
 	<div class="text-center">
-		<SectionHeading title="Works" isBlue={true} />
+		<SectionHeading isBlue={true}>Works</SectionHeading>
 		<p class="px-10 pt-5 pb-16 text-lg leading-[2]">
 			私が作ってきたもの、作っているものを載せています。<br />
 			ご意見等ございましたらお気軽にお問い合わせください！
