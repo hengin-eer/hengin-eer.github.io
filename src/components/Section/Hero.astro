@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import ContactButton from "../button/ContactButton.astro";
 import HERO_IMG from "../../../public/hero.jpg";
 import ProfileBadge from "@components/Tag/ProfileBadge.astro";
+import { SITE_TITLE } from "src/constant/SITE";
 
 const profileTags = [
 	{
@@ -37,11 +38,10 @@ const profileTags = [
 >
 	<div class="lg:w-min">
 		<h1
-			class="w-max text-4xl sm:text-5xl leading-[1.3] sm:leading-[1.4] font-hina"
+			class="w-max text-4xl sm:text-5xl leading-[1.3] sm:leading-[1.4] font-averia"
 		>
-			Welcome To My<br />
-			Portfolio
-			<span class="text-primary-blue">timtim.tech</span>
+			<span class="text-primary-blue">{SITE_TITLE};</span><br />
+			my mode, action
 		</h1>
 		<div class="py-8 flex flex-wrap gap-4">
 			{
