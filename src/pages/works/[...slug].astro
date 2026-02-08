@@ -19,7 +19,7 @@ const { entry, work } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Layout title={`Works: ${work.title} | timtim.tech`}>
+<Layout title={`Works: ${work.title}`}>
 	<main class="w-full max-w-5xl mx-auto px-5">
 		<div
 			id={`workCard-${entry.slug}`}
