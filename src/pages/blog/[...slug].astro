@@ -21,8 +21,6 @@ const formattedDate =
 	String(date.getMonth() + 1).padStart(2, "0") +
 	"/" +
 	String(date.getDate()).padStart(2, "0");
-
-console.log("😨😨😨", blog.cover);
 ---
 
 <Layout title={`${blog.title}`}>
@@ -108,6 +106,16 @@ console.log("😨😨😨", blog.cover);
 		text-decoration: underline;
 		color: var(--primary-dark-green);
 	}
+	#contents strong {
+		display: inline;
+		font-weight: normal;
+		background: linear-gradient(
+			to top,
+			transparent 15%,
+			var(--primary-green) 15% 40%,
+			transparent 40%
+		);
+	}
 	#contents ul,
 	ol {
 		margin-block: 24px;
@@ -130,9 +138,14 @@ console.log("😨😨😨", blog.cover);
 		list-style: decimal;
 	}
 	#contents img {
-		margin-block: 24px;
+		display: block;
+		margin-block: 32px;
+		margin-inline: auto;
+		width: auto;
 		max-width: 100%;
 		height: auto;
+		max-height: 60dvh;
+		box-shadow: 0 4px 12px var(--shadow-color);
 	}
 	#contents blockquote {
 		margin-block: 20px;
@@ -179,6 +192,20 @@ console.log("😨😨😨", blog.cover);
 			background: var(--gray-light);
 		}
 	}
+	#contents hr {
+		margin: 40px auto;
+		border: none;
+		border-top: solid 2px var(--gray-base);
+		border-radius: 4px;
+		width: 90%;
+	}
+	#contents iframe {
+		margin-block: 32px;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16/9;
+		box-shadow: 0 4px 12px var(--shadow-color);
+	}
 </style>
 
 <script is:inline define:vars={{ entry }}>
@@ -187,7 +214,7 @@ console.log("😨😨😨", blog.cover);
 		if (!blogCardElement) return;
 
 		const initialScope = blogCardElement.getAttribute(
-			"data-astro-transition-scope"
+			"data-astro-transition-scope",
 		);
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -195,7 +222,7 @@ console.log("😨😨😨", blog.cover);
 					if (entry.isIntersecting && initialScope) {
 						blogCardElement.setAttribute(
 							"data-astro-transition-scope",
-							initialScope
+							initialScope,
 						);
 					} else {
 						blogCardElement.removeAttribute("data-astro-transition-scope");
@@ -204,7 +231,7 @@ console.log("😨😨😨", blog.cover);
 			},
 			{
 				threshold: 0.1,
-			}
+			},
 		);
 
 		observer.observe(blogCardElement);
