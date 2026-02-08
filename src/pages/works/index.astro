@@ -1,11 +1,42 @@
 ---
 import Layout from "src/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import WorkCard from "@components/WorkCard.astro";
+
+const worksContents = await getCollection("work");
+const filteredWorks = worksContents.filter((item) => !item.data.draft);
+
+const works = filteredWorks
+	.sort((a, b) => {
+		return b.data.termFrom.localeCompare(a.data.termFrom);
+	})
+	.sort((a, b) => {
+		return b.data.termTo.localeCompare(a.data.termTo);
+	});
 ---
 
-<Layout title="Works | timtim.tech">
-	<main class="mt-[20vh] flex flex-col items-center justify-center gap-4">
-		<p>🚧只今準備中です！</p>
-		<p>2024年12月末までに公開する予定です。</p>
-		<p>申しわけありません🙇🙇</p>
+<Layout title="Works">
+	<main class="mt-20 flex flex-col items-center justify-center gap-4">
+		<div
+			class="mb-20 px-5 w-full flex justify-center gap-x-10 gap-y-16 flex-wrap"
+		>
+			{
+				works.map((item) => (
+					<WorkCard
+						slug={item.slug}
+						title={item.data.title}
+						ruby={item.data.ruby}
+						summary={item.data.summary}
+						termFrom={item.data.termFrom}
+						termTo={item.data.termTo}
+						worksCategory={item.data.worksCategory}
+						techCategory={item.data.techCategory}
+						worksLink={item.data.worksLink}
+						githubLink={item.data.githubLink}
+						thumbnail={item.data?.thumbnail}
+					/>
+				))
+			}
+		</div>
 	</main>
 </Layout>

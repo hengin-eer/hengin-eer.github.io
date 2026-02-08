@@ -1,0 +1,253 @@
+---
+import WorksAllViewButton from "@components/button/WorksAllViewButton.astro";
+import Link from "@components/Link.astro";
+import WorksOfferRead from "@components/WorksOfferRead.astro";
+import Icon from "astro-iconify";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Layout from "src/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+	const worksEntries = await getCollection("work");
+	return worksEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry, work: entry.data },
+	}));
+}
+
+const { entry, work } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={`Works: ${work.title}`}>
+	<main class="w-full max-w-5xl mx-auto px-5">
+		<div
+			id={`workCard-${entry.slug}`}
+			class="mx-auto max-w-[600px] flex flex-col items-center"
+			transition:name={`workCard-${entry.slug}`}
+		>
+			<div
+				class="relative w-full aspect-[3/1] bg-gradient-to-br from-primary-blue/50 to-gray-light my-16 md:my-24 rounded-xl"
+			>
+				{
+					work.thumbnail && (
+						<Image
+							class="absolute z-10 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] aspect-[4/3] object-cover"
+							src={work.thumbnail}
+							alt={`${work.title}のサムネイル`}
+							loading={"lazy"}
+							quality={"low"}
+						/>
+					)
+				}
+			</div>
+			<!-- TODO: ピックアップの記事の場合、ここにそれを強調するUIを配置する（スターアイコンとか） -->
+			<p class="text-gray-dark text-base mb-1">{work.ruby}</p>
+			<h2 class="text-3xl md:text-4xl font-bold mb-3">
+				{work.title}
+			</h2>
+			<div class="mb-4 flex items-center gap-6">
+				<div>
+					{
+						work.worksCategory.map((cat) => (
+							<span class="mr-2 sm:mr-3 text-gray-dark text-sm sm:text-base">
+								- {cat}
+							</span>
+						))
+					}
+				</div>
+				<div class="w-max rounded-md flex items-center gap-3 text-gray-dark">
+					<Icon class="size-5 sm:size-6" name="ri:calendar-schedule-line" />
+					<p class="text-sm sm:text-base font-semibold">
+						{work.termFrom} 〜 {work.termTo}
+					</p>
+				</div>
+			</div>
+			<p class="mb-5">{work.summary}</p>
+			<div class="mb-5 flex items-center gap-4 text-primary-blue underline">
+				{
+					work.worksLink && (
+						<Link href={work.worksLink}>
+							<div class="flex items-center gap-1">
+								<Icon class="size-6" name="ri:links-line" />
+								<p>作品リンク</p>
+							</div>
+						</Link>
+					)
+				}
+				{
+					work.githubLink && (
+						<Link href={work.githubLink}>
+							<div class="flex items-center gap-1">
+								<Icon class="size-6" name="ri:github-line" />
+								<p>GitHubリポジトリ</p>
+							</div>
+						</Link>
+					)
+				}
+			</div>
+			<p class="text-gray-dark">技術: {work.techCategory.join(", ")}</p>
+		</div>
+
+		<div id="contents" class="pt-16 pb-8">
+			<Content />
+		</div>
+
+		<div class="pb-20">
+			<WorksOfferRead />
+			<WorksAllViewButton classes={"mx-auto"} />
+		</div>
+	</main>
+</Layout>
+
+<style is:global>
+	#contents {
+		line-height: 1.8;
+	}
+	#contents > :first-child {
+		margin-top: 0;
+	}
+	#contents h1 {
+		margin-block: 52px 16px;
+		padding-bottom: 6px;
+		border-bottom: solid 1px var(--gray-base);
+		font-size: 32px;
+		line-height: 1.6;
+	}
+	#contents h2 {
+		margin-block: 40px 16px;
+		padding-bottom: 6px;
+		border-bottom: solid 1px var(--gray-base);
+		font-size: 28px;
+		line-height: 1.5;
+	}
+	#contents h3 {
+		margin-block: 32px 12px;
+		font-size: 24px;
+		line-height: 1.5;
+	}
+	#contents h1 + p,
+	#contents h2 + p,
+	#contents h3 + p,
+	#contents h4 + p,
+	#contents h5 + p,
+	#contents h6 + p {
+		margin-top: 4px;
+	}
+	#contents p + p {
+		margin-top: 20px;
+	}
+	#contents a {
+		text-decoration: underline;
+		color: var(--primary-dark-green);
+	}
+	#contents ul,
+	ol {
+		margin-block: 24px;
+		padding-left: 28px;
+
+		> li::marker {
+			color: var(--gray-dark);
+		}
+	}
+	#contents ol ol,
+	#contents ol ul,
+	#contents ul ol,
+	#contents ul ul {
+		margin-block: 4px;
+	}
+	#contents ul {
+		list-style: disc;
+	}
+	#contents ol {
+		list-style: decimal;
+	}
+	#contents img {
+		margin-block: 24px;
+		max-width: 100%;
+		max-height: 600px;
+		width: auto;
+		height: auto;
+	}
+	#contents blockquote {
+		margin-block: 20px;
+		padding-block: 4px;
+		padding-left: 12px;
+		border-left: solid 3px var(--gray-base);
+
+		p + p {
+			margin-top: 0px;
+		}
+	}
+	#contents pre {
+		margin-block: 20px;
+		border-radius: 8px;
+		display: flex;
+
+		&::after {
+			content: "";
+			width: 8px;
+			flex-shrink: 0;
+		}
+
+		> code {
+			display: block;
+			padding: 16px 20px;
+		}
+	}
+	#contents table {
+		display: block;
+		margin-block: 20px;
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 16px;
+		line-height: 1.5;
+		word-break: normal;
+
+		th,
+		td {
+			padding: 8px;
+			border: solid 1px var(--gray-base);
+		}
+
+		th {
+			background: var(--gray-light);
+		}
+	}
+	#contents .twitter-tweet {
+		margin-block: 40px !important;
+		max-width: 480px !important;
+	}
+</style>
+
+<script is:inline define:vars={{ entry }}>
+	function setupImageTransition() {
+		const workCardElement = document.querySelector(`#workCard-${entry.slug}`);
+		if (!workCardElement) return;
+
+		const initialScope = workCardElement.getAttribute(
+			"data-astro-transition-scope"
+		);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting && initialScope) {
+						workCardElement.setAttribute(
+							"data-astro-transition-scope",
+							initialScope
+						);
+					} else {
+						workCardElement.removeAttribute("data-astro-transition-scope");
+					}
+				});
+			},
+			{
+				threshold: 0.1,
+			}
+		);
+
+		observer.observe(workCardElement);
+	}
+
+	document.addEventListener("astro:page-load", setupImageTransition);
+</script>

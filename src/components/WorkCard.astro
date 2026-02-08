@@ -1,0 +1,95 @@
+---
+import type { ImageMetadata } from "astro";
+import Icon from "astro-iconify";
+import { Image } from "astro:assets";
+import Link from "./Link.astro";
+
+interface Props {
+	slug: string;
+	title: string;
+	ruby: string;
+	summary: string;
+	termFrom: string;
+	termTo: string;
+	worksCategory: string[];
+	techCategory: string[];
+	worksLink?: string;
+	githubLink?: string;
+	thumbnail?: ImageMetadata;
+}
+const {
+	slug,
+	ruby,
+	title,
+	summary,
+	termFrom,
+	termTo,
+	worksCategory,
+	techCategory,
+	worksLink,
+	githubLink,
+	thumbnail,
+} = Astro.props;
+---
+
+<article
+	class="w-full max-w-[500px] flex flex-col gap-6"
+	transition:name={`workCard-${slug}`}
+>
+	<a
+		href={`/works/${slug}`}
+		class="relative aspect-[3/1] bg-gradient-to-br from-primary-blue/50 to-gray-light my-8 md:my-16 rounded-xl"
+	>
+		{
+			thumbnail && (
+				<Image
+					class="absolute z-10 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] aspect-[4/3] object-cover transition-all duration-300 hover:scale-110"
+					src={thumbnail}
+					alt={`${title}のサムネイル`}
+					loading={"lazy"}
+					quality={"medium"}
+				/>
+			)
+		}
+	</a>
+	<div>
+		<div class="mb-4">
+			<p class="pl-[2px] text-gray-dark text-sm">{ruby && ruby}</p>
+			<h2 class="mb-2 text-black text-3xl">{title}</h2>
+			<div class="mb-4">
+				{
+					worksCategory.map((cat) => (
+						<span class="mr-3 text-gray-dark text-sm">- {cat}</span>
+					))
+				}
+			</div>
+			<div class="w-max mb-3 rounded-md flex items-center gap-3 text-gray-dark">
+				<Icon class="size-5" name="ri:calendar-schedule-line" />
+				<p class="text-sm font-semibold">{termFrom} 〜 {termTo}</p>
+			</div>
+		</div>
+		<p class="mb-4">{summary}</p>
+		<div class="mb-5 flex items-center gap-4 text-primary-blue underline">
+			{
+				worksLink && (
+					<Link href={worksLink}>
+						<div class="flex items-center gap-1">
+							<Icon class="size-6" name="ri:links-line" />
+							<p>作品リンク</p>
+						</div>
+					</Link>
+				)
+			}
+			{
+				githubLink && (
+					<Link href={githubLink}>
+						<div class="flex items-center gap-1">
+							<Icon class="size-6" name="ri:github-line" />
+							<p>GitHubリポジトリ</p>
+						</div>
+					</Link>
+				)
+			}
+		</div>
+	</div>
+</article>

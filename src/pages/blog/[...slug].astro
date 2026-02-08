@@ -21,13 +21,15 @@ const formattedDate =
 	String(date.getMonth() + 1).padStart(2, "0") +
 	"/" +
 	String(date.getDate()).padStart(2, "0");
-
-console.log("😨😨😨", blog.cover);
 ---
 
-<Layout title={`${blog.title} | timtim.tech`}>
+<Layout title={`${blog.title}`}>
 	<main class="w-full max-w-5xl mx-auto px-5 my-10">
-		<div id="header" class="flex flex-col items-center">
+		<div
+			id={`blogCard-${entry.slug}`}
+			class="flex flex-col items-center"
+			transition:name={`blogCard-${entry.slug}`}
+		>
 			<img
 				class="w-full max-w-[800px] aspect-video object-cover mx-auto mb-8 rounded-xl"
 				src={blog.cover.src}
@@ -40,7 +42,8 @@ console.log("😨😨😨", blog.cover);
 				<p>
 					<span>筆者: </span>
 					<Link href={`https://x.com/${blog.author}`}>
-						<span class="text-primary-dark-green underline">@{blog.author}</span>
+						<span class="text-primary-dark-green underline">@{blog.author}</span
+						>
 					</Link>
 				</p>
 				<p>最終更新: {formattedDate}</p>
@@ -103,13 +106,23 @@ console.log("😨😨😨", blog.cover);
 		text-decoration: underline;
 		color: var(--primary-dark-green);
 	}
+	#contents strong {
+		display: inline;
+		font-weight: normal;
+		background: linear-gradient(
+			to top,
+			transparent 15%,
+			var(--primary-green) 15% 40%,
+			transparent 40%
+		);
+	}
 	#contents ul,
 	ol {
 		margin-block: 24px;
 		padding-left: 28px;
 
 		> li::marker {
-			color: var(--gray-base);
+			color: var(--gray-dark);
 		}
 	}
 	#contents ol ol,
@@ -125,9 +138,14 @@ console.log("😨😨😨", blog.cover);
 		list-style: decimal;
 	}
 	#contents img {
-		margin-block: 24px;
+		display: block;
+		margin-block: 32px;
+		margin-inline: auto;
+		width: auto;
 		max-width: 100%;
 		height: auto;
+		max-height: 60dvh;
+		box-shadow: 0 4px 12px var(--shadow-color);
 	}
 	#contents blockquote {
 		margin-block: 20px;
@@ -174,4 +192,50 @@ console.log("😨😨😨", blog.cover);
 			background: var(--gray-light);
 		}
 	}
+	#contents hr {
+		margin: 40px auto;
+		border: none;
+		border-top: solid 2px var(--gray-base);
+		border-radius: 4px;
+		width: 90%;
+	}
+	#contents iframe {
+		margin-block: 32px;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16/9;
+		box-shadow: 0 4px 12px var(--shadow-color);
+	}
 </style>
+
+<script is:inline define:vars={{ entry }}>
+	function setupImageTransition() {
+		const blogCardElement = document.querySelector(`#blogCard-${entry.slug}`);
+		if (!blogCardElement) return;
+
+		const initialScope = blogCardElement.getAttribute(
+			"data-astro-transition-scope",
+		);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting && initialScope) {
+						blogCardElement.setAttribute(
+							"data-astro-transition-scope",
+							initialScope,
+						);
+					} else {
+						blogCardElement.removeAttribute("data-astro-transition-scope");
+					}
+				});
+			},
+			{
+				threshold: 0.1,
+			},
+		);
+
+		observer.observe(blogCardElement);
+	}
+
+	document.addEventListener("astro:page-load", setupImageTransition);
+</script>

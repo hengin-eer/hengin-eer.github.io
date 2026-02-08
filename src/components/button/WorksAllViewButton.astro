@@ -1,24 +1,31 @@
 ---
 import Icon from "astro-iconify";
+
 interface Props {
-    classes?: string;
+	classes?: string;
 }
 
 const { classes } = Astro.props;
 ---
 
-<a href="/works" class={`button-parent w-max px-6 py-4 rounded-full border border-black shadow-md flex items-center transition-all gap-2 ${classes}`}>
-    <Icon class="button-icon size-8 text-primary-blue transition-all" name="ph:link" />
-    <p class="text-lg">他の制作物も見てみる</p>
+<a
+	href="/works"
+	class={`button-parent w-max px-6 py-4 rounded-full border border-black shadow-md flex items-center transition-all gap-2 ${classes}`}
+>
+	<Icon
+		class="button-icon size-8 text-primary-blue transition-all duration-300"
+		name="ph:link"
+	/>
+	<p class="text-lg">他の制作物も見てみる</p>
 </a>
 
 <style>
-    .button-parent:hover {
-        background: var(--primary-blue);
+	.button-parent:hover {
+		background: var(--primary-blue);
 
-        .button-icon {
-            color: var(--primary-black);
-            rotate: -405deg;
-        }
-    }
+		.button-icon {
+			color: var(--primary-black);
+			rotate: -405deg;
+		}
+	}
 </style>

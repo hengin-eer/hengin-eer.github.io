@@ -7,8 +7,9 @@ import Icon from "astro-iconify";
 import P from "@components/text/P.astro";
 
 const blogContents = await getCollection("blog");
+const publishedBlogs = blogContents.filter((item) => !item.data.draft);
 
-const blogs = blogContents
+const blogs = publishedBlogs
 	.sort((a, b) => b.data.updatedAt.localeCompare(a.data.updatedAt))
 	.slice(0, 6);
 ---
@@ -20,14 +21,13 @@ const blogs = blogContents
 			物書きみたいなことをしています。<br />
 			最近触った関連の技術記事や、ふと思ったことポエムなどを徒然なるままにタイプしていきます。
 		</P>
-		<div class="hidden sm:block w-max mx-auto pt-5">
-			<a
-				class="flex items-center gap-1 text-lg text-black hover:text-primary-dark-green transition"
-				href="/blog"
-			>
+		<div
+			class="all-view-button hidden sm:block w-max mx-auto text-black hover:text-primary-dark-green transition-all duration-300"
+		>
+			<a class="pt-5 flex items-center gap-2 text-lg" href="/blog">
 				<Icon
 					name="material-symbols-light:arrow-circle-right-outline"
-					class="size-7"
+					class="button-icon size-7 transition-transform duration-300"
 				/>
 				<p>全コンテンツを見る</p>
 			</a>
@@ -49,16 +49,23 @@ const blogs = blogContents
 			}
 		</ul>
 	</div>
-	<div class="sm:hidden pt-5 pb-10">
-		<a
-			class="flex items-center gap-1 text-lg text-black hover:text-primary-dark-green transition"
-			href="/blog"
-		>
+	<div
+		class="all-view-button sm:hidden text-black hover:text-primary-dark-green transition-all duration-300"
+	>
+		<a class="pt-5 pb-10 flex items-center gap-2 text-lg" href="/blog">
 			<Icon
 				name="material-symbols-light:arrow-circle-right-outline"
-				class="size-7"
+				class="button-icon size-7 transition-transform duration-300"
 			/>
 			<p>全コンテンツを見る</p>
 		</a>
 	</div>
-</Section>
+</section>
+
+<style>
+	.all-view-button:hover {
+		.button-icon {
+			transform: translateX(8px);
+		}
+	}
+</style>

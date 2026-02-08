@@ -6,8 +6,9 @@ import { getCollection } from "astro:content";
 import Layout from "src/layouts/Layout.astro";
 
 const blogContents = await getCollection("blog");
+const publishedBlogs = blogContents.filter((item) => !item.data.draft);
 
-const blogs = blogContents.sort((a, b) => {
+const blogs = publishedBlogs.sort((a, b) => {
 	return b.data.updatedAt.localeCompare(a.data.updatedAt);
 });
 ---

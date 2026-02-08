@@ -1,36 +1,58 @@
 ---
+import WorkCard from "@components/WorkCard.astro";
 import WorksTag from "../Tag/WorksTag.astro";
 import SectionHeading from "./SectionHeading.astro";
 import WorksOfferRead from "../WorksOfferRead.astro";
 import WorksAllViewButton from "../button/WorksAllViewButton.astro";
+import { getCollection } from "astro:content";
+
+const worksContents = await getCollection("work");
+
+const filteredWorks = worksContents.filter(
+	(item) => item.data.isPickup && !item.data.draft
+);
+const works = filteredWorks
+	.sort((a, b) => {
+		return b.data.termFrom.localeCompare(a.data.termFrom);
+	})
+	.sort((a, b) => {
+		return b.data.termTo.localeCompare(a.data.termTo);
+	})
+	.slice(0, 4);
 ---
 
 <section id="works" class="w-full mt-10">
-    <SectionHeading title="Works" isBlue={true} />
-    <p class="max-w-[600px] mx-auto my-10 text-lg">
-        私が作ってきたもの、作っているものを載せています。ご意見等ございましたらお気軽にお問い合わせください！
-    </p>
-    <div class="mx-auto h-10 w-[1px] rounded-sm bg-black"></div>
-    <div class="max-w-[800px] w-[90%] mx-auto mt-5">
-        <img
-            class="w-max aspect-video object-cover mx-auto brightness-110 contrast-75 shadow-2xl"
-            src="/programming.jpg"
-            alt="画像"
-        />
-        <h3 class="my-8 text-4xl text-center">このポートフォリオサイト</h3>
-        <WorksTag title="技術スタック" />
-        <ul class="flex items-center gap-8">
-            <!-- TODO: CMSから取ってくるデータ群 -->
-            <li>
-                <img class="size-10 drop-shadow-md" src="/favicon.svg" alt="astro" />
-            </li>
-        </ul>
-        <WorksTag title="こだわりポイント" />
-        <p class="text-lg leading-[1.8]">
-            数学的に証明された美しく、わびさびなデザインを心掛けてポートフォリオサイトを制作しました。各コンテンツデータをContentfulで管理しているため、保守性と美しいコーディングを両立させています。
-            そしてAstroのSSGを用いているため高速なページ配信が実現しています。
-        </p>
-        <WorksOfferRead />
-        <WorksAllViewButton classes={"mx-auto"} />
-    </div>
+	<div class="text-center">
+		<SectionHeading title="Works" isBlue={true} />
+		<p class="px-10 pt-5 pb-16 text-lg leading-[2]">
+			私が作ってきたもの、作っているものを載せています。<br />
+			ご意見等ございましたらお気軽にお問い合わせください！
+		</p>
+	</div>
+
+	<div
+		class="mb-20 px-5 w-full flex justify-center gap-x-10 gap-y-16 flex-wrap"
+	>
+		{
+			works.map((item) => (
+				<WorkCard
+					slug={item.slug}
+					title={item.data.title}
+					ruby={item.data.ruby}
+					summary={item.data.summary}
+					termFrom={item.data.termFrom}
+					termTo={item.data.termTo}
+					worksCategory={item.data.worksCategory}
+					techCategory={item.data.techCategory}
+					worksLink={item.data.worksLink}
+					githubLink={item.data.githubLink}
+					thumbnail={item.data?.thumbnail}
+				/>
+			))
+		}
+	</div>
+	<div class="pb-20">
+		<WorksOfferRead />
+		<WorksAllViewButton classes={"mx-auto"} />
+	</div>
 </section>
