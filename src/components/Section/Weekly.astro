@@ -1,0 +1,25 @@
+---
+import Section from "src/layouts/Section.astro";
+import SectionHeading from "./SectionHeading.astro";
+import P from "@components/text/P.astro";
+import RichLink from "@components/RichLink.astro";
+
+/**
+ * TODO: RSSを取得する
+ * https://sizu.me/tim_daik/rss から取得
+ * 取得したデータの内`[週報]`を含むデータのみ抽出する
+ * 抽出したデータをカードコンポーネント（これから作成予定）に流して一覧表示する
+ */
+---
+
+<Section id="dialy">
+	<div class="text-center">
+		<SectionHeading>Weekly</SectionHeading>
+		<P>
+			<RichLink href="https://sizu.me/tim_daik">しずかなインターネット</RichLink
+			>
+			にて日々の出来事を週報としてまとめています。<br />
+			毎週更新という意味ではマガジンのようなものです。
+		</P>
+	</div>
+</Section>

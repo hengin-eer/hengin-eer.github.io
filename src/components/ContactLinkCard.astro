@@ -3,26 +3,26 @@ import Icon from "astro-iconify";
 import Link from "./Link.astro";
 
 interface Props {
-    linkIcon: string;
-    username: string;
-    snslink: string;
-    description: string;
+	linkIcon: string;
+	username: string;
+	snslink: string;
+	description: string;
 }
 
 const { linkIcon, username, snslink, description } = Astro.props;
 ---
 
 <div class="w-[240px] flex flex-col items-start gap-8">
-    <div class="flex items-center gap-4">
-        <Icon name={linkIcon} class="size-[60px] text-black" />
-        <Link href={snslink} classes="flex items-center gap-1">
-            <p class="text-lg">
-                @{username}
-            </p>
-            <Icon name="ri:external-link-fill" class="size-5 text-primary-blue" />
-        </Link>
-    </div>
-    <p class="text-base leading-[1.8]">
-        {description}
-    </p>
+	<div class="flex items-center gap-4">
+		<Icon name={linkIcon} class="size-[60px] text-black" />
+		<Link href={snslink} className="flex items-center gap-1">
+			<p class="text-lg">
+				@{username}
+			</p>
+			<Icon name="ri:external-link-fill" class="size-5 text-primary-blue" />
+		</Link>
+	</div>
+	<p class="text-base leading-[1.8]">
+		{description}
+	</p>
 </div>

@@ -1,12 +1,13 @@
 ---
 interface Props {
-    title: string;
-    isBlue?: boolean;
+	isBlue?: boolean;
 }
 
-const { title, isBlue = false } = Astro.props;
+const { isBlue = false } = Astro.props;
 ---
 
-<h1 class={`text-[80px] font-shippori ${isBlue ? "text-primary-blue" : "text-primary-green"}`}>
-    {title}
+<h1
+	class={`text-[60px] md:text-[128px] font-shippori ${isBlue ? "text-primary-blue" : "text-primary-green"}`}
+>
+	<slot />
 </h1>

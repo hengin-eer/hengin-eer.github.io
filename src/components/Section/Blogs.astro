@@ -1,8 +1,10 @@
 ---
 import { getCollection } from "astro:content";
+import Section from "src/layouts/Section.astro";
 import BlogCard from "../BlogCard.astro";
 import SectionHeading from "./SectionHeading.astro";
 import Icon from "astro-iconify";
+import P from "@components/text/P.astro";
 
 const blogContents = await getCollection("blog");
 const publishedBlogs = blogContents.filter((item) => !item.data.draft);
@@ -12,13 +14,13 @@ const blogs = publishedBlogs
 	.slice(0, 6);
 ---
 
-<section id="blog" class="px-10 py-10">
+<Section id="blog">
 	<div class="text-center">
-		<SectionHeading title="Blogs" />
-		<p class="py-5 text-lg leading-[2]">
+		<SectionHeading>Blogs</SectionHeading>
+		<P>
 			物書きみたいなことをしています。<br />
 			最近触った関連の技術記事や、ふと思ったことポエムなどを徒然なるままにタイプしていきます。
-		</p>
+		</P>
 		<div
 			class="all-view-button hidden sm:block w-max mx-auto text-black hover:text-primary-dark-green transition-all duration-300"
 		>
