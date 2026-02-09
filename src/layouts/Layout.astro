@@ -9,6 +9,8 @@ import Footer from "@components/Footer/Footer.astro";
 import { ClientRouter } from "astro:transitions";
 import { SITE_DESCRIPTION, SITE_TITLE } from "src/constant/SITE";
 
+// TODO: OGP画像の設定追加
+// Propsを用意して、ブログやWorksページのサムネイルを使えるようにする
 interface Props {
 	title: string;
 }
@@ -25,6 +27,17 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | {SITE_TITLE}</title>
+		<meta property="og:title" content={`${title} | ${SITE_TITLE}`} />
+		<meta property="og:site_name" content={SITE_TITLE} />
+		<meta property="og:description" content={SITE_DESCRIPTION} />
+		<!-- <meta property="og:image" content="/ogp-image.png" /> -->
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="ja_JP" />
+		<meta property="twitter:card" content="summary" />
+		<meta property="twitter:site" content="@timdaik" />
+		<meta property="twitter:title" content={`${title} | ${SITE_TITLE}`} />
+		<meta property="twitter:description" content={SITE_DESCRIPTION} />
 		<ClientRouter />
 		<link
 			rel="stylesheet"
