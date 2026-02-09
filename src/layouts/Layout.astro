@@ -4,6 +4,7 @@ import "@fontsource/shippori-antique-b1";
 import "@fontsource/fira-code";
 import "@fontsource-variable/comfortaa";
 import "@fontsource/averia-serif-libre";
+import "../styles/global.css";
 import Header from "../components/Header/Header.astro";
 import Footer from "@components/Footer/Footer.astro";
 import { ClientRouter } from "astro:transitions";
@@ -13,9 +14,10 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "src/constant/SITE";
 // Propsを用意して、ブログやWorksページのサムネイルを使えるようにする
 interface Props {
 	title: string;
+	ogpImage?: string;
 }
 
-const { title } = Astro.props;
+const { title, ogpImage = "ogp.png" } = Astro.props;
 ---
 
 <!doctype html>
@@ -30,8 +32,11 @@ const { title } = Astro.props;
 		<meta property="og:title" content={`${title} | ${SITE_TITLE}`} />
 		<meta property="og:site_name" content={SITE_TITLE} />
 		<meta property="og:description" content={SITE_DESCRIPTION} />
-		<!-- <meta property="og:image" content="/ogp-image.png" /> -->
-		<meta property="og:url" content={`${Astro.url.origin}${Astro.url.pathname}`} />
+		<meta property="og:image" content={`${Astro.url.origin}/${ogpImage}`} />
+		<meta
+			property="og:url"
+			content={`${Astro.url.origin}${Astro.url.pathname}`}
+		/>
 		<meta property="og:type" content="website" />
 		<meta property="og:locale" content="ja_JP" />
 		<meta name="twitter:card" content="summary" />
@@ -61,51 +66,11 @@ const { title } = Astro.props;
 			gtag("config", "G-8XKK44HY9Y");
 		</script>
 	</head>
-	<body class="min-h-[100dvh]">
-		<div class="relative min-h-[100dvh]">
+	<body class="min-h-dvh">
+		<div class="relative min-h-dvh">
 			<Header />
 			<slot />
 			<Footer />
 		</div>
 	</body>
 </html>
-<style is:global>
-	* {
-		padding: 0;
-		margin: 0;
-		box-sizing: border-box;
-	}
-	:root {
-		--primary-green: #18ef95;
-		--primary-dark-green: #00b86b;
-		--primary-blue: #13aed0;
-		--primary-red: #f6444f;
-		--white: #ffffff;
-		--gray-base: #9ebcca;
-		--gray-light: #edf0f7;
-		--gray-dark: #547b8d;
-		/* --black: #000000; */
-		--black: rgb(26, 37, 80);
-		--accent: 136, 58, 234;
-		--shadow-color: rgba(0, 0, 0, 0.1);
-	}
-	html {
-		font-family: "Zen Kaku Gothic New";
-		/* font-family: "Shippori Antique B1", sans-serif; */
-		background: var(--white);
-		background-size: 224px;
-		color: var(--black);
-	}
-	code {
-		font-family: "Fira Code", monospace;
-	}
-	.font-shippori {
-		font-family: "Shippori Antique B1";
-	}
-	.font-comfortaa {
-		font-family: "Comfortaa Variable";
-	}
-	.font-averia {
-		font-family: "Averia Serif Libre";
-	}
-</style>
