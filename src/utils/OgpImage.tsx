@@ -1,5 +1,4 @@
 import satori from "satori";
-import AVERIA from "/public/fonts/averia-serif-libre_5.2.7_latin-400-normal.ttf";
 import { Resvg } from "@resvg/resvg-js";
 import type { ReactNode } from "react";
 import type { CollectionEntry } from "astro:content";
@@ -11,11 +10,14 @@ async function GenerateOgpImage(children: ReactNode) {
 		fonts: [
 			{
 				name: "Averia Serif Libre",
-				data: Buffer.from(AVERIA),
+				data: await fetch(
+					"https://cdn.jsdelivr.net/fontsource/fonts/averia-serif-libre@latest/latin-400-normal.ttf",
+				).then((res) => res.arrayBuffer()),
 				weight: 400,
 				style: "normal",
 			},
 		],
+		debug: true,
 	});
 
 	const resvg = new Resvg(svg, {
@@ -33,7 +35,12 @@ async function GenerateOgpImage(children: ReactNode) {
 export function generateBlogOgpImage(blog: CollectionEntry<"blog">) {
 	const { cover, title, tag, updatedAt } = blog.data;
 	return GenerateOgpImage(
-		<div>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+			}}
+		>
 			<img src={cover.src} alt={title} />
 			<p>{tag}</p>
 			<h1>{title}</h1>
@@ -44,7 +51,12 @@ export function generateBlogOgpImage(blog: CollectionEntry<"blog">) {
 
 export function generateDefaultOgpImage() {
 	return GenerateOgpImage(
-		<div>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+			}}
+		>
 			<h1>tomodaction</h1>
 			<h2>my mode, action</h2>
 			<p>Portfolio of Hiroki Tomoda (timdaik).</p>
