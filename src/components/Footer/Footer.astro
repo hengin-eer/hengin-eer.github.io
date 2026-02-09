@@ -1,4 +1,5 @@
 ---
+import { SITE_TITLE } from "src/constant/SITE";
 import Link from "../Link.astro";
 import SNSNavButton from "../button/SNSNavButton.astro";
 ---
@@ -6,7 +7,7 @@ import SNSNavButton from "../button/SNSNavButton.astro";
 <footer
 	class="sticky top-[100%] px-10 md:px-20 pt-10 pb-5 text-white bg-primary-blue"
 >
-	<h3 class="mb-2 text-3xl font-hina">&lt;Timtim /&gt;</h3>
+	<h3 class="mb-2 text-3xl font-averia">{SITE_TITLE}</h3>
 	<div
 		class="pt-6 flex flex-col md:flex-row items-center gap-7 justify-between"
 	>
@@ -30,7 +31,7 @@ import SNSNavButton from "../button/SNSNavButton.astro";
 		<SNSNavButton />
 	</div>
 	<p class="mt-16 text-base text-center">
-		&copy; 2024~ | timtim.tech | Created with
+		&copy; 2024~ {SITE_TITLE}. Created with
 		<span class="text-primary-red">❤</span> by
 		<Link href="https://x.com/timdaik" className="underline">@timdaik</Link>
 	</p>
