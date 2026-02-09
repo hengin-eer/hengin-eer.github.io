@@ -1,1 +1,4 @@
 @import "tailwindcss";
+/* NOTE: いずれjsでの設定は廃止されるので、早めにcss内での設定に移行する */
+/* https://azukiazusa.dev/blog/tailwind-css-v4-css-first-configurations/ を要参照 */
+@config "../../tailwind.config.mjs";
