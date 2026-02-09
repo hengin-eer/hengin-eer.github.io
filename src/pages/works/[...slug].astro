@@ -27,12 +27,12 @@ const { Content } = await entry.render();
 			transition:name={`workCard-${entry.slug}`}
 		>
 			<div
-				class="relative w-full aspect-[3/1] bg-gradient-to-br from-primary-blue/50 to-gray-light my-16 md:my-24 rounded-xl"
+				class="relative w-full aspect-3/1 bg-linear-to-br from-primary-blue/50 to-gray-light my-16 md:my-24 rounded-xl"
 			>
 				{
 					work.thumbnail && (
 						<Image
-							class="absolute z-10 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] aspect-[4/3] object-cover"
+							class="absolute z-10 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] aspect-4/3 object-cover"
 							src={work.thumbnail}
 							alt={`${work.title}のサムネイル`}
 							loading={"lazy"}

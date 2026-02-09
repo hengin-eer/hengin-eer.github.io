@@ -38,12 +38,12 @@ const {
 >
 	<a
 		href={`/works/${slug}`}
-		class="relative aspect-[3/1] bg-gradient-to-br from-primary-blue/50 to-gray-light my-8 md:my-16 rounded-xl"
+		class="relative aspect-3/1 bg-linear-to-br from-primary-blue/50 to-gray-light my-8 md:my-16 rounded-xl"
 	>
 		{
 			thumbnail && (
 				<Image
-					class="absolute z-10 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] aspect-[4/3] object-cover transition-all duration-300 hover:scale-110"
+					class="absolute z-10 left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] aspect-4/3 object-cover transition-all duration-300 hover:scale-110"
 					src={thumbnail}
 					alt={`${title}のサムネイル`}
 					loading={"lazy"}
