@@ -31,7 +31,7 @@ const { title } = Astro.props;
 		<meta property="og:site_name" content={SITE_TITLE} />
 		<meta property="og:description" content={SITE_DESCRIPTION} />
 		<!-- <meta property="og:image" content="/ogp-image.png" /> -->
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:url" content={`${Astro.url.origin}${Astro.url.pathname}`} />
 		<meta property="og:type" content="website" />
 		<meta property="og:locale" content="ja_JP" />
 		<meta name="twitter:card" content="summary" />
