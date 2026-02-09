@@ -1,4 +1,50 @@
 @import "tailwindcss";
-/* NOTE: いずれjsでの設定は廃止されるので、早めにcss内での設定に移行する */
-/* https://azukiazusa.dev/blog/tailwind-css-v4-css-first-configurations/ を要参照 */
-@config "../../tailwind.config.mjs";
+
+@theme {
+	--color-*: initial;
+	--color-primary-green: #18ef95;
+	--color-primary-dark-green: #00b86b;
+	--color-primary-emerald: #34d399;
+	--color-primary-blue: #13aed0;
+	--color-primary-red: #f6444f;
+	--color-white: #ffffff;
+	--color-gray-base: #9ebcca;
+	--color-gray-light: #edf0f7;
+	--color-gray-dark: #547b8d;
+	--color-black: #000000;
+
+	--font-shippori: "Shippori Antique B1";
+	--font-comfortaa: "Comfortaa Variable";
+	--font-averia: "Averia Serif Libre";
+}
+
+@layer base {
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+	:root {
+		--primary-green: #18ef95;
+		--primary-dark-green: #00b86b;
+		--primary-blue: #13aed0;
+		--primary-red: #f6444f;
+		--white: #ffffff;
+		--gray-base: #9ebcca;
+		--gray-light: #edf0f7;
+		--gray-dark: #547b8d;
+		/* --black: #000000; */
+		--black: rgb(26, 37, 80);
+		--accent: 136, 58, 234;
+		--shadow-color: rgba(0, 0, 0, 0.1);
+	}
+	html {
+		font-family: "Zen Kaku Gothic New";
+		background: var(--white);
+		background-size: 224px;
+		color: var(--black);
+	}
+	code {
+		font-family: "Fira Code", monospace;
+	}
+}
