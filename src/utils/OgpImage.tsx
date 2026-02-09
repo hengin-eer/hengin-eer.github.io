@@ -3,7 +3,6 @@ import { Resvg } from "@resvg/resvg-js";
 import "node:fs";
 import type { ReactNode } from "react";
 import type { CollectionEntry } from "astro:content";
-import "../styles/global.css";
 import { SITE_TITLE } from "src/constant/SITE";
 import { readFileSync } from "node:fs";
 
