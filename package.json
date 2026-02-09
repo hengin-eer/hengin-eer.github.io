@@ -14,7 +14,6 @@
 		"@astrojs/mdx": "^4.3.13",
 		"@astrojs/partytown": "^2.1.4",
 		"@astrojs/react": "^4.4.2",
-		"@astrojs/tailwind": "^6.0.2",
 		"@fontsource-variable/comfortaa": "^5.2.8",
 		"@fontsource/averia-serif-libre": "^5.2.7",
 		"@fontsource/fira-code": "^5.1.0",
@@ -22,6 +21,7 @@
 		"@fontsource/shippori-antique-b1": "^5.0.12",
 		"@fontsource/zen-kaku-gothic-new": "^5.0.18",
 		"@resvg/resvg-js": "^2.6.2",
+		"@tailwindcss/vite": "^4.1.18",
 		"@types/react": "^19.2.13",
 		"@types/react-dom": "^19.2.3",
 		"astro": "^5.16.6",
@@ -34,6 +34,6 @@
 		"remark-math": "^6.0.0",
 		"satori": "^0.19.1",
 		"sharp": "^0.33.5",
-		"tailwindcss": "^3.4.3"
+		"tailwindcss": "^4.1.18"
 	}
 }
