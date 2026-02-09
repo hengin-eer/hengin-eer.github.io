@@ -2,6 +2,7 @@ import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import type { ReactNode } from "react";
 import type { CollectionEntry } from "astro:content";
+import "../styles/global.css";
 
 async function GenerateOgpImage(children: ReactNode) {
 	const svg = await satori(children, {
@@ -52,10 +53,11 @@ export function generateBlogOgpImage(blog: CollectionEntry<"blog">) {
 export function generateDefaultOgpImage() {
 	return GenerateOgpImage(
 		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-			}}
+			className="flex flex-col"
+			// style={{
+			// 	display: "flex",
+			// 	flexDirection: "column",
+			// }}
 		>
 			<h1>tomodaction</h1>
 			<h2>my mode, action</h2>
