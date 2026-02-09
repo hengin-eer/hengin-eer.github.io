@@ -1,6 +1,5 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
-import "node:fs";
 import type { ReactNode } from "react";
 import type { CollectionEntry } from "astro:content";
 import { SITE_TITLE } from "src/constant/SITE";
