@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({ params }) => {
 	const slug = params.slug;
 	const blogs = await getCollection("blog");
 	const blog = blogs.find((blog) => blog.slug === slug);
-	const png = generateBlogOgpImage(blog!);
+	const png = await generateBlogOgpImage(blog!);
 
 	return new Response(png, {
 		headers: {
