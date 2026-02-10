@@ -18,6 +18,22 @@ async function GenerateOgpImage(children: ReactNode) {
 				weight: 400,
 				style: "normal",
 			},
+			{
+				name: "Zen Kaku Gothic New",
+				data: await fetch(
+					"https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-400-normal.ttf",
+				).then((res) => res.arrayBuffer()),
+				weight: 400,
+				style: "normal",
+			},
+			{
+				name: "Zen Kaku Gothic New",
+				data: await fetch(
+					"https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-900-normal.ttf",
+				).then((res) => res.arrayBuffer()),
+				weight: 900,
+				style: "normal",
+			},
 		],
 		// debug: true,
 	});
@@ -48,12 +64,17 @@ export function generateBlogOgpImage(blog: CollectionEntry<"blog">) {
 			style={{
 				display: "flex",
 				flexDirection: "column",
+				fontFamily: "Zen Kaku Gothic New",
 			}}
 		>
-			<img src={readImageAsDataURL(cover.src)} alt={title} />
-			<p>{tag}</p>
+			{/* <img src={readImageAsDataURL(cover.src)} alt={title} /> */}
 			<h1>{title}</h1>
 			<p>{updatedAt}</p>
+			<div style={{ display: "flex", gap: 8 }}>
+				{tag.map((t) => (
+					<p>{t}</p>
+				))}
+			</div>
 		</div>,
 	);
 }
