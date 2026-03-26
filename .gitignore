@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # local files
 *.local
+
+# contents(blogs, works, etc...)
+src/content/*
