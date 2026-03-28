@@ -1,16 +1,16 @@
 ---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import WorksAllViewButton from "@components/button/WorksAllViewButton.astro";
 import Link from "@components/Link.astro";
 import WorksOfferRead from "@components/WorksOfferRead.astro";
 import Icon from "astro-iconify";
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
 import Layout from "src/layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	const worksEntries = await getCollection("work");
+	const worksEntries = await getCollection("works");
 	return worksEntries.map((entry) => ({
-		params: { slug: entry.slug },
+		params: { slug: entry.id },
 		props: { entry, work: entry.data },
 	}));
 }

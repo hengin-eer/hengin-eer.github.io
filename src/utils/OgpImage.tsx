@@ -1,9 +1,9 @@
-import satori from "satori";
+import type { CollectionEntry } from "astro:content";
+import { readFileSync } from "node:fs";
 import { Resvg } from "@resvg/resvg-js";
 import type { ReactNode } from "react";
-import type { CollectionEntry } from "astro:content";
+import satori from "satori";
 import { SITE_TITLE } from "src/constant/SITE";
-import { readFileSync } from "node:fs";
 
 async function GenerateOgpImage(children: ReactNode) {
 	const svg = await satori(children, {
@@ -57,7 +57,7 @@ function readImageAsDataURL(imagePath: string): string {
 	return `data:image/png;base64,${image_base64}`;
 }
 
-export function generateBlogOgpImage(blog: CollectionEntry<"blog">) {
+export function generateBlogOgpImage(blog: CollectionEntry<"blogs">) {
 	const { cover, title, tag, updatedAt } = blog.data;
 	return GenerateOgpImage(
 		<div
