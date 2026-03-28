@@ -23,7 +23,3 @@ pnpm-debug.log*
 # local files
 *.local
 
-# contents(blogs, works, etc...) is submodule
-src/content/*
-src/blogs/
-src/works/
