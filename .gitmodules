@@ -1,0 +1,6 @@
+[submodule "src/blogs"]
+	path = src/blogs
+	url = git@github.com:hengin-eer/blogs.git
+[submodule "src/works"]
+	path = src/works
+	url = git@github.com:hengin-eer/works.git
