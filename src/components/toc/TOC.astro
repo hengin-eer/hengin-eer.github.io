@@ -1,0 +1,16 @@
+---
+import type { MarkdownHeading } from "astro";
+import { generateToc } from "../../utils/generateToc";
+import TOCList from "./TOCList.astro";
+
+interface Props {
+	headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const tocTree = generateToc(headings);
+---
+<div>
+  <TOCList toc={tocTree}>
+</div>
