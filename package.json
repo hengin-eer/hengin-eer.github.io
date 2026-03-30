@@ -35,5 +35,8 @@
 		"satori": "^0.19.1",
 		"sharp": "^0.33.5",
 		"tailwindcss": "^4.1.18"
+	},
+	"devDependencies": {
+		"prettier-plugin-astro": "^0.14.1"
 	}
 }
