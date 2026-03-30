@@ -22,9 +22,9 @@ const { Content } = await render(entry);
 <Layout title={work.title}>
 	<main class="w-full max-w-5xl mx-auto px-5">
 		<div
-			id={`workCard-${entry.slug}`}
+			id={`workCard-${entry.id}`}
 			class="mx-auto max-w-[600px] flex flex-col items-center"
-			transition:name={`workCard-${entry.slug}`}
+			transition:name={`workCard-${entry.id}`}
 		>
 			<div
 				class="relative w-full aspect-3/1 bg-linear-to-br from-primary-blue/50 to-gray-light my-16 md:my-24 rounded-xl"
@@ -222,7 +222,7 @@ const { Content } = await render(entry);
 
 <script is:inline define:vars={{ entry }}>
 	function setupImageTransition() {
-		const workCardElement = document.querySelector(`#workCard-${entry.slug}`);
+		const workCardElement = document.querySelector(`#workCard-${entry.id}`);
 		if (!workCardElement) return;
 
 		const initialScope = workCardElement.getAttribute(

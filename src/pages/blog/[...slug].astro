@@ -26,9 +26,9 @@ const formattedDate =
 <Layout title={`${blog.title}`}>
 	<main class="w-full max-w-3xl mx-auto px-5 my-10">
 		<div
-			id={`blogCard-${entry.slug}`}
+			id={`blogCard-${entry.id}`}
 			class="flex flex-col items-center"
-			transition:name={`blogCard-${entry.slug}`}
+			transition:name={`blogCard-${entry.id}`}
 		>
 			<img
 				class="w-full max-w-[800px] aspect-video object-cover mx-auto mb-8 rounded-xl"
@@ -218,7 +218,7 @@ const formattedDate =
 
 <script is:inline define:vars={{ entry }}>
 	function setupImageTransition() {
-		const blogCardElement = document.querySelector(`#blogCard-${entry.slug}`);
+		const blogCardElement = document.querySelector(`#blogCard-${entry.id}`);
 		if (!blogCardElement) return;
 
 		const initialScope = blogCardElement.getAttribute(
