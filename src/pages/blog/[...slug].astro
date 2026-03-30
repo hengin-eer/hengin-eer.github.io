@@ -26,6 +26,7 @@ const formattedDate =
 
 <Layout title={`${blog.title}`}>
   <main class="w-full max-w-3xl mx-auto px-5 my-10">
+    <TOC headings={headings} />
     <div
       id={`blogCard-${entry.id}`}
       class="flex flex-col items-center"
@@ -60,7 +61,6 @@ const formattedDate =
         </ul>
       </dir>
     </div>
-    <TOC headings={headings} />
     <div id="contents" class="font-noto-sans py-10">
       <Content />
     </div>

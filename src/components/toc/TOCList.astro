@@ -11,7 +11,7 @@ const { toc } = Astro.props;
 <ul class="list-disc">
   {
     toc.map((heading) => (
-      <li>
+      <li class="text-base">
         <a href={`#${heading.slug}`}>{heading.text}</a>
 
         {heading.children.length > 0 && <Astro.self toc={heading.children} />}
@@ -22,16 +22,31 @@ const { toc } = Astro.props;
 
 <style>
   ul {
-    list-style: disc;
-    margin-block: 24px;
-    padding-left: 28px;
+    list-style: none;
     font-size: 18px;
 
-    > li::marker {
-      color: var(--gray-dark);
+    > li {
+      > a {
+        display: block;
+        position: relative;
+        padding-block: 6px;
+        padding-inline: 8px;
+        border-radius: 4px;
+        font-size: 14px;
+
+        &:hover {
+          color: black;
+          background: var(--color-gray-light);
+        }
+      }
+
+      > ul {
+        margin-block: 0;
+        padding-left: 20px;
+      }
     }
   }
-  ul ul {
-    margin-block: 4px;
+  li > a {
+    text-decoration: underline;
   }
 </style>
