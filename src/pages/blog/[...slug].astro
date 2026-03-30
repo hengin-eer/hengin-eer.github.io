@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Link from "@components/Link.astro";
+import TOC from "@components/toc/TOC.astro";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { entry, blog } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 
 const date = new Date(blog.updatedAt);
 const formattedDate =
@@ -59,6 +60,7 @@ const formattedDate =
 				</ul>
 			</dir>
 		</div>
+    <TOC headings={headings} />
 		<div id="contents" class="font-noto-sans py-10">
 			<Content />
 		</div>
