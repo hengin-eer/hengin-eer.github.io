@@ -1,11 +1,11 @@
 ---
+import { getCollection } from "astro:content";
 import BlogCard from "@components/BlogCard.astro";
 import SectionHeading from "@components/Section/SectionHeading.astro";
 import Icon from "astro-iconify";
-import { getCollection } from "astro:content";
 import Layout from "src/layouts/Layout.astro";
 
-const blogContents = await getCollection("blog");
+const blogContents = await getCollection("blogs");
 const publishedBlogs = blogContents.filter((item) => !item.data.draft);
 
 const blogs = publishedBlogs.sort((a, b) => {
@@ -31,7 +31,7 @@ const blogs = publishedBlogs.sort((a, b) => {
 						blogs.map((item) => (
 							<BlogCard
 								title={item.data.title}
-								slug={item.slug}
+								slug={item.id}
 								updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
 								eyecatch={item.data.cover.src}
 							/>

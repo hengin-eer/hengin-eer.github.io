@@ -1,9 +1,9 @@
 ---
-import Layout from "src/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import WorkCard from "@components/WorkCard.astro";
+import Layout from "src/layouts/Layout.astro";
 
-const worksContents = await getCollection("work");
+const worksContents = await getCollection("works");
 const filteredWorks = worksContents.filter((item) => !item.data.draft);
 
 const works = filteredWorks
@@ -23,7 +23,7 @@ const works = filteredWorks
 			{
 				works.map((item) => (
 					<WorkCard
-						slug={item.slug}
+						slug={item.id}
 						title={item.data.title}
 						ruby={item.data.ruby}
 						summary={item.data.summary}

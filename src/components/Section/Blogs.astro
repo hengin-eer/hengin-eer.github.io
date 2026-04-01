@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
+import P from "@components/text/P.astro";
+import Icon from "astro-iconify";
 import Section from "src/layouts/Section.astro";
 import BlogCard from "../BlogCard.astro";
 import SectionHeading from "./SectionHeading.astro";
-import Icon from "astro-iconify";
-import P from "@components/text/P.astro";
 
-const blogContents = await getCollection("blog");
+const blogContents = await getCollection("blogs");
 const publishedBlogs = blogContents.filter((item) => !item.data.draft);
 
 const blogs = publishedBlogs
@@ -41,7 +41,7 @@ const blogs = publishedBlogs
 				blogs.map((item) => (
 					<BlogCard
 						title={item.data.title}
-						slug={item.slug}
+						slug={item.id}
 						updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
 						eyecatch={item.data.cover.src}
 					/>
