@@ -1,0 +1,52 @@
+---
+import type { TocItem } from "../../utils/generateToc.ts";
+
+interface Props {
+  toc: TocItem[];
+}
+
+const { toc } = Astro.props;
+---
+
+<ul class="list-disc">
+  {
+    toc.map((heading) => (
+      <li class="text-base">
+        <a href={`#${heading.slug}`}>{heading.text}</a>
+
+        {heading.children.length > 0 && <Astro.self toc={heading.children} />}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    list-style: none;
+    font-size: 18px;
+
+    > li {
+      > a {
+        display: block;
+        position: relative;
+        padding-block: 6px;
+        padding-inline: 8px;
+        border-radius: 4px;
+        font-size: 14px;
+
+        &:hover {
+          color: black;
+          background: var(--color-gray-light);
+        }
+      }
+
+      > ul {
+        margin-block: 0;
+        padding-left: 20px;
+      }
+    }
+  }
+  li > a {
+    text-decoration: underline;
+  }
+</style>

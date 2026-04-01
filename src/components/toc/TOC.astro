@@ -1,0 +1,22 @@
+---
+import type { MarkdownHeading } from "astro";
+import { generateToc } from "../../utils/generateToc";
+import TOCList from "./TOCList.astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const tocTree = generateToc(headings);
+---
+
+<div
+  class="fixed top-1/4 -right-[220px] hover:right-2 w-[260px] p-4 pt-6 bg-white border border-gray-base rounded-2xl shadow-lg blur-[1px] hover:blur-none z-50 transition-all"
+>
+  <h3 class="mb-4 text-2xl">目次</h3>
+  <div class="max-h-[40dvh] overflow-scroll">
+    <TOCList toc={tocTree} />
+  </div>
+</div>

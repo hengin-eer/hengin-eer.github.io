@@ -1,249 +1,251 @@
 ---
 import { getCollection, render } from "astro:content";
 import Link from "@components/Link.astro";
+import TOC from "@components/toc/TOC.astro";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	const blogEntries = await getCollection("blogs");
-	return blogEntries.map((entry) => ({
-		params: { slug: entry.id },
-		props: { entry, blog: entry.data },
-	}));
+  const blogEntries = await getCollection("blogs");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry, blog: entry.data },
+  }));
 }
 
 const { entry, blog } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 
 const date = new Date(blog.updatedAt);
 const formattedDate =
-	date.getFullYear() +
-	"/" +
-	String(date.getMonth() + 1).padStart(2, "0") +
-	"/" +
-	String(date.getDate()).padStart(2, "0");
+  date.getFullYear() +
+  "/" +
+  String(date.getMonth() + 1).padStart(2, "0") +
+  "/" +
+  String(date.getDate()).padStart(2, "0");
 ---
 
 <Layout title={`${blog.title}`}>
-	<main class="w-full max-w-3xl mx-auto px-5 my-10">
-		<div
-			id={`blogCard-${entry.slug}`}
-			class="flex flex-col items-center"
-			transition:name={`blogCard-${entry.slug}`}
-		>
-			<img
-				class="w-full max-w-[800px] aspect-video object-cover mx-auto mb-8 rounded-xl"
-				src={blog.cover.src}
-				alt="サムネイル画像"
-			/>
-			<h1 class="max-w-[800px] text-2xl md:text-3xl leading-[1.6]">
-				{blog.title}
-			</h1>
-			<div class="mt-7 mb-4 flex gap-5">
-				<p>
-					<span>筆者: </span>
-					<Link href={`https://x.com/${blog.author}`}>
-						<span class="text-primary-dark-green underline">@{blog.author}</span
-						>
-					</Link>
-				</p>
-				<p>最終更新: {formattedDate}</p>
-			</div>
-			<dir class="flex gap-5 items-center">
-				<p>タグ:</p>
-				<ul class="flex gap-2">
-					{
-						blog.tag.map((tag) => (
-							<li class="px-3 py-[2px] border rounded-full">{tag}</li>
-						))
-					}
-				</ul>
-			</dir>
-		</div>
-		<div id="contents" class="font-noto-sans py-10">
-			<Content />
-		</div>
-	</main>
+  <main class="w-full max-w-3xl mx-auto px-5 my-10">
+    <TOC headings={headings} />
+    <div
+      id={`blogCard-${entry.id}`}
+      class="flex flex-col items-center"
+      transition:name={`blogCard-${entry.id}`}
+    >
+      <img
+        class="w-full max-w-[800px] aspect-video object-cover mx-auto mb-8 rounded-xl"
+        src={blog.cover.src}
+        alt="サムネイル画像"
+      />
+      <h1 class="max-w-[800px] text-2xl md:text-3xl leading-[1.6]">
+        {blog.title}
+      </h1>
+      <div class="mt-7 mb-4 flex gap-5">
+        <p>
+          <span>筆者: </span>
+          <Link href={`https://x.com/${blog.author}`}>
+            <span class="text-primary-dark-green underline">@{blog.author}</span
+            >
+          </Link>
+        </p>
+        <p>最終更新: {formattedDate}</p>
+      </div>
+      <dir class="flex gap-5 items-center">
+        <p>タグ:</p>
+        <ul class="flex gap-2">
+          {
+            blog.tag.map((tag) => (
+              <li class="px-3 py-[2px] border rounded-full">{tag}</li>
+            ))
+          }
+        </ul>
+      </dir>
+    </div>
+    <div id="contents" class="font-noto-sans py-10">
+      <Content />
+    </div>
+  </main>
 </Layout>
 
 <style is:global>
-	#contents {
-		line-height: 1.8;
-	}
-	#contents > :first-child {
-		margin-top: 0;
-	}
+  #contents {
+    line-height: 1.8;
+  }
+  #contents > :first-child {
+    margin-top: 0;
+  }
   #contents p {
     font-size: 18px;
   }
-	#contents h1 {
-		margin-block: 52px 16px;
-		padding-bottom: 6px;
-		border-bottom: solid 1px var(--gray-base);
-		font-size: 32px;
+  #contents h1 {
+    margin-block: 52px 16px;
+    padding-bottom: 6px;
+    border-bottom: solid 1px var(--gray-base);
+    font-size: 32px;
     font-weight: bold;
-		line-height: 1.6;
-	}
-	#contents h2 {
-		margin-block: 40px 16px;
-		padding-bottom: 6px;
-		border-bottom: solid 1px var(--gray-base);
-		font-size: 28px;
+    line-height: 1.6;
+  }
+  #contents h2 {
+    margin-block: 40px 16px;
+    padding-bottom: 6px;
+    border-bottom: solid 1px var(--gray-base);
+    font-size: 28px;
     font-weight: bold;
-		line-height: 1.5;
-	}
-	#contents h3 {
-		margin-block: 32px 12px;
-		font-size: 24px;
+    line-height: 1.5;
+  }
+  #contents h3 {
+    margin-block: 32px 12px;
+    font-size: 24px;
     font-weight: bold;
-		line-height: 1.5;
-	}
-	#contents h1 + p,
-	#contents h2 + p,
-	#contents h3 + p,
-	#contents h4 + p,
-	#contents h5 + p,
-	#contents h6 + p {
-		margin-top: 4px;
-	}
-	#contents p + p {
-		margin-top: 20px;
-	}
-	#contents a {
-		text-decoration: underline;
-		color: var(--primary-dark-green);
-	}
-	#contents strong {
-		display: inline;
-		font-weight: normal;
+    line-height: 1.5;
+  }
+  #contents h1 + p,
+  #contents h2 + p,
+  #contents h3 + p,
+  #contents h4 + p,
+  #contents h5 + p,
+  #contents h6 + p {
+    margin-top: 4px;
+  }
+  #contents p + p {
+    margin-top: 20px;
+  }
+  #contents a {
+    text-decoration: underline;
+    color: var(--primary-dark-green);
+  }
+  #contents strong {
+    display: inline;
+    font-weight: normal;
     color: black;
-		background: linear-gradient(
-			to top,
-			transparent 0%,
-			var(--primary-green) 0% 40%,
-			transparent 40%
-		);
-	}
-	#contents ul,
-	ol {
-		margin-block: 24px;
-		padding-left: 28px;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      var(--primary-green) 0% 40%,
+      transparent 40%
+    );
+  }
+  #contents ul,
+  ol {
+    margin-block: 24px;
+    padding-left: 28px;
     font-size: 18px;
 
-		> li::marker {
-			color: var(--gray-dark);
-		}
-	}
-	#contents ol ol,
-	#contents ol ul,
-	#contents ul ol,
-	#contents ul ul {
-		margin-block: 4px;
-	}
-	#contents ul {
-		list-style: disc;
-	}
-	#contents ol {
-		list-style: decimal;
-	}
-	#contents img {
-		display: block;
-		margin-block: 32px;
-		margin-inline: auto;
-		width: auto;
-		max-width: 100%;
-		height: auto;
-		max-height: 60dvh;
-		box-shadow: 0 4px 12px var(--shadow-color);
-	}
-	#contents blockquote {
-		margin-block: 20px;
-		padding-block: 4px;
-		padding-left: 12px;
-		border-left: solid 3px var(--gray-base);
+    > li::marker {
+      color: var(--gray-dark);
+    }
+  }
+  #contents ol ol,
+  #contents ol ul,
+  #contents ul ol,
+  #contents ul ul {
+    margin-block: 4px;
+  }
+  #contents ul {
+    list-style: disc;
+  }
+  #contents ol {
+    list-style: decimal;
+  }
+  #contents img {
+    display: block;
+    margin-block: 32px;
+    margin-inline: auto;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 60dvh;
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
+  #contents blockquote {
+    margin-block: 20px;
+    padding-block: 4px;
+    padding-left: 12px;
+    border-left: solid 3px var(--gray-base);
 
-		p + p {
-			margin-top: 0px;
-		}
-	}
-	#contents pre {
-		margin-block: 20px;
-		border-radius: 8px;
-		display: flex;
+    p + p {
+      margin-top: 0px;
+    }
+  }
+  #contents pre {
+    margin-block: 20px;
+    border-radius: 8px;
+    display: flex;
 
-		&::after {
-			content: "";
-			width: 8px;
-			flex-shrink: 0;
-		}
+    &::after {
+      content: "";
+      width: 8px;
+      flex-shrink: 0;
+    }
 
-		> code {
-			display: block;
-			padding: 16px 20px;
-		}
-	}
-	#contents table {
-		display: block;
-		margin-block: 20px;
-		width: 100%;
-		border-collapse: collapse;
-		font-size: 16px;
-		line-height: 1.5;
-		word-break: normal;
+    > code {
+      display: block;
+      padding: 16px 20px;
+    }
+  }
+  #contents table {
+    display: block;
+    margin-block: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    line-height: 1.5;
+    word-break: normal;
 
-		th,
-		td {
-			padding: 8px;
-			border: solid 1px var(--gray-base);
-		}
+    th,
+    td {
+      padding: 8px;
+      border: solid 1px var(--gray-base);
+    }
 
-		th {
-			background: var(--gray-light);
-		}
-	}
-	#contents hr {
-		margin: 40px auto;
-		border: none;
-		border-top: solid 2px var(--gray-base);
-		border-radius: 4px;
-		width: 90%;
-	}
-	#contents iframe {
-		margin-block: 32px;
-		width: 100%;
-		height: auto;
-		aspect-ratio: 16/9;
-		box-shadow: 0 4px 12px var(--shadow-color);
-	}
+    th {
+      background: var(--gray-light);
+    }
+  }
+  #contents hr {
+    margin: 40px auto;
+    border: none;
+    border-top: solid 2px var(--gray-base);
+    border-radius: 4px;
+    width: 90%;
+  }
+  #contents iframe {
+    margin-block: 32px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
 </style>
 
 <script is:inline define:vars={{ entry }}>
-	function setupImageTransition() {
-		const blogCardElement = document.querySelector(`#blogCard-${entry.slug}`);
-		if (!blogCardElement) return;
+  function setupImageTransition() {
+    const blogCardElement = document.querySelector(`#blogCard-${entry.id}`);
+    if (!blogCardElement) return;
 
-		const initialScope = blogCardElement.getAttribute(
-			"data-astro-transition-scope",
-		);
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting && initialScope) {
-						blogCardElement.setAttribute(
-							"data-astro-transition-scope",
-							initialScope,
-						);
-					} else {
-						blogCardElement.removeAttribute("data-astro-transition-scope");
-					}
-				});
-			},
-			{
-				threshold: 0.1,
-			},
-		);
+    const initialScope = blogCardElement.getAttribute(
+      "data-astro-transition-scope",
+    );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && initialScope) {
+            blogCardElement.setAttribute(
+              "data-astro-transition-scope",
+              initialScope,
+            );
+          } else {
+            blogCardElement.removeAttribute("data-astro-transition-scope");
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      },
+    );
 
-		observer.observe(blogCardElement);
-	}
+    observer.observe(blogCardElement);
+  }
 
-	document.addEventListener("astro:page-load", setupImageTransition);
+  document.addEventListener("astro:page-load", setupImageTransition);
 </script>
