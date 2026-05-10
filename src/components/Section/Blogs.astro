@@ -10,62 +10,62 @@ const blogContents = await getCollection("blogs");
 const publishedBlogs = blogContents.filter((item) => !item.data.draft);
 
 const blogs = publishedBlogs
-	.sort((a, b) => b.data.updatedAt.localeCompare(a.data.updatedAt))
-	.slice(0, 6);
+  .sort((a, b) => b.data.updatedAt.getTime() - a.data.updatedAt.getTime())
+  .slice(0, 6);
 ---
 
 <Section id="blog">
-	<div class="text-center">
-		<SectionHeading>Blogs</SectionHeading>
-		<P>
-			物書きみたいなことをしています。<br />
-			最近触った関連の技術記事や、ふと思ったことポエムなどを徒然なるままにタイプしていきます。
-		</P>
-		<div
-			class="all-view-button hidden sm:block w-max mx-auto text-black hover:text-primary-dark-green transition-all duration-300"
-		>
-			<a class="pt-5 flex items-center gap-2 text-lg" href="/blog">
-				<Icon
-					name="material-symbols-light:arrow-circle-right-outline"
-					class="button-icon size-7 transition-transform duration-300"
-				/>
-				<p>全コンテンツを見る</p>
-			</a>
-		</div>
-	</div>
-	<div class="pt-10 md:pt-20">
-		<ul
-			class="w-fit mx-auto grid gap-x-10 gap-y-5 md:grid-cols-2 lg:grid-cols-3"
-		>
-			{
-				blogs.map((item) => (
-					<BlogCard
-						title={item.data.title}
-						slug={item.id}
-						updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
-						eyecatch={item.data.cover.src}
-					/>
-				))
-			}
-		</ul>
-	</div>
-	<div
-		class="all-view-button sm:hidden text-black hover:text-primary-dark-green transition-all duration-300"
-	>
-		<a class="pt-5 pb-10 flex items-center gap-2 text-lg" href="/blog">
-			<Icon
-				name="material-symbols-light:arrow-circle-right-outline"
-				class="button-icon size-7 transition-transform duration-300"
-			/>
-			<p>全コンテンツを見る</p>
-		</a>
-	</div>
-</section>
+  <div class="text-center">
+    <SectionHeading>Blogs</SectionHeading>
+    <P>
+      物書きみたいなことをしています。<br />
+      最近触った関連の技術記事や、ふと思ったことポエムなどを徒然なるままにタイプしていきます。
+    </P>
+    <div
+      class="all-view-button hidden sm:block w-max mx-auto text-black hover:text-primary-dark-green transition-all duration-300"
+    >
+      <a class="pt-5 flex items-center gap-2 text-lg" href="/blog">
+        <Icon
+          name="material-symbols-light:arrow-circle-right-outline"
+          class="button-icon size-7 transition-transform duration-300"
+        />
+        <p>全コンテンツを見る</p>
+      </a>
+    </div>
+  </div>
+  <div class="pt-10 md:pt-20">
+    <ul
+      class="w-fit mx-auto grid gap-x-10 gap-y-5 md:grid-cols-2 lg:grid-cols-3"
+    >
+      {
+        blogs.map((item) => (
+          <BlogCard
+            title={item.data.title}
+            slug={item.id}
+            updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
+            eyecatch={item.data.cover.src}
+          />
+        ))
+      }
+    </ul>
+  </div>
+  <div
+    class="all-view-button sm:hidden text-black hover:text-primary-dark-green transition-all duration-300"
+  >
+    <a class="pt-5 pb-10 flex items-center gap-2 text-lg" href="/blog">
+      <Icon
+        name="material-symbols-light:arrow-circle-right-outline"
+        class="button-icon size-7 transition-transform duration-300"
+      />
+      <p>全コンテンツを見る</p>
+    </a>
+  </div>
+</Section>
 
 <style>
-	.all-view-button:hover {
-		.button-icon {
-			transform: translateX(8px);
-		}
-	}
+  .all-view-button:hover {
+    .button-icon {
+      transform: translateX(8px);
+    }
+  }
 </style>

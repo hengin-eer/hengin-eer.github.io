@@ -2,43 +2,42 @@
 import { getCollection } from "astro:content";
 import BlogCard from "@components/BlogCard.astro";
 import SectionHeading from "@components/Section/SectionHeading.astro";
-import Icon from "astro-iconify";
 import Layout from "src/layouts/Layout.astro";
 
 const blogContents = await getCollection("blogs");
 const publishedBlogs = blogContents.filter((item) => !item.data.draft);
 
 const blogs = publishedBlogs.sort((a, b) => {
-	return b.data.updatedAt.localeCompare(a.data.updatedAt);
+  return b.data.updatedAt.getTime() - a.data.updatedAt.getTime();
 });
 ---
 
 <Layout title="Blogs">
-	<main>
-		<section id="blog" class="px-10 pb-20">
-			<div class="text-center">
+  <main>
+    <section id="blog" class="px-10 pb-20">
+      <div class="text-center">
         <SectionHeading>Blogs</SectionHeading>
-				<p class="py-5 text-lg leading-loose">
-					物書きみたいなことをしています。<br />
-					最近触った関連の技術記事や、ふと思ったことポエムなどを徒然なるままにタイプしていきます。
-				</p>
-			</div>
-			<div class="pt-10 md:pt-20">
-				<ul
-					class="w-fit mx-auto grid gap-x-10 gap-y-5 md:grid-cols-2 lg:grid-cols-3"
-				>
-					{
-						blogs.map((item) => (
-							<BlogCard
-								title={item.data.title}
-								slug={item.id}
-								updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
-								eyecatch={item.data.cover.src}
-							/>
-						))
-					}
-				</ul>
-			</div>
-		</section>
-	</main>
+        <p class="py-5 text-lg leading-loose">
+          物書きみたいなことをしています。<br />
+          最近触った関連の技術記事や、ふと思ったことポエムなどを徒然なるままにタイプしていきます。
+        </p>
+      </div>
+      <div class="pt-10 md:pt-20">
+        <ul
+          class="w-fit mx-auto grid gap-x-10 gap-y-5 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {
+            blogs.map((item) => (
+              <BlogCard
+                title={item.data.title}
+                slug={item.id}
+                updatedAt={new Date(item.data.updatedAt).toLocaleDateString()}
+                eyecatch={item.data.cover.src}
+              />
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
 </Layout>
