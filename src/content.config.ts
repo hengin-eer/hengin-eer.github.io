@@ -5,15 +5,18 @@ const blogs = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/blogs" }),
 	schema: ({ image }) =>
 		z.object({
-			cover: image(),
+			cover: image()
+				.nullable()
+				.optional()
+				.transform((val) => val || { src: "/thumbnail.png" }), // cover 未指定時に差し替え
 			title: z.string(),
 			author: z.string(),
-			updatedAt: z.string(),
-			tag: z.array(
+			updatedAt: z.date(),
+			tags: z.array(
 				z.enum([
 					"ニュース",
 					"日常",
-					"ポエム",
+					"駄文",
 					"読書",
 					"振り返り",
 					"年の総括",
@@ -22,6 +25,7 @@ const blogs = defineCollection({
 					"教養",
 					"高専",
 					"NUT",
+					"お料理",
 				]),
 			),
 			draft: z.boolean().default(false),
