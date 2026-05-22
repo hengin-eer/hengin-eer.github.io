@@ -57,8 +57,14 @@ function readImageAsDataURL(imagePath: string): string {
 	return `data:image/png;base64,${image_base64}`;
 }
 
+// TODO: 不完全なスタイルかつ、プロパティの整合性が取れていないので見直す
 export function generateBlogOgpImage(blog: CollectionEntry<"blogs">) {
-	const { cover, title, tag, updatedAt } = blog.data;
+	const { cover, title, tags, updatedAt } = blog.data;
+	const year = updatedAt.getFullYear();
+	const month = String(updatedAt.getMonth() + 1).padStart(2, "0");
+	const day = String(updatedAt.getDate() + 1).padStart(2, "0");
+	const formattedDate = `${year}/${month}/${day}`;
+
 	return GenerateOgpImage(
 		<div
 			style={{
@@ -69,9 +75,9 @@ export function generateBlogOgpImage(blog: CollectionEntry<"blogs">) {
 		>
 			{/* <img src={readImageAsDataURL(cover.src)} alt={title} /> */}
 			<h1>{title}</h1>
-			<p>{updatedAt}</p>
+			<p>{formattedDate}</p>
 			<div style={{ display: "flex", gap: 8 }}>
-				{tag.map((t) => (
+				{tags.map((t) => (
 					<p>{t}</p>
 				))}
 			</div>
