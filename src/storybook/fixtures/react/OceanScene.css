@@ -1,0 +1,14 @@
+.ocean-scene {
+  width: min(90vw, 720px);
+  aspect-ratio: 12 / 7;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--primary-blue) 55%, white);
+  border-radius: 1.5rem;
+  box-shadow: 0 1.5rem 4rem rgb(7 26 61 / 25%);
+}
+
+.ocean-scene canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
