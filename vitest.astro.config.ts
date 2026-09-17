@@ -9,9 +9,5 @@ export default defineConfig({
     setupFiles: [".storybook/vitest.setup.ts"],
     include: ["src/**/*.portable.test.ts"],
   },
-  integrations: [
-    react({
-      include: ["**/src/storybook/fixtures/react/**"],
-    }),
-  ],
+  integrations: [react()],
 });

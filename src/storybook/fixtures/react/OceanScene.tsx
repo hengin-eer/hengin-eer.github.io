@@ -32,15 +32,25 @@ export default function OceanScene({
   useEffect(() => {
     let cancelled = false;
     let instance: p5 | undefined;
+    let resizeObserver: ResizeObserver | undefined;
 
     void import("p5").then(({ default: P5 }) => {
       if (cancelled || !hostRef.current) return;
+      const host = hostRef.current;
 
       instance = new P5((canvas) => {
         canvas.setup = () => {
-          canvas.createCanvas(720, 420);
+          const width = Math.max(1, Math.round(host.clientWidth));
+          canvas.createCanvas(width, Math.round((width * 7) / 12));
           canvas.pixelDensity(1);
           canvas.randomSeed(29);
+          resizeObserver = new ResizeObserver(([entry]) => {
+            const nextWidth = Math.round(entry.contentRect.width);
+            if (nextWidth > 0 && nextWidth !== canvas.width) {
+              canvas.resizeCanvas(nextWidth, Math.round((nextWidth * 7) / 12));
+            }
+          });
+          resizeObserver.observe(host);
         };
 
         canvas.draw = () => {
@@ -100,6 +110,7 @@ export default function OceanScene({
 
     return () => {
       cancelled = true;
+      resizeObserver?.disconnect();
       instance?.remove();
       instanceRef.current = null;
     };

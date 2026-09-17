@@ -11,7 +11,7 @@ export default {
     },
   },
   argTypes: {
-    isBlue: { control: "boolean" },
+    isBlue: { control: "boolean" as const },
   },
   parameters: {
     a11y: {

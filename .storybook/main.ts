@@ -18,11 +18,9 @@ const config: StorybookConfig = {
     name: "@storybook-astro/framework",
     options: {
       renderMode: "static",
-      integrations: [
-        react({
-          include: ["**/src/storybook/fixtures/react/**"],
-        }),
-      ],
+      // React is the project's only JSX renderer, so real profile components
+      // and the spike fixture should pass through the same integration.
+      integrations: [react()],
     },
   },
   viteFinal: async (viteConfig) =>

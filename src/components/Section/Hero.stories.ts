@@ -9,7 +9,7 @@ export default {
     docs: {
       description: {
         component:
-          "Compatibility probe for nested Astro components, aliases, astro:assets, scoped CSS, Tailwind v4, Fontsource and astro-iconify. Covered by portable SSR tests because astro-iconify 1.2.0 cannot be imported by addon-vitest's browser transform.",
+          "Compatibility probe for nested Astro components, aliases, astro:assets, scoped CSS, Tailwind v4, Fontsource and astro-iconify. Covered by portable SSR and a static Chromium smoke check because astro-iconify 1.2.0 cannot be imported by addon-vitest's browser transform.",
       },
     },
   },

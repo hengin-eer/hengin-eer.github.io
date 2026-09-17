@@ -52,6 +52,8 @@ All commands are run from the root of the project, from a terminal:
 | `npm run build-storybook` | Build the static Storybook                       |
 | `npm run test:stories`    | Run portable Astro story tests                   |
 | `npm run test:storybook`  | Run browser story and accessibility tests        |
+| `make test`              | Run both Storybook test suites                   |
+| `make verify`            | Run the full local and CI compatibility checks   |
 
 The Storybook Astro compatibility result, constraints, and story conventions are documented in [docs/storybook-astro-spike.md](docs/storybook-astro-spike.md).
 

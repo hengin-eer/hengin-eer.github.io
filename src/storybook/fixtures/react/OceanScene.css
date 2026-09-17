@@ -1,5 +1,6 @@
 .ocean-scene {
   width: min(90vw, 720px);
+  max-width: 100%;
   aspect-ratio: 12 / 7;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--primary-blue) 55%, white);

@@ -9,14 +9,14 @@ export default {
     text: "Fish lover",
   },
   argTypes: {
-    icon: { control: "text" },
-    text: { control: "text" },
+    icon: { control: "text" as const },
+    text: { control: "text" as const },
   },
   parameters: {
     docs: {
       description: {
         component:
-          "Excluded from addon-vitest browser runs because astro-iconify 1.2.0 emits a runtime import for a type-only Props export. Covered by portable SSR tests instead.",
+          "Excluded from addon-vitest browser runs because astro-iconify 1.2.0 emits a runtime import for a type-only Props export. Covered by portable SSR and a static Chromium smoke check instead.",
       },
     },
   },

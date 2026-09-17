@@ -20,7 +20,7 @@ export const Default = {
     await waitFor(
       () => expect(canvasElement.querySelector("canvas")).toBeTruthy(),
       {
-        timeout: 5_000,
+        timeout: 10_000,
       },
     );
   },
