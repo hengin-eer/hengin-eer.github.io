@@ -1,7 +1,13 @@
 .SHELLFLAGS := -c
 SHELL := /bin/bash
 
-.PHONY: build test-stories test-storybook test build-storybook verify
+.PHONY: dev storybook build test-stories test-storybook test build-storybook verify
+
+dev:
+	npm run dev
+
+storybook:
+	npm run storybook
 
 build:
 	npm run build

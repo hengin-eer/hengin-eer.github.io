@@ -60,9 +60,11 @@ Storybook CI は Node.js 24 LTS を使用します。既存のデプロイ workf
 
 ## 日常の開発ループ
 
+`make dev` は Astro サイトのみ、`make storybook` は Storybook のみを起動します。通常は作業対象に合わせて片方を使い、コンポーネントとサイト全体を見比べるときだけ別々のターミナルで両方を起動します。
+
 1. Astro を基本に小さな component と named story を作る。
 2. client state、Canvas、p5 lifecycle が必要な部分だけ React island にする。
-3. `npm run storybook` で props、slot、viewport、a11y を調整する。
+3. `make storybook` で props、slot、viewport、a11y を調整する。
 4. `make test-stories` で Astro SSR の回帰を確認する。
 5. `make test-storybook` で React / island / interaction / a11y を Chromium で確認する。
 6. PR 更新前に `make verify` でサイト build、両テスト、Storybook build、除外した Astro Icon Story の Chromium smoke check を通す。
