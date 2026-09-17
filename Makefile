@@ -3,14 +3,14 @@ SHELL := /bin/bash
 
 .PHONY: dev storybook build test-stories test-storybook test build-storybook verify
 
+build:
+	npm run build
+
 dev:
 	npm run dev
 
 storybook:
 	npm run storybook
-
-build:
-	npm run build
 
 test-stories:
 	npm run test:stories
