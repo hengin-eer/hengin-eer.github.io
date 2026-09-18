@@ -1,0 +1,37 @@
+---
+const { id = "surface" } = Astro.props;
+---
+
+<section id={id} class="dive-section dive-hero" data-ocean-depth="0">
+  <div class="dive-section__inner dive-hero__inner">
+    <p class="dive-eyebrow">DIVE / 0m</p>
+    <div class="dive-hero__grid">
+      <div>
+        <p class="dive-handle">@timdaik</p>
+        <h1>Hiroki<br />Tomoda</h1>
+        <p class="dive-hero__lead">
+          キャッチボールとサカナとマークアップをこよなく愛する Hiroki Tomoda
+          です。
+        </p>
+        <div class="dive-actions">
+          <a class="dive-button dive-button--solid" href="#origins"
+            >潜りはじめる</a
+          >
+          <a class="dive-button dive-button--quiet" href="/works">Worksを見る</a
+          >
+        </div>
+      </div>
+      <figure class="dive-portrait">
+        <div class="dive-portrait__ring">
+          <img
+            src="/tim-bird.png"
+            alt="timdaik の鳥のアイコン"
+            width="240"
+            height="240"
+          />
+        </div>
+        <figcaption>Surface log — 0m</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

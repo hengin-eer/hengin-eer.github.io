@@ -1,12 +1,12 @@
-# Profile Page Spec
+# DIVE Page Spec
 
 Issue: [#55](https://github.com/hengin-eer/hengin-eer.github.io/issues/55)
 
 ## 目的
 
-`/profile` は、Hiroki Tomoda / `timdaik` の人となり、関心、制作への姿勢を簡潔に伝え、Works、Blog、GitHub、SNS への次の行動を用意する詳細プロフィールページである。
+`/dive` は、Hiroki Tomoda / `timdaik` の関心と制作の航路を、海へ潜る体験としてたどるストーリーページである。プロフィールの詳細版ではなく、作品や文章の背景にある「何に惹かれ、どうつくるか」を伝える。
 
-主な読者は採用担当者、知人・イベントで会った人、Works / Blog から訪れた人を想定する。トップページでは要約と導線だけを担い、詳細はこのページへ集約する。
+主な読者は採用担当者、知人・イベントで会った人、Works / Blog から訪れた人を想定する。短い自己紹介と SNS は `/profile` のデジタル名刺に集約し、そのページ下部の控えめな DIVE 導線から、このページへ進める。
 
 ## 採用デザイン: Ocean Descent
 
@@ -21,13 +21,13 @@ Issue: [#55](https://github.com/hengin-eer/hengin-eer.github.io/issues/55)
 
 ### 深度と情報
 
-| 深度             | セクション | 内容                                        |
-| ---------------- | ---------- | ------------------------------------------- |
-| 0m / Surface     | Hero       | 名前、ハンドル、短い自己紹介、Works導線     |
-| 10m / Shallow    | About      | 何を学び、何をつくるか                      |
-| 50m / Open water | Timeline   | 関心と制作の変遷                            |
-| 120m / Deep      | Values     | 制作姿勢を3つの短い文で表す                 |
-| 300m / Abyss     | Links      | GitHub / X / Instagram と Works / Blog 導線 |
+| 深度             | セクション  | 内容                                        |
+| ---------------- | ----------- | ------------------------------------------- |
+| 0m / Surface     | Opening     | 名前、ハンドル、短い導入、Works 導線        |
+| 10m / Shallow    | Origins     | 何を学び、何をつくるか                      |
+| 50m / Open water | Route       | 関心と制作の変遷                            |
+| 120m / Deep      | Principles  | 制作姿勢を3つの短い文で表す                 |
+| 300m / Abyss     | Connections | GitHub / X / Instagram と Works / Blog 導線 |
 
 ### カラートークン
 
@@ -45,12 +45,12 @@ Issue: [#55](https://github.com/hengin-eer/hengin-eer.github.io/issues/55)
 
 コンテンツとレイアウトは Astro、状態と描画は必要な箇所だけ React island とする。
 
-- `src/pages/profile/index.astro`: ページ構成とメタデータ
-- `src/components/profile/*.astro`: Hero / About / Timeline / Values / Links
-- `src/components/profile/OceanExperience.tsx`: スクロール量から深度を計算し、メーターを更新
-- `src/components/profile/OceanBackdrop.tsx`: p5 を dynamic import して、波と粒子を描画
-- `src/data/profile.ts`: 公開情報と深度定義
-- `src/styles/profile-ocean.css`: 深度に応じた静的 CSS fallback
+- `src/pages/dive/index.astro`: ページ構成とメタデータ
+- `src/components/dive/*.astro`: Opening / Origins / Route / Principles / Connections
+- `src/components/dive/DiveExperience.tsx`: スクロール量から深度を計算し、メーターを更新
+- `src/components/dive/DiveBackdrop.tsx`: p5 を dynamic import して、波と粒子を描画
+- `src/data/dive.ts`: 公開情報と深度定義
+- `src/styles/dive-ocean.css`: 深度に応じた静的 CSS fallback
 
 p5 は最初の HTML をブロックせず、React island の mount 後に読み込む。p5 2.3.x の package entry が Vite で CJS 依存を解決できないため、`astro.config.mjs` の Vite plugin で libtess 内包済み ESM build を解決する。Canvas が使えない場合でも CSS の背景と全コンテンツが読めることを要件とする。
 
@@ -58,21 +58,21 @@ p5 は最初の HTML をブロックせず、React island の mount 後に読み
 
 ## Storybook 運用
 
-`storybook-astro` で Astro セクションを named story として確認し、Canvas は React story で確認する。
+`storybook-astro` で Astro セクションを named story として確認し、Canvas は React story で確認する。短い `/profile` の名刺コンポーネントも `Profile/ProfileCard` として独立して確認する。
 
 1. Astro コンポーネントを小さく更新する
 2. `make storybook` で余白、配色、a11y、viewport を確認する
 3. `make test-stories` と `make test-storybook` を実行する
 4. PR 前に `make verify` を実行する
 
-初回実装の Story は `Profile/*` に置く。Canvas は shallow / abyss の named story を持ち、canvas生成を browser test で確認する。
+初回実装の Story は `Dive/*` に置く。Canvas は shallow / abyss の named story を持ち、canvas生成を browser test で確認する。
 
 ## コンテンツポリシー
 
 初回公開では確認済みの公開情報だけを使う。プロフィール本文・経歴・外部リンクの最終文言は公開前レビューで確定する。
 
 - 公開済み: Hiroki Tomoda / `timdaik`、GitHub、X、Instagram、Works、Blog
-- 現在の Timeline は年号を置かず、関心の流れとして表現する
+- 現在の Route は年号を置かず、関心の流れとして表現する
 - 未確定: 詳細な職歴・学歴・年号、技術サービスの追加リンク、連絡先、装飾用の生物・海底アセット
 
 ## 受け入れ基準
@@ -82,4 +82,5 @@ p5 は最初の HTML をブロックせず、React island の mount 後に読み
 - モバイルに横スクロールがなく、深度メーターを省略しても各章が分かる
 - `prefers-reduced-motion` で描画を停止できる
 - Works、Blog、GitHub、SNS の導線がある
+- Header から `/profile` に到達でき、`/profile` 下部のアイコン導線から `/dive` に到達できる
 - `make verify` が成功する

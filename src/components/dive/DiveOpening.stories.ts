@@ -1,9 +1,9 @@
-import ProfileHero from "./ProfileHero.astro";
-import "../../styles/profile-ocean.css";
+import DiveOpening from "./DiveOpening.astro";
+import "../../styles/dive-ocean.css";
 
 export default {
-  title: "Profile/ProfileHero",
-  component: ProfileHero,
+  title: "Dive/DiveOpening",
+  component: DiveOpening,
   parameters: {
     layout: "fullscreen",
     backgrounds: { default: "shallow" },

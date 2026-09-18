@@ -1,10 +1,10 @@
 import { expect, waitFor, within } from "storybook/test";
-import OceanBackdrop from "./OceanBackdrop";
-import "./OceanExperience.css";
+import DiveBackdrop from "./DiveBackdrop";
+import "./DiveExperience.css";
 
 export default {
-  title: "Profile/OceanBackdrop",
-  component: OceanBackdrop,
+  title: "Dive/DiveBackdrop",
+  component: DiveBackdrop,
   parameters: {
     renderer: "react",
     layout: "fullscreen",

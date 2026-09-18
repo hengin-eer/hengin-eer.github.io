@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import type p5 from "p5";
 import { loadP5 } from "../../lib/loadP5";
 
-export interface OceanBackdropProps {
+export interface DiveBackdropProps {
   depth?: number;
   motion?: boolean;
   quality?: "low" | "high";
@@ -11,11 +11,11 @@ export interface OceanBackdropProps {
 const clamp = (value: number, minimum: number, maximum: number) =>
   Math.min(Math.max(value, minimum), maximum);
 
-export default function OceanBackdrop({
+export default function DiveBackdrop({
   depth = 0,
   motion = true,
   quality = "low",
-}: OceanBackdropProps) {
+}: DiveBackdropProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const instanceRef = useRef<p5 | null>(null);
   const propsRef = useRef({ depth, motion, quality });
@@ -140,5 +140,5 @@ export default function OceanBackdrop({
     };
   }, []);
 
-  return <div ref={hostRef} className="ocean-backdrop" aria-hidden="true" />;
+  return <div ref={hostRef} className="dive-backdrop" aria-hidden="true" />;
 }

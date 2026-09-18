@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { profileDepthStops } from "../../data/profile";
-import OceanBackdrop from "./OceanBackdrop";
-import "./OceanExperience.css";
+import { diveDepthStops } from "../../data/dive";
+import DiveBackdrop from "./DiveBackdrop";
+import "./DiveExperience.css";
 
 const clamp = (value: number, minimum: number, maximum: number) =>
   Math.min(Math.max(value, minimum), maximum);
 
 const getActiveStop = (progress: number) =>
-  [...profileDepthStops].reverse().find((stop) => progress >= stop.progress) ??
-  profileDepthStops[0];
+  [...diveDepthStops].reverse().find((stop) => progress >= stop.progress) ??
+  diveDepthStops[0];
 
-export default function OceanExperience() {
+export default function DiveExperience() {
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
 
@@ -45,8 +45,8 @@ export default function OceanExperience() {
   const activeStop = getActiveStop(progress);
 
   return (
-    <div className="ocean-experience">
-      <OceanBackdrop depth={progress} motion={!reducedMotion} quality="low" />
+    <div className="dive-experience">
+      <DiveBackdrop depth={progress} motion={!reducedMotion} quality="low" />
       <aside className="depth-meter" aria-label="潜水深度">
         <p className="depth-meter__reading" aria-live="polite">
           <span>{activeStop.depth}</span>
@@ -54,7 +54,7 @@ export default function OceanExperience() {
         </p>
         <nav>
           <ol className="depth-meter__track">
-            {profileDepthStops.map((stop) => (
+            {diveDepthStops.map((stop) => (
               <li
                 key={stop.id}
                 className={progress >= stop.progress ? "is-passed" : ""}

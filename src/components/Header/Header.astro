@@ -1,13 +1,22 @@
 ---
 import { SITE_TITLE } from "src/constant/SITE";
 import SNSNavButton from "../button/SNSNavButton.astro";
+
+const isProfilePage = Astro.url.pathname === "/profile/";
 ---
 
 <header class="h-[80px] w-full px-5 md:px-14 flex items-center justify-between">
   <h1 class="text-3xl text-primary-blue font-averia">
     <a href="/">{SITE_TITLE}</a>
   </h1>
-  <nav>
+  <nav class="flex items-center gap-3 sm:gap-5" aria-label="主要ナビゲーション">
+    <a
+      href="/profile"
+      class="header-profile-link font-comfortaa text-sm text-primary-blue hover:underline underline-offset-4"
+      aria-current={isProfilePage ? "page" : undefined}
+    >
+      Profile
+    </a>
     <SNSNavButton />
   </nav>
 </header>

@@ -1,0 +1,40 @@
+---
+import { profileCard, profileLinks } from "../../data/profile";
+---
+
+<section class="profile-card" aria-labelledby="profile-card-title">
+  <div class="profile-card__inner">
+    <p class="profile-card__eyebrow">DIGITAL CARD</p>
+    <img
+      class="profile-card__portrait"
+      src="/tim-bird.png"
+      alt="timdaik の鳥のアイコン"
+      width="200"
+      height="200"
+    />
+    <h1 id="profile-card-title">{profileCard.name}</h1>
+    <p class="profile-card__handle">{profileCard.handle}</p>
+    <p class="profile-card__description">{profileCard.description}</p>
+    <ul class="profile-card__links" aria-label="SNSリンク">
+      {
+        profileLinks.map((link) => (
+          <li>
+            <a href={link.href} target="_blank" rel="noreferrer">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      class="profile-card__dive-link"
+      href="/dive"
+      aria-label="DIVE — ストーリーを読む"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 4v13m0 0 5-5m-5 5-5-5"></path>
+      </svg>
+      <span>DIVE</span>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+---
+import { diveMilestones } from "../../data/dive";
+
+const { id = "route" } = Astro.props;
+---
+
+<section id={id} class="dive-section dive-route" data-ocean-depth="0.48">
+  <div class="dive-section__inner">
+    <div class="dive-section__heading">
+      <p class="dive-eyebrow">OPEN WATER / 50m</p>
+      <h2>潜ってきた<br />航路。</h2>
+    </div>
+    <ol class="dive-route__list">
+      {
+        diveMilestones.map((item, index) => (
+          <li class="dive-route__item">
+            <div class="dive-route__marker" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </div>
+            <div>
+              <p class="dive-route__stage">{item.stage}</p>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
