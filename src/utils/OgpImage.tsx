@@ -6,152 +6,151 @@ import satori from "satori";
 import { SITE_TITLE } from "src/constant/SITE";
 
 async function GenerateOgpImage(children: ReactNode) {
-	const svg = await satori(children, {
-		width: 1200,
-		height: 630,
-		fonts: [
-			{
-				name: "Averia Serif Libre",
-				data: await fetch(
-					"https://cdn.jsdelivr.net/fontsource/fonts/averia-serif-libre@latest/latin-400-normal.ttf",
-				).then((res) => res.arrayBuffer()),
-				weight: 400,
-				style: "normal",
-			},
-			{
-				name: "Zen Kaku Gothic New",
-				data: await fetch(
-					"https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-400-normal.ttf",
-				).then((res) => res.arrayBuffer()),
-				weight: 400,
-				style: "normal",
-			},
-			{
-				name: "Zen Kaku Gothic New",
-				data: await fetch(
-					"https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-900-normal.ttf",
-				).then((res) => res.arrayBuffer()),
-				weight: 900,
-				style: "normal",
-			},
-		],
-		// debug: true,
-	});
+  const svg = await satori(children, {
+    width: 1200,
+    height: 630,
+    fonts: [
+      {
+        name: "Averia Serif Libre",
+        data: await fetch(
+          "https://cdn.jsdelivr.net/fontsource/fonts/averia-serif-libre@latest/latin-400-normal.ttf",
+        ).then((res) => res.arrayBuffer()),
+        weight: 400,
+        style: "normal",
+      },
+      {
+        name: "Zen Kaku Gothic New",
+        data: await fetch(
+          "https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-400-normal.ttf",
+        ).then((res) => res.arrayBuffer()),
+        weight: 400,
+        style: "normal",
+      },
+      {
+        name: "Zen Kaku Gothic New",
+        data: await fetch(
+          "https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-900-normal.ttf",
+        ).then((res) => res.arrayBuffer()),
+        weight: 900,
+        style: "normal",
+      },
+    ],
+    // debug: true,
+  });
 
-	const resvg = new Resvg(svg, {
-		fitTo: {
-			mode: "width",
-			value: 1200,
-		},
-	});
+  const resvg = new Resvg(svg, {
+    fitTo: {
+      mode: "width",
+      value: 1200,
+    },
+  });
 
-	const pngData = resvg.render().asPng();
+  const pngData = resvg.render().asPng();
 
-	return pngData;
+  return pngData;
 }
 
 function readImageAsDataURL(imagePath: string): string {
-	const image_base64 = readFileSync(new URL(imagePath, import.meta.url), {
-		encoding: "base64",
-	});
-	return `data:image/png;base64,${image_base64}`;
+  const imageBase64 = readFileSync(new URL(imagePath, import.meta.url), {
+    encoding: "base64",
+  });
+  return `data:image/png;base64,${imageBase64}`;
 }
 
 // TODO: 不完全なスタイルかつ、プロパティの整合性が取れていないので見直す
 export function generateBlogOgpImage(blog: CollectionEntry<"blogs">) {
-	const { cover, title, tags, updatedAt } = blog.data;
-	const year = updatedAt.getFullYear();
-	const month = String(updatedAt.getMonth() + 1).padStart(2, "0");
-	const day = String(updatedAt.getDate() + 1).padStart(2, "0");
-	const formattedDate = `${year}/${month}/${day}`;
+  const { title, tags, updatedAt } = blog.data;
+  const year = updatedAt.getFullYear();
+  const month = String(updatedAt.getMonth() + 1).padStart(2, "0");
+  const day = String(updatedAt.getDate() + 1).padStart(2, "0");
+  const formattedDate = `${year}/${month}/${day}`;
 
-	return GenerateOgpImage(
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				fontFamily: "Zen Kaku Gothic New",
-			}}
-		>
-			{/* <img src={readImageAsDataURL(cover.src)} alt={title} /> */}
-			<h1>{title}</h1>
-			<p>{formattedDate}</p>
-			<div style={{ display: "flex", gap: 8 }}>
-				{tags.map((t) => (
-					<p>{t}</p>
-				))}
-			</div>
-		</div>,
-	);
+  return GenerateOgpImage(
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        fontFamily: "Zen Kaku Gothic New",
+      }}
+    >
+      <h1>{title}</h1>
+      <p>{formattedDate}</p>
+      <div style={{ display: "flex", gap: 8 }}>
+        {tags.map((t) => (
+          <p key={t}>{t}</p>
+        ))}
+      </div>
+    </div>,
+  );
 }
 
 export function generateDefaultOgpImage() {
-	return GenerateOgpImage(
-		<div
-			style={{
-				padding: "60px 100px",
-				width: "1200px",
-				height: "630px",
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "space-between",
-				backgroundColor: "white",
-				// backgroundImage: "linear-gradient(to right, #13aed0, white)",
-				backgroundImage: "linear-gradient(to right, white 50%, #13aed0)",
-				color: "#1a2550",
-			}}
-		>
-			<div
-				style={{
-					marginTop: 120,
-					display: "flex",
-					flexDirection: "column",
-					gap: 64,
-					fontFamily: "Averia Serif Libre",
-				}}
-			>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						gap: 12,
-					}}
-				>
-					<span
-						style={{
-							fontSize: 88,
-							color: "#13aed0",
-						}}
-					>
-						{SITE_TITLE};
-					</span>
-					<span
-						style={{
-							fontSize: 64,
-						}}
-					>
-						my mode, action
-					</span>
-				</div>
+  return GenerateOgpImage(
+    <div
+      style={{
+        padding: "60px 100px",
+        width: "1200px",
+        height: "630px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor: "white",
+        // backgroundImage: "linear-gradient(to right, #13aed0, white)",
+        backgroundImage: "linear-gradient(to right, white 50%, #13aed0)",
+        color: "#1a2550",
+      }}
+    >
+      <div
+        style={{
+          marginTop: 120,
+          display: "flex",
+          flexDirection: "column",
+          gap: 64,
+          fontFamily: "Averia Serif Libre",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 88,
+              color: "#13aed0",
+            }}
+          >
+            {SITE_TITLE};
+          </span>
+          <span
+            style={{
+              fontSize: 64,
+            }}
+          >
+            my mode, action
+          </span>
+        </div>
 
-				<p
-					style={{
-						color: "#00b86b",
-						fontSize: 40,
-					}}
-				>
-					&copy; hiro-to.moda
-				</p>
-			</div>
-			<img
-				style={{
-					height: 360,
-					width: 360,
-					borderRadius: "50%",
-				}}
-				src={readImageAsDataURL("../../public/favicon.png")}
-				alt="Avatar"
-			/>
-		</div>,
-	);
+        <p
+          style={{
+            color: "#00b86b",
+            fontSize: 40,
+          }}
+        >
+          &copy; hiro-to.moda
+        </p>
+      </div>
+      <img
+        style={{
+          height: 360,
+          width: 360,
+          borderRadius: "50%",
+        }}
+        src={readImageAsDataURL("../../public/favicon.png")}
+        alt="Avatar"
+      />
+    </div>,
+  );
 }
