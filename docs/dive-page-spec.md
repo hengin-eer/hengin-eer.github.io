@@ -12,7 +12,7 @@ Issue: [#55](https://github.com/hengin-eer/hengin-eer.github.io/issues/55)
 
 通常の縦スクロールを「海へ潜る」体験として使う。上部は `primary-green` と `primary-blue` を使った浅瀬、下部ほど藍色から深海色へ移行する。
 
-- 写実的な背景画像には依存せず、CSS と Canvas の抽象表現で成立させる
+- 写実的な背景画像には依存せず、CSS の深度別グラデーションと Canvas の控えめな気泡・水流で成立させる
 - 情報量より余白、細い線、低密度の泡・水面表現を優先する
 - 右側の固定深度メーターは PC のみで表示し、アンカー移動もできる
 - モバイルはセクションラベルだけを残し、メーターを表示しない
@@ -48,11 +48,11 @@ Issue: [#55](https://github.com/hengin-eer/hengin-eer.github.io/issues/55)
 - `src/pages/dive/index.astro`: ページ構成とメタデータ
 - `src/components/dive/*.astro`: Opening / Origins / Route / Principles / Connections
 - `src/components/dive/DiveExperience.tsx`: スクロール量から深度を計算し、メーターを更新
-- `src/components/dive/DiveBackdrop.tsx`: p5 を dynamic import して、波と粒子を描画
+- `src/components/dive/DiveBackdrop.tsx`: p5 を dynamic import して、DIVE 本文内に気泡と水流だけを描画
 - `src/data/dive.ts`: 公開情報と深度定義
 - 各 Astro コンポーネントの scoped style: セクション固有の配色と静的 CSS fallback
 
-p5 は最初の HTML をブロックせず、React island の mount 後に読み込む。p5 2.3.x の package entry が Vite で CJS 依存を解決できないため、`astro.config.mjs` の Vite plugin で libtess 内包済み ESM build を解決する。Canvas が使えない場合でも CSS の背景と全コンテンツが読めることを要件とする。
+p5 は最初の HTML をブロックせず、React island の mount 後に読み込む。Canvas と深度メーターは DIVE 本文の表示中だけ有効にし、Header と Footer には重ならない。p5 2.3.x の package entry が Vite で CJS 依存を解決できないため、`astro.config.mjs` の Vite plugin で libtess 内包済み ESM build を解決する。Canvas が使えない場合でも CSS の背景と全コンテンツが読めることを要件とする。
 
 `prefers-reduced-motion: reduce` では p5 の loop を止め、CSS transition と smooth scroll を無効化する。
 

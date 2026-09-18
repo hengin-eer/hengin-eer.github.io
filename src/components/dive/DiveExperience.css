@@ -1,13 +1,21 @@
 .dive-experience {
-  position: fixed;
-  inset: 0;
+  position: sticky;
+  top: 0;
+  height: 0;
   z-index: 0;
   pointer-events: none;
 }
 
+.dive-experience.is-hidden {
+  visibility: hidden;
+}
+
 .dive-backdrop {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
 }
 
 .dive-backdrop canvas {
@@ -17,8 +25,8 @@
 }
 
 .depth-meter {
-  position: fixed;
-  top: 50%;
+  position: absolute;
+  top: 50svh;
   right: clamp(1rem, 3vw, 3rem);
   z-index: 2;
   display: grid;

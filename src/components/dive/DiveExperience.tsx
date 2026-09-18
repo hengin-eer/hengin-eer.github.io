@@ -13,6 +13,7 @@ const getActiveStop = (progress: number) =>
 export default function DiveExperience() {
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [isStoryVisible, setIsStoryVisible] = useState(true);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -23,9 +24,17 @@ export default function DiveExperience() {
     let frame = 0;
     const updateDepth = () => {
       frame = 0;
-      const maximum =
-        document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(maximum > 0 ? clamp(window.scrollY / maximum, 0, 1) : 0);
+      const story = document.querySelector<HTMLElement>(".dive-story-page");
+      if (!story) return;
+
+      const storyTop = story.offsetTop;
+      const maximum = story.offsetHeight - window.innerHeight;
+      const storyBottom = storyTop + story.offsetHeight - window.scrollY;
+
+      setProgress(
+        maximum > 0 ? clamp((window.scrollY - storyTop) / maximum, 0, 1) : 0,
+      );
+      setIsStoryVisible(storyBottom > window.innerHeight);
     };
     const requestUpdate = () => {
       if (!frame) frame = window.requestAnimationFrame(updateDepth);
@@ -45,8 +54,16 @@ export default function DiveExperience() {
   const activeStop = getActiveStop(progress);
 
   return (
-    <div className="dive-experience">
-      <DiveBackdrop depth={progress} motion={!reducedMotion} quality="low" />
+    <div
+      className={
+        isStoryVisible ? "dive-experience" : "dive-experience is-hidden"
+      }
+    >
+      <DiveBackdrop
+        depth={progress}
+        motion={isStoryVisible && !reducedMotion}
+        quality="low"
+      />
       <aside className="depth-meter" aria-label="潜水深度">
         <p className="depth-meter__reading" aria-live="polite">
           <span>{activeStop.depth}</span>

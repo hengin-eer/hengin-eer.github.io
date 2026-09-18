@@ -12,8 +12,8 @@ import DivePrinciples from "../../components/dive/DivePrinciples.astro";
   title="DIVE"
   description="Hiroki Tomoda / timdaik の関心と制作の航路を、海へ潜るようにたどるストーリー。"
 >
-  <DiveExperience client:load />
   <main class="dive-story-page">
+    <DiveExperience client:load />
     <DiveOpening />
     <DiveOrigins />
     <DiveRoute />
@@ -31,6 +31,14 @@ import DivePrinciples from "../../components/dive/DivePrinciples.astro";
     position: relative;
     z-index: 1;
     overflow: clip;
+    background: linear-gradient(
+      180deg,
+      #0b8e84 0%,
+      #126c94 26%,
+      #0b477f 52%,
+      #113270 76%,
+      #071d48 100%
+    );
     color: #f7fbff;
   }
 

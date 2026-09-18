@@ -60,70 +60,44 @@ export default function DiveBackdrop({
         canvas.draw = () => {
           const state = propsRef.current;
           const normalizedDepth = clamp(state.depth, 0, 1);
-          const surface = canvas.color("#18ef95");
-          const blue = canvas.color("#13aed0");
-          const indigo = canvas.color("#123a75");
-          const abyss = canvas.color("#06142f");
+          const elapsed = canvas.millis() / 1000;
+          const visibility = 1 - normalizedDepth * 0.6;
+          const currentCount = normalizedDepth < 0.48 ? 2 : 1;
 
-          for (let y = 0; y < canvas.height; y += 3) {
-            const verticalProgress = y / canvas.height;
-            const localDepth = clamp(
-              normalizedDepth * 0.78 + verticalProgress * 0.34,
-              0,
-              1,
-            );
-            const color =
-              localDepth < 0.36
-                ? canvas.lerpColor(surface, blue, localDepth / 0.36)
-                : localDepth < 0.72
-                  ? canvas.lerpColor(blue, indigo, (localDepth - 0.36) / 0.36)
-                  : canvas.lerpColor(indigo, abyss, (localDepth - 0.72) / 0.28);
-            canvas.stroke(color);
-            canvas.line(0, y, canvas.width, y);
-          }
-
-          const waves = normalizedDepth < 0.42 ? 3 : 1;
+          canvas.clear();
           canvas.noFill();
-          canvas.stroke(255, 255, 255, normalizedDepth < 0.42 ? 42 : 16);
-          canvas.strokeWeight(1.5);
-          for (let line = 0; line < waves; line += 1) {
-            canvas.beginShape();
-            for (let x = -20; x <= canvas.width + 20; x += 18) {
-              const phase =
-                x * 0.012 +
-                line * 1.8 +
-                canvas.frameCount * (state.motion ? 0.012 : 0);
-              canvas.vertex(
-                x,
-                52 + line * 28 + Math.sin(phase) * (8 - normalizedDepth * 4),
-              );
-            }
-            canvas.endShape();
-          }
-
-          const particleCount = state.quality === "high" ? 74 : 38;
-          canvas.noStroke();
-          canvas.fill(255, 255, 255, normalizedDepth < 0.56 ? 64 : 28);
-          for (let index = 0; index < particleCount; index += 1) {
-            const x =
-              (index * 83 + canvas.frameCount * (state.motion ? 0.18 : 0)) %
-              canvas.width;
+          canvas.strokeWeight(0.75);
+          for (let index = 0; index < currentCount; index += 1) {
+            const phase = elapsed * 0.18 + index * 1.9;
             const y =
-              (index * 47 +
-                Math.sin(index + canvas.frameCount * 0.01) * 24 +
-                canvas.height) %
-              canvas.height;
-            canvas.circle(x, y, 1 + (index % 3));
+              canvas.height * (0.28 + index * 0.35) + Math.sin(phase) * 18;
+            const x = canvas.width * (0.22 + index * 0.46);
+            canvas.stroke(203, 246, 255, 16 * visibility);
+            canvas.bezier(
+              x - canvas.width * 0.13,
+              y + 42,
+              x - canvas.width * 0.04,
+              y - 28 + Math.sin(phase) * 12,
+              x + canvas.width * 0.1,
+              y + 24 - Math.cos(phase) * 16,
+              x + canvas.width * 0.2,
+              y - 18,
+            );
           }
 
-          if (normalizedDepth > 0.78) {
-            canvas.fill(2, 12, 30, 128);
-            canvas.rect(
-              0,
-              canvas.height * 0.76,
-              canvas.width,
-              canvas.height * 0.24,
-            );
+          const bubbleCount = state.quality === "high" ? 28 : 16;
+          for (let index = 0; index < bubbleCount; index += 1) {
+            const radius = 1.4 + (index % 4) * 0.8;
+            const travel =
+              (elapsed * (10 + (index % 5) * 3) + index * 97) %
+              (canvas.height + radius * 4);
+            const y = canvas.height + radius * 2 - travel;
+            const x =
+              ((index * 137) % canvas.width) +
+              Math.sin(elapsed * 0.42 + index * 2.1) * 14;
+            canvas.stroke(225, 255, 250, (36 + (index % 3) * 9) * visibility);
+            canvas.strokeWeight(0.8);
+            canvas.circle(x, y, radius * 2);
           }
 
           if (!state.motion) canvas.noLoop();
