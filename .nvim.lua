@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
     local executable = root .. "/node_modules/.bin/" .. formatter
     local config = root
-      .. (formatter == "prettier" and "/.prettierrc.ts" or "/.oxfmtrc.json")
+      .. (formatter == "prettier" and "/.prettierrc.mjs" or "/.oxfmtrc.json")
     if vim.fn.executable(executable) ~= 1 then
       vim.notify(
         "Run npm ci before using this repository formatter",

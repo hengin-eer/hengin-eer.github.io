@@ -1,6 +1,4 @@
-import type { Config } from "prettier";
-
-const config: Config = {
+const config = {
   endOfLine: "lf",
   plugins: ["prettier-plugin-astro"],
   printWidth: 80,
