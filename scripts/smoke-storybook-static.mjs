@@ -43,6 +43,13 @@ try {
     throw new Error("Hero image failed to load in the static Storybook");
   }
 
+  await page.goto(
+    `${base}/iframe.html?id=profile-profilecard--digital-card&viewMode=story`,
+  );
+  await page.getByRole("heading", { name: "Hiroki Tomoda" }).waitFor();
+  await page.getByRole("link", { name: "DIVE — ストーリーを読む" }).waitFor();
+  await page.locator("svg").first().waitFor();
+
   if (errors.length)
     throw new Error(`Storybook page errors: ${errors.join("; ")}`);
   console.log(
