@@ -1,65 +1,48 @@
-# Astro Starter Kit: Basics
+# hengin-eer.github.io
+
+Astro で構築した個人サイトです。依存関係のインストールには npm を使い、開発・品質確認・検証の入口は Make に統一しています。
+
+## Setup
 
 ```sh
-npm create astro@latest -- --template basics
+npm ci
+npx playwright install chromium
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Chromium は browser Storybook test と `make verify` に必要です。
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+| Command | Action |
+| :-- | :-- |
+| `make dev` | Astro 開発サーバーを `localhost:4321` で起動する |
+| `make storybook` | Storybook を `localhost:6006` で起動する |
+| `make build` | Astro の production build を作成する |
+| `make test-stories` | Astro portable Story tests を実行する |
+| `make test-storybook` | Chromium の Storybook/a11y tests を実行する |
+| `make format` | 対象コードを整形する |
+| `make check-format` | 整形差分を検出する |
+| `make lint` | Oxlint を実行する |
+| `make check-astro` | `astro check` を実行する |
+| `make quality` | format check、lint、Astro diagnostics を実行する |
+| `make verify` | quality と全 build/test/smoke check を実行する |
 
-## 🚀 Project Structure
+`make dev` と `make storybook` は独立したサーバーです。比較が必要な場合だけ別々の terminal で起動してください。
 
-Inside of your Astro project, you'll see the following folders and files:
+## Formatting and linting
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+Oxfmt は TypeScript、TSX、JavaScript、CSS、JSON、YAML、設定ファイルを整形し、Prettier と `prettier-plugin-astro` は `.astro` を整形します。Markdown、生成物、lockfile、コンテンツ用サブモジュールは整形対象外です。
+
+Oxlint は JavaScript/TypeScript と `.astro` の `<script>` 部分を検査します。Astro template 自体の lint は行わず、型・構文診断は `make check-astro` に委ねます。
+
+## Neovim
+
+Neovim 0.10+ では、project-local config を有効化してこのリポジトリを trust すると、対象ファイルを保存するたびに整形されます。
+
+```vim
+set exrc
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+初回は Neovim の trust prompt で `.nvim.lua` を確認・承認してください。設定は `npm ci` 後の `node_modules/.bin/oxfmt` と `prettier` を使い、`.astro` は Prettier、それ以外の対象拡張子は Oxfmt へ渡します。
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-| `npm run storybook`       | Start Storybook at `localhost:6006`              |
-| `npm run build-storybook` | Build the static Storybook                       |
-| `npm run test:stories`    | Run portable Astro story tests                   |
-| `npm run test:storybook`  | Run browser story and accessibility tests        |
-| `make dev`              | Start only the Astro site at `localhost:4321`     |
-| `make storybook`        | Start only Storybook at `localhost:6006`          |
-| `make test`              | Run both Storybook test suites                   |
-| `make verify`            | Run the full local and CI compatibility checks   |
-
-The Storybook Astro compatibility result, constraints, and story conventions are documented in [docs/storybook-astro-spike.md](docs/storybook-astro-spike.md).
-The two development servers are independent; run both in separate terminals only when comparing a component with the integrated site.
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Storybook の制約と Story の規約は [docs/storybook-astro-spike.md](docs/storybook-astro-spike.md) に記載しています。

@@ -67,7 +67,7 @@ Storybook CI は Node.js 24 LTS を使用します。既存のデプロイ workf
 3. `make storybook` で props、slot、viewport、a11y を調整する。
 4. `make test-stories` で Astro SSR の回帰を確認する。
 5. `make test-storybook` で React / island / interaction / a11y を Chromium で確認する。
-6. PR 更新前に `make verify` でサイト build、両テスト、Storybook build、除外した Astro Icon Story の Chromium smoke check を通す。
+6. PR 更新前に `make verify` で format/lint/Astro 診断、サイト build、両テスト、Storybook build、除外した Astro Icon Story の Chromium smoke check を通す。
 
 `make test` は 2 テストを順番に実行します。一度は並列実行が通りましたが、再実行時に Canvas の 5 秒待ちが負荷競合でタイムアウトしたため、CI の標準経路には採用していません。局所的な修正中は個別 target を使えますが、CI は `make verify` で両方を実行し、部分テストのみで成功とは扱いません。Storybook build は既知の「内部 `UnhandledRejection` を出しても終了コード 0」問題に備え、Makefile でログも検査します。`astro-iconify` のため addon-vitest から除外した Story は、build 後に Chromium で表示と画像読み込みを検査します。色コントラストなどの a11y 判定まで補完するものではありません。
 

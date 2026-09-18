@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "astro": true,
+    "browser": true,
+    "es2024": true,
+    "node": true
+  },
+  "plugins": ["import", "react", "vitest"],
+  "ignorePatterns": [
+    ".astro/**",
+    "dist/**",
+    "storybook-static/**",
+    "test-results/**",
+    "playwright-report/**",
+    "node_modules/**",
+    "src/blogs/**",
+    "src/works/**"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.{js,jsx,ts,tsx}",
+        "**/*.portable.test.{js,jsx,ts,tsx}",
+        "**/*.stories.{js,jsx,ts,tsx}"
+      ],
+      "env": {
+        "vitest": true
+      }
+    }
+  ]
+}
