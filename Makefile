@@ -1,7 +1,7 @@
 .SHELLFLAGS := -c
 SHELL := /bin/bash
 
-.PHONY: dev storybook build test-stories test-storybook test build-storybook verify
+.PHONY: dev storybook build test-stories test-storybook test build-storybook format check-format lint check-astro quality verify
 
 build:
 	npm run build
@@ -30,7 +30,22 @@ build-storybook:
 	  exit 1; \
 	fi
 
+format:
+	npm run format
+
+check-format:
+	npm run format:check
+
+lint:
+	npm run lint
+
+check-astro:
+	npm run check:astro
+
+quality: check-format lint check-astro
+
 verify:
+	$(MAKE) quality
 	$(MAKE) build
 	$(MAKE) test
 	$(MAKE) build-storybook

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { Meta } from "@storybook/react-vite";
 import { expect, spyOn, userEvent, waitFor, within } from "storybook/test";
 import OceanScene from "./OceanScene";
 import "./OceanScene.css";
@@ -20,7 +21,7 @@ export default {
     motion: { control: "boolean" },
     particleCount: { control: { type: "range", min: 0, max: 120, step: 4 } },
   },
-};
+} satisfies Meta<typeof OceanScene>;
 
 export const Shallow = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
@@ -56,7 +57,9 @@ function LifecycleHarness() {
       <button onClick={() => setWidth(520)}>Resize</button>
       <button onClick={() => setMounted(false)}>Unmount</button>
       <div style={{ width }}>
-        {mounted && <OceanScene depth={depth} motion={false} particleCount={18} />}
+        {mounted && (
+          <OceanScene depth={depth} motion={false} particleCount={18} />
+        )}
       </div>
     </section>
   );
@@ -75,7 +78,8 @@ export const Lifecycle = {
       { timeout: 10_000 },
     );
     const context = bitmap.getContext("2d");
-    const pixel = () => Array.from(context!.getImageData(1, 0, 1, 1).data).join(",");
+    const pixel = () =>
+      Array.from(context!.getImageData(1, 0, 1, 1).data).join(",");
     await waitFor(() => expect(pixel()).not.toBe("0,0,0,0"));
     const shallowPixel = pixel();
     const shallowWidth = bitmap.width;

@@ -1,0 +1,8 @@
+.astro/
+dist/
+node_modules/
+playwright-report/
+src/blogs/
+src/works/
+storybook-static/
+test-results/

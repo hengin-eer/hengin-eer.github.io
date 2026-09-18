@@ -2,16 +2,16 @@
 import Link from "./Link.astro";
 
 interface Props {
-	href: string;
-	className?: string;
+  href: string;
+  className?: string;
 }
 
 const { href, className } = Astro.props;
 ---
 
 <Link
-	href={href}
-	className={`${className} underline decoration-primary-dark-green text-primary-dark-green`}
+  href={href}
+  className={`${className} underline decoration-primary-dark-green text-primary-dark-green`}
 >
-	<slot />
+  <slot />
 </Link>

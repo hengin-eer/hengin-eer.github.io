@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   # このワークフローをGitHubのActionsタブから手動で実行できるようにします。
   workflow_dispatch:
 
@@ -26,9 +26,9 @@ jobs:
         #   CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
         #   CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.CONTENTFUL_DELIVERY_TOKEN }}
         # with:
-          # path: . # リポジトリ内のAstroプロジェクトのルートロケーション。（オプション）
-          # node-version: 20 # サイト構築に使用するNodeのバージョン。デフォルトは20です。（オプション）
-          # package-manager: pnpm@latest # 依存関係のインストールとサイトのビルドに使用するNodeパッケージマネージャ。ロックファイルに基づいて自動的に検出されます。（オプション）
+        # path: . # リポジトリ内のAstroプロジェクトのルートロケーション。（オプション）
+        # node-version: 20 # サイト構築に使用するNodeのバージョン。デフォルトは20です。（オプション）
+        # package-manager: pnpm@latest # 依存関係のインストールとサイトのビルドに使用するNodeパッケージマネージャ。ロックファイルに基づいて自動的に検出されます。（オプション）
 
   deploy:
     needs: build
