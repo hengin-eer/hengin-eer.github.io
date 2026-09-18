@@ -23,3 +23,102 @@ const { id = "principles" } = Astro.props;
     </ul>
   </div>
 </section>
+
+<style>
+  .dive-section {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: min(100svh, 900px);
+    padding: clamp(5rem, 12vw, 10rem) 1.25rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .dive-section::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(5, 18, 45, 0.42), transparent 65%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .dive-section__inner {
+    position: relative;
+    width: min(100%, 1100px);
+    margin: 0 auto;
+  }
+
+  .dive-eyebrow {
+    margin-bottom: 1rem;
+    color: #aaf8de;
+    font-family: "Comfortaa Variable", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .dive-section h2,
+  .dive-section h3 {
+    font-family: "Shippori Antique B1", sans-serif;
+    font-weight: 400;
+  }
+
+  .dive-section h2 {
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+  }
+
+  .dive-principles {
+    background: linear-gradient(
+      155deg,
+      rgba(17, 50, 112, 0.64),
+      rgba(6, 20, 47, 0.78)
+    );
+  }
+
+  .dive-section__heading {
+    margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .dive-principles__list {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+  }
+
+  .dive-principles__list li {
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    border: 1px solid rgba(204, 228, 255, 0.25);
+    background: rgba(5, 22, 55, 0.3);
+  }
+
+  .dive-principles__list span {
+    color: #aaf8de;
+    font-family: "Fira Code", monospace;
+    font-size: 0.76rem;
+  }
+
+  .dive-principles__list h3 {
+    margin: 0.45rem 0 0.7rem;
+    font-family: "Comfortaa Variable", sans-serif;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+  }
+
+  .dive-principles__list p {
+    max-width: 38rem;
+    font-size: clamp(1rem, 1.45vw, 1.17rem);
+    line-height: 2;
+  }
+
+  @media (min-width: 768px) {
+    .dive-section {
+      padding-right: clamp(6rem, 13vw, 12rem);
+      padding-left: clamp(2rem, 9vw, 8rem);
+    }
+
+    .dive-principles__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

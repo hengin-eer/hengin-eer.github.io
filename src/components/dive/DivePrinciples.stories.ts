@@ -1,5 +1,4 @@
 import DivePrinciples from "./DivePrinciples.astro";
-import "../../styles/dive-ocean.css";
 
 export default {
   title: "Dive/DivePrinciples",

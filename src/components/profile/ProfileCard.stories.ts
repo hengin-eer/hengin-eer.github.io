@@ -1,5 +1,4 @@
 import ProfileCard from "./ProfileCard.astro";
-import "../../styles/profile-card.css";
 
 export default {
   title: "Profile/ProfileCard",

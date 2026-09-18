@@ -18,8 +18,11 @@ interface Props {
   description?: string;
 }
 
-const { title, ogpImage = "ogp.png", description = SITE_DESCRIPTION } =
-  Astro.props;
+const {
+  title,
+  ogpImage = "ogp.png",
+  description = SITE_DESCRIPTION,
+} = Astro.props;
 ---
 
 <!doctype html>

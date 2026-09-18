@@ -1,5 +1,4 @@
 import DiveRoute from "./DiveRoute.astro";
-import "../../styles/dive-ocean.css";
 
 export default {
   title: "Dive/DiveRoute",

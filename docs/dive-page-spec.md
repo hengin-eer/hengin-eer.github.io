@@ -16,7 +16,7 @@ Issue: [#55](https://github.com/hengin-eer/hengin-eer.github.io/issues/55)
 - 情報量より余白、細い線、低密度の泡・水面表現を優先する
 - 右側の固定深度メーターは PC のみで表示し、アンカー移動もできる
 - モバイルはセクションラベルだけを残し、メーターを表示しない
-- Footer は海底の延長として `ocean-abyss` に統合する
+- Footer は既存コンポーネントを維持し、海底への統合は後続の視覚調整として扱う
 - 魚影・サメ・クジラ・海底イラスト、特別なカーソルは初回公開後の拡張とする
 
 ### 深度と情報
@@ -50,7 +50,7 @@ Issue: [#55](https://github.com/hengin-eer/hengin-eer.github.io/issues/55)
 - `src/components/dive/DiveExperience.tsx`: スクロール量から深度を計算し、メーターを更新
 - `src/components/dive/DiveBackdrop.tsx`: p5 を dynamic import して、波と粒子を描画
 - `src/data/dive.ts`: 公開情報と深度定義
-- `src/styles/dive-ocean.css`: 深度に応じた静的 CSS fallback
+- 各 Astro コンポーネントの scoped style: セクション固有の配色と静的 CSS fallback
 
 p5 は最初の HTML をブロックせず、React island の mount 後に読み込む。p5 2.3.x の package entry が Vite で CJS 依存を解決できないため、`astro.config.mjs` の Vite plugin で libtess 内包済み ESM build を解決する。Canvas が使えない場合でも CSS の背景と全コンテンツが読めることを要件とする。
 

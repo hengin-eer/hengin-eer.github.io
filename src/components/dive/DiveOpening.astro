@@ -35,3 +35,168 @@ const { id = "surface" } = Astro.props;
     </div>
   </div>
 </section>
+
+<style>
+  .dive-section {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: min(100svh, 900px);
+    padding: clamp(5rem, 12vw, 10rem) 1.25rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .dive-section::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(5, 18, 45, 0.42), transparent 65%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .dive-section__inner {
+    position: relative;
+    width: min(100%, 1100px);
+    margin: 0 auto;
+  }
+
+  .dive-eyebrow {
+    margin-bottom: 1rem;
+    color: #aaf8de;
+    font-family: "Comfortaa Variable", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .dive-section h1 {
+    font-family: "Shippori Antique B1", sans-serif;
+    font-size: clamp(3.6rem, 11vw, 8.6rem);
+    font-weight: 400;
+    line-height: 0.94;
+    letter-spacing: -0.06em;
+  }
+
+  .dive-hero {
+    min-height: calc(100svh - 80px);
+    padding-top: clamp(4rem, 9vw, 7rem);
+    background: linear-gradient(
+      145deg,
+      rgba(24, 239, 149, 0.16),
+      rgba(19, 174, 208, 0.08) 48%,
+      rgba(5, 34, 70, 0.3)
+    );
+  }
+
+  .dive-hero__grid {
+    display: grid;
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: center;
+  }
+
+  .dive-handle {
+    margin-bottom: 0.75rem;
+    color: rgba(247, 251, 255, 0.74);
+    font-family: "Comfortaa Variable", sans-serif;
+  }
+
+  .dive-hero__lead {
+    max-width: 38rem;
+    margin-top: 1.7rem;
+    font-size: clamp(1rem, 1.45vw, 1.17rem);
+    line-height: 2;
+  }
+
+  .dive-portrait {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+  }
+
+  .dive-portrait__ring {
+    display: grid;
+    place-items: center;
+    width: min(62vw, 300px);
+    aspect-ratio: 1;
+    padding: 0.8rem;
+    border: 1px solid rgba(220, 255, 246, 0.68);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 1rem rgba(24, 239, 149, 0.09),
+      0 18px 60px rgba(0, 29, 60, 0.4);
+  }
+
+  .dive-portrait img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .dive-portrait figcaption {
+    color: rgba(247, 251, 255, 0.68);
+    font-family: "Fira Code", monospace;
+    font-size: 0.74rem;
+  }
+
+  .dive-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2.2rem;
+  }
+
+  .dive-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.65rem 1.2rem;
+    border: 1px solid rgba(238, 255, 250, 0.74);
+    border-radius: 999px;
+    color: #f7fbff;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .dive-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .dive-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 4px;
+  }
+
+  .dive-button--solid {
+    border-color: #18ef95;
+    background: #18ef95;
+    color: #062033;
+    font-weight: 700;
+  }
+
+  .dive-button--quiet {
+    background: rgba(4, 27, 59, 0.25);
+  }
+
+  @media (min-width: 768px) {
+    .dive-section {
+      padding-right: clamp(6rem, 13vw, 12rem);
+      padding-left: clamp(2rem, 9vw, 8rem);
+    }
+
+    .dive-hero__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.55fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dive-button {
+      transition: none;
+    }
+  }
+</style>

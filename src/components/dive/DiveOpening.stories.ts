@@ -1,5 +1,4 @@
 import DiveOpening from "./DiveOpening.astro";
-import "../../styles/dive-ocean.css";
 
 export default {
   title: "Dive/DiveOpening",

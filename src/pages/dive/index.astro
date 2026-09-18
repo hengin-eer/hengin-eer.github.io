@@ -6,13 +6,11 @@ import DiveOpening from "../../components/dive/DiveOpening.astro";
 import DiveConnections from "../../components/dive/DiveConnections.astro";
 import DiveRoute from "../../components/dive/DiveRoute.astro";
 import DivePrinciples from "../../components/dive/DivePrinciples.astro";
-import "../../styles/dive-ocean.css";
 ---
 
 <Layout
   title="DIVE"
   description="Hiroki Tomoda / timdaik の関心と制作の航路を、海へ潜るようにたどるストーリー。"
-  bodyClass="dive-page"
 >
   <DiveExperience client:load />
   <main class="dive-story-page">
@@ -23,3 +21,22 @@ import "../../styles/dive-ocean.css";
     <DiveConnections />
   </main>
 </Layout>
+
+<style>
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  .dive-story-page {
+    position: relative;
+    z-index: 1;
+    overflow: clip;
+    color: #f7fbff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
+    }
+  }
+</style>
