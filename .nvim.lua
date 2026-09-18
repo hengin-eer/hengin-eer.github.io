@@ -1,3 +1,6 @@
+-- Enable this project-local configuration with `set exrc` and trust it once.
+-- Resolve the repository root from this file so local formatter binaries work
+-- when Neovim starts in a nested directory.
 local root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h")
 local formatter_for_extension = {
   astro = "prettier",
@@ -27,8 +30,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
 
     local executable = root .. "/node_modules/.bin/" .. formatter
-    local config = root
-      .. (formatter == "prettier" and "/.prettierrc.mjs" or "/.oxfmtrc.json")
     if vim.fn.executable(executable) ~= 1 then
       vim.notify(
         "Run npm ci before using this repository formatter",
@@ -43,7 +44,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
 
     local result = vim.system(
-      { executable, "--config", config, "--stdin-filepath", path },
+      { executable, "--stdin-filepath", path },
       { cwd = root, stdin = input, text = true }
     ):wait()
     if result.code ~= 0 then

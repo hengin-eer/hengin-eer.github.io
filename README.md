@@ -43,6 +43,6 @@ Neovim 0.10+ では、project-local config を有効化してこのリポジト�
 set exrc
 ```
 
-初回は Neovim の trust prompt で `.nvim.lua` を確認・承認してください。設定は `npm ci` 後の `node_modules/.bin/oxfmt` と `prettier` を使い、`.astro` は Prettier、それ以外の対象拡張子は Oxfmt へ渡します。
+初回は Neovim の trust prompt で `.nvim.lua` を確認・承認してください。設定は `npm ci` 後の `node_modules/.bin/oxfmt` と `prettier` を使い、`.astro` は Prettier、それ以外の対象拡張子は Oxfmt へ渡します。各 formatter は保存するファイルのパスからリポジトリの設定ファイルを自動検出するため、Neovim 設定側で formatter 設定ファイル名を固定しません。
 
 Storybook の制約と Story の規約は [docs/storybook-astro-spike.md](docs/storybook-astro-spike.md) に記載しています。
