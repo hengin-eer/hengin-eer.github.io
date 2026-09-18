@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { fileURLToPath } from "node:url";
 
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -13,6 +14,18 @@ import tailwindcss from "@tailwindcss/vite";
 const optimizeDeps = {
   noDiscovery: true,
   include: [],
+};
+
+const p5EsmBuild = fileURLToPath(
+  new URL("./node_modules/p5/lib/p5.esm.js", import.meta.url),
+);
+
+const resolveP5EsmBuild = {
+  name: "resolve-p5-esm-build",
+  enforce: "pre",
+  resolveId(id) {
+    return id === "p5-esm-build" ? p5EsmBuild : null;
+  },
 };
 
 // storybook-astro's internal SSR server reuses raw Vite plugins, but not the
@@ -53,6 +66,6 @@ export default defineConfig({
   vite: {
     optimizeDeps,
 
-    plugins: [tailwindcss(), preserveOptimizeDeps],
+    plugins: [tailwindcss(), resolveP5EsmBuild, preserveOptimizeDeps],
   },
 });

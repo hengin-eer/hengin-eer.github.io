@@ -1,0 +1,39 @@
+---
+import { profileLinks } from "../../data/profile";
+
+const { id = "links" } = Astro.props;
+---
+
+<section id={id} class="profile-section profile-links" data-ocean-depth="1">
+  <div class="profile-section__inner profile-links__inner">
+    <div>
+      <p class="profile-eyebrow">ABYSS / 300m</p>
+      <h2>また、どこかで。</h2>
+      <p class="profile-links__lead">
+        制作物や日々の記録は、ここからたどれます。
+      </p>
+    </div>
+    <div class="profile-links__content">
+      <ul class="profile-social-links">
+        {
+          profileLinks.map((link) => (
+            <li>
+              <a href={link.href} target="_blank" rel="noreferrer">
+                {link.label}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="profile-actions profile-actions--stacked">
+        <a class="profile-button profile-button--solid" href="/works"
+          >Worksを見る</a
+        >
+        <a class="profile-button profile-button--quiet" href="/blog"
+          >Blogを読む</a
+        >
+      </div>
+    </div>
+  </div>
+</section>

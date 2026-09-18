@@ -1,7 +1,24 @@
 ---
 import Layout from "src/layouts/Layout.astro";
+import OceanExperience from "../../components/profile/OceanExperience";
+import ProfileAbout from "../../components/profile/ProfileAbout.astro";
+import ProfileHero from "../../components/profile/ProfileHero.astro";
+import ProfileLinks from "../../components/profile/ProfileLinks.astro";
+import ProfileTimeline from "../../components/profile/ProfileTimeline.astro";
+import ProfileValues from "../../components/profile/ProfileValues.astro";
+import "../../styles/profile-ocean.css";
 ---
 
-<Layout title="Profile">
-  <main></main>
+<Layout
+  title="Profile"
+  description="Hiroki Tomoda / timdaik のプロフィール。Web制作とプログラミングを軸に、学びながらつくるための航路。"
+>
+  <OceanExperience client:load />
+  <main class="ocean-profile-page">
+    <ProfileHero />
+    <ProfileAbout />
+    <ProfileTimeline />
+    <ProfileValues />
+    <ProfileLinks />
+  </main>
 </Layout>

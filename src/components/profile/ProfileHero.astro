@@ -1,0 +1,38 @@
+---
+const { id = "surface" } = Astro.props;
+---
+
+<section id={id} class="profile-section profile-hero" data-ocean-depth="0">
+  <div class="profile-section__inner profile-hero__inner">
+    <p class="profile-eyebrow">PROFILE / 0m</p>
+    <div class="profile-hero__grid">
+      <div>
+        <p class="profile-handle">@timdaik</p>
+        <h1>Hiroki<br />Tomoda</h1>
+        <p class="profile-hero__lead">
+          キャッチボールとサカナとマークアップをこよなく愛する Hiroki Tomoda
+          です。
+        </p>
+        <div class="profile-actions">
+          <a class="profile-button profile-button--solid" href="#about"
+            >潜りはじめる</a
+          >
+          <a class="profile-button profile-button--quiet" href="/works"
+            >Worksを見る</a
+          >
+        </div>
+      </div>
+      <figure class="profile-portrait">
+        <div class="profile-portrait__ring">
+          <img
+            src="/tim-bird.png"
+            alt="timdaik の鳥のアイコン"
+            width="240"
+            height="240"
+          />
+        </div>
+        <figcaption>Surface log — 0m</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

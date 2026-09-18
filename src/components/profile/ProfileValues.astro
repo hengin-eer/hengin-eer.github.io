@@ -1,0 +1,25 @@
+---
+import { profileValues } from "../../data/profile";
+
+const { id = "values" } = Astro.props;
+---
+
+<section id={id} class="profile-section profile-values" data-ocean-depth="0.72">
+  <div class="profile-section__inner">
+    <div class="profile-section__heading">
+      <p class="profile-eyebrow">DEEP / 120m</p>
+      <h2>深く、軽やかに。</h2>
+    </div>
+    <ul class="profile-values__list">
+      {
+        profileValues.map((value, index) => (
+          <li>
+            <span>0{index + 1}</span>
+            <h3>{value.title}</h3>
+            <p>{value.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

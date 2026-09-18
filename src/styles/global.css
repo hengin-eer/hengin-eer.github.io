@@ -6,6 +6,11 @@
   --color-primary-dark-green: #00b86b;
   --color-primary-emerald: #34d399;
   --color-primary-blue: #13aed0;
+  --color-ocean-mid: #167aa6;
+  --color-ocean-deep: #12365f;
+  --color-ocean-indigo: #0c294a;
+  --color-ocean-abyss: #071a2d;
+  --color-ocean-bioluminescent: #7af7d0;
   --color-primary-red: #f6444f;
   --color-white: #ffffff;
   --color-gray-base: #9ebcca;
@@ -31,6 +36,11 @@
     --primary-green: #18ef95;
     --primary-dark-green: #00b86b;
     --primary-blue: #13aed0;
+    --ocean-mid: #167aa6;
+    --ocean-deep: #12365f;
+    --ocean-indigo: #0c294a;
+    --ocean-abyss: #071a2d;
+    --ocean-bioluminescent: #7af7d0;
     --primary-red: #f6444f;
     --white: #ffffff;
     --gray-base: #9ebcca;
