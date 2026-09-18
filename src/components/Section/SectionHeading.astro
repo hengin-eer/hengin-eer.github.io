@@ -1,13 +1,13 @@
 ---
 interface Props {
-	isBlue?: boolean;
+  isBlue?: boolean;
 }
 
 const { isBlue = false } = Astro.props;
 ---
 
 <h1
-	class={`text-[80px] font-averia ${isBlue ? "text-primary-blue" : "text-primary-green"}`}
+  class={`text-[80px] font-averia ${isBlue ? "text-primary-blue" : "text-primary-green"}`}
 >
-	<slot />
+  <slot />
 </h1>

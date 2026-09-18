@@ -13,8 +13,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "src/constant/SITE";
 // TODO: OGP画像の設定追加
 // Propsを用意して、ブログやWorksページのサムネイルを使えるようにする
 interface Props {
-	title: string;
-	ogpImage?: string;
+  title: string;
+  ogpImage?: string;
 }
 
 const { title, ogpImage = "ogp.png" } = Astro.props;
@@ -22,55 +22,55 @@ const { title, ogpImage = "ogp.png" } = Astro.props;
 
 <!doctype html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={SITE_DESCRIPTION} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title} | {SITE_TITLE}</title>
-		<meta property="og:title" content={`${title} | ${SITE_TITLE}`} />
-		<meta property="og:site_name" content={SITE_TITLE} />
-		<meta property="og:description" content={SITE_DESCRIPTION} />
-		<meta property="og:image" content={`${Astro.url.origin}/${ogpImage}`} />
-		<meta
-			property="og:url"
-			content={`${Astro.url.origin}${Astro.url.pathname}`}
-		/>
-		<meta property="og:type" content="website" />
-		<meta property="og:locale" content="ja_JP" />
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@timdaik" />
-		<meta name="twitter:title" content={`${title} | ${SITE_TITLE}`} />
-		<meta name="twitter:description" content={SITE_DESCRIPTION} />
-		<ClientRouter />
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
-			integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
-			crossorigin="anonymous"
-		/>
-		<!-- Google tag (gtag.js) -->
-		<script
-			is:inline
-			type="text/partytown"
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-8XKK44HY9Y"></script>
-		<script is:inline type="text/partytown">
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={SITE_DESCRIPTION} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | {SITE_TITLE}</title>
+    <meta property="og:title" content={`${title} | ${SITE_TITLE}`} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:description" content={SITE_DESCRIPTION} />
+    <meta property="og:image" content={`${Astro.url.origin}/${ogpImage}`} />
+    <meta
+      property="og:url"
+      content={`${Astro.url.origin}${Astro.url.pathname}`}
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@timdaik" />
+    <meta name="twitter:title" content={`${title} | ${SITE_TITLE}`} />
+    <meta name="twitter:description" content={SITE_DESCRIPTION} />
+    <ClientRouter />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+      integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0"
+      crossorigin="anonymous"
+    />
+    <!-- Google tag (gtag.js) -->
+    <script
+      is:inline
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-8XKK44HY9Y"></script>
+    <script is:inline type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-			gtag("config", "G-8XKK44HY9Y");
-		</script>
-	</head>
-	<body class="min-h-dvh">
-		<div class="relative min-h-dvh">
-			<Header />
-			<slot />
-			<Footer />
-		</div>
-	</body>
+      gtag("config", "G-8XKK44HY9Y");
+    </script>
+  </head>
+  <body class="min-h-dvh">
+    <div class="relative min-h-dvh">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+  </body>
 </html>

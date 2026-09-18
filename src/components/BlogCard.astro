@@ -1,26 +1,26 @@
 ---
 interface Props {
-	title: string;
-	slug: string;
-	updatedAt: string;
-	eyecatch: string;
+  title: string;
+  slug: string;
+  updatedAt: string;
+  eyecatch: string;
 }
 
 const { title, slug, updatedAt, eyecatch } = Astro.props;
 ---
 
 <a
-	class="w-full md:max-w-[400px] flex flex-col justify-start gap-6"
-	href={`/blog/${slug}`}
-	transition:name={`blogCard-${slug}`}
+  class="w-full md:max-w-[400px] flex flex-col justify-start gap-6"
+  href={`/blog/${slug}`}
+  transition:name={`blogCard-${slug}`}
 >
-	<img
-		class="w-full aspect-video object-cover rounded-xl"
-		src={eyecatch}
-		alt={title}
-	/>
-	<div class="pb-10">
-		<p class="mb-2 text-sm">{updatedAt}</p>
-		<h3 class="text-xl">{title}</h3>
-	</div>
+  <img
+    class="w-full aspect-video object-cover rounded-xl"
+    src={eyecatch}
+    alt={title}
+  />
+  <div class="pb-10">
+    <p class="mb-2 text-sm">{updatedAt}</p>
+    <h3 class="text-xl">{title}</h3>
+  </div>
 </a>
