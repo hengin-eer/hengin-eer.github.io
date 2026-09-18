@@ -22,6 +22,7 @@ export default defineConfig({
           exclude: [
             "src/components/Section/Hero.stories.ts",
             "src/components/Tag/ProfileBadge.stories.ts",
+            "src/components/profile/ProfileCard.stories.ts",
           ],
           browser: {
             enabled: true,

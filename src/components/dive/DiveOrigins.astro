@@ -1,0 +1,99 @@
+---
+const { id = "origins" } = Astro.props;
+---
+
+<section id={id} class="dive-section dive-origins" data-ocean-depth="0.22">
+  <div class="dive-section__inner dive-copy-grid">
+    <div>
+      <p class="dive-eyebrow">SHALLOW / 10m</p>
+      <h2>好奇心から、<br />手を動かす。</h2>
+    </div>
+    <div class="dive-copy">
+      <p>
+        Web制作とプログラミングを軸に、興味のあることを広く学びながら、つくることを続けています。
+      </p>
+      <p>
+        読書、言語、認知学、コンピュータサイエンス。異なる領域を行き来して見つけた視点を、次の制作に持ち帰るのが好きです。
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dive-section {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: min(100svh, 900px);
+    padding: clamp(5rem, 12vw, 10rem) 1.25rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .dive-section::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(5, 18, 45, 0.42), transparent 65%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .dive-section__inner {
+    position: relative;
+    width: min(100%, 1100px);
+    margin: 0 auto;
+  }
+
+  .dive-eyebrow {
+    margin-bottom: 1rem;
+    color: #aaf8de;
+    font-family: "Comfortaa Variable", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .dive-section h2 {
+    font-family: "Shippori Antique B1", sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+  }
+
+  .dive-origins {
+    min-height: 84svh;
+    background: linear-gradient(
+      135deg,
+      rgba(19, 174, 208, 0.24),
+      rgba(15, 75, 128, 0.38)
+    );
+  }
+
+  .dive-copy-grid,
+  .dive-copy {
+    display: grid;
+  }
+
+  .dive-copy-grid {
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: start;
+  }
+
+  .dive-copy {
+    max-width: 38rem;
+    gap: 1.5rem;
+    font-size: clamp(1rem, 1.45vw, 1.17rem);
+    line-height: 2;
+  }
+
+  @media (min-width: 768px) {
+    .dive-section {
+      padding-right: clamp(6rem, 13vw, 12rem);
+      padding-left: clamp(2rem, 9vw, 8rem);
+    }
+
+    .dive-copy-grid {
+      grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1fr);
+    }
+  }
+</style>

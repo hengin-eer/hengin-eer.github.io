@@ -15,23 +15,28 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "src/constant/SITE";
 interface Props {
   title: string;
   ogpImage?: string;
+  description?: string;
 }
 
-const { title, ogpImage = "ogp.png" } = Astro.props;
+const {
+  title,
+  ogpImage = "ogp.png",
+  description = SITE_DESCRIPTION,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={SITE_DESCRIPTION} />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} | {SITE_TITLE}</title>
     <meta property="og:title" content={`${title} | ${SITE_TITLE}`} />
     <meta property="og:site_name" content={SITE_TITLE} />
-    <meta property="og:description" content={SITE_DESCRIPTION} />
+    <meta property="og:description" content={description} />
     <meta property="og:image" content={`${Astro.url.origin}/${ogpImage}`} />
     <meta
       property="og:url"
@@ -42,7 +47,7 @@ const { title, ogpImage = "ogp.png" } = Astro.props;
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@timdaik" />
     <meta name="twitter:title" content={`${title} | ${SITE_TITLE}`} />
-    <meta name="twitter:description" content={SITE_DESCRIPTION} />
+    <meta name="twitter:description" content={description} />
     <ClientRouter />
     <link
       rel="stylesheet"

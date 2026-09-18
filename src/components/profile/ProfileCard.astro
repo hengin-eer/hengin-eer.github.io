@@ -1,0 +1,168 @@
+---
+import { Icon } from "astro-iconify";
+import Link from "../Link.astro";
+import { profileCard, profileLinks } from "../../data/profile";
+---
+
+<section class="profile-card" aria-labelledby="profile-card-title">
+  <div class="profile-card__inner">
+    <p class="profile-card__eyebrow">DIGITAL CARD</p>
+    <img
+      class="profile-card__portrait"
+      src="/tim-bird.png"
+      alt="timdaik の鳥のアイコン"
+      width="200"
+      height="200"
+    />
+    <h1 id="profile-card-title">{profileCard.name}</h1>
+    <p class="profile-card__handle">{profileCard.handle}</p>
+    <p class="profile-card__description">{profileCard.description}</p>
+    <ul class="profile-card__links" aria-label="SNSリンク">
+      {
+        profileLinks.map((link) => (
+          <li>
+            <Link href={link.href}>{link.label}</Link>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      class="profile-card__dive-link"
+      href="/dive"
+      aria-label="DIVE — ストーリーを読む"
+    >
+      <Icon
+        name="ri:arrow-down-line"
+        class="size-[1.1rem]"
+        aria-hidden="true"
+      />
+      <span>DIVE</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .profile-card {
+    display: grid;
+    min-height: calc(100svh - 80px);
+    place-items: center;
+    padding: 4rem 1.5rem 5rem;
+    background:
+      radial-gradient(
+        circle at 50% 15%,
+        rgba(24, 239, 149, 0.2),
+        transparent 30rem
+      ),
+      linear-gradient(155deg, #f7fffc, #e8f7fb);
+  }
+
+  .profile-card__inner {
+    display: grid;
+    justify-items: center;
+    width: min(100%, 32rem);
+    padding: clamp(2rem, 8vw, 4rem);
+    border: 1px solid rgba(19, 174, 208, 0.22);
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.62);
+    box-shadow: 0 24px 70px rgba(16, 84, 112, 0.12);
+    text-align: center;
+  }
+
+  .profile-card__eyebrow,
+  .profile-card__handle,
+  .profile-card__dive-link span {
+    font-family: "Comfortaa Variable", sans-serif;
+  }
+
+  .profile-card__eyebrow {
+    color: var(--primary-dark-green);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  .profile-card__portrait {
+    width: min(42vw, 10rem);
+    margin: 1.5rem 0 1rem;
+    border: 5px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(19, 174, 208, 0.35);
+  }
+
+  .profile-card h1 {
+    font-family: "Shippori Antique B1", sans-serif;
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .profile-card__handle {
+    margin-top: 0.45rem;
+    color: var(--gray-dark);
+  }
+
+  .profile-card__description {
+    margin-top: 1.8rem;
+    line-height: 1.9;
+  }
+
+  .profile-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem 1.25rem;
+    margin-top: 1.8rem;
+    list-style: none;
+  }
+
+  .profile-card__links a {
+    color: var(--primary-blue);
+    font-family: "Comfortaa Variable", sans-serif;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  .profile-card__links a:hover,
+  .profile-card__links a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .profile-card__dive-link {
+    display: grid;
+    place-items: center;
+    gap: 0.2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-top: 3.25rem;
+    border: 1px solid rgba(18, 54, 95, 0.28);
+    border-radius: 50%;
+    color: var(--ocean-deep);
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .profile-card__dive-link:hover {
+    background: rgba(19, 174, 208, 0.1);
+    transform: translateY(2px);
+  }
+
+  .profile-card__dive-link:focus-visible {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 4px;
+  }
+
+  .profile-card__dive-link span {
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .profile-card__dive-link {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,195 @@
+---
+import { diveLinks } from "../../data/dive";
+
+const { id = "connections" } = Astro.props;
+---
+
+<section id={id} class="dive-section dive-connections" data-ocean-depth="1">
+  <div class="dive-section__inner dive-connections__inner">
+    <div>
+      <p class="dive-eyebrow">ABYSS / 300m</p>
+      <h2>また、どこかで。</h2>
+      <p class="dive-connections__lead">
+        制作物や日々の記録は、ここからたどれます。
+      </p>
+    </div>
+    <div class="dive-connections__content">
+      <ul class="dive-social-links">
+        {
+          diveLinks.map((link) => (
+            <li>
+              <a href={link.href} target="_blank" rel="noreferrer">
+                {link.label}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="dive-actions dive-actions--stacked">
+        <a class="dive-button dive-button--solid" href="/works">Worksを見る</a>
+        <a class="dive-button dive-button--quiet" href="/blog">Blogを読む</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .dive-section {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: min(100svh, 900px);
+    padding: clamp(5rem, 12vw, 10rem) 1.25rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .dive-section::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(5, 18, 45, 0.42), transparent 65%);
+    content: "";
+    pointer-events: none;
+  }
+
+  .dive-section__inner {
+    position: relative;
+    width: min(100%, 1100px);
+    margin: 0 auto;
+  }
+
+  .dive-eyebrow {
+    margin-bottom: 1rem;
+    color: #aaf8de;
+    font-family: "Comfortaa Variable", sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .dive-section h2 {
+    font-family: "Shippori Antique B1", sans-serif;
+    font-size: clamp(2.2rem, 6vw, 4.8rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+  }
+
+  .dive-connections {
+    min-height: 82svh;
+    background: linear-gradient(
+      165deg,
+      rgba(7, 29, 72, 0.9),
+      rgba(3, 11, 28, 0.98)
+    );
+  }
+
+  .dive-connections__inner {
+    display: grid;
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: start;
+  }
+
+  .dive-connections__lead {
+    max-width: 38rem;
+    margin-top: 1rem;
+    color: rgba(247, 251, 255, 0.76);
+    font-size: clamp(1rem, 1.45vw, 1.17rem);
+    line-height: 2;
+  }
+
+  .dive-connections__content {
+    display: grid;
+    gap: 2.25rem;
+  }
+
+  .dive-social-links {
+    list-style: none;
+  }
+
+  .dive-social-links li {
+    border-top: 1px solid rgba(211, 239, 255, 0.28);
+  }
+
+  .dive-social-links li:last-child {
+    border-bottom: 1px solid rgba(211, 239, 255, 0.28);
+  }
+
+  .dive-social-links a {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    color: #f7fbff;
+    font-family: "Comfortaa Variable", sans-serif;
+    text-decoration: none;
+  }
+
+  .dive-social-links a:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 4px;
+  }
+
+  .dive-social-links span {
+    color: #aaf8de;
+  }
+
+  .dive-actions {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 2.2rem;
+  }
+
+  .dive-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.65rem 1.2rem;
+    border: 1px solid rgba(238, 255, 250, 0.74);
+    border-radius: 999px;
+    color: #f7fbff;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .dive-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .dive-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 4px;
+  }
+
+  .dive-button--solid {
+    border-color: #18ef95;
+    background: #18ef95;
+    color: #062033;
+    font-weight: 700;
+  }
+
+  .dive-button--quiet {
+    background: rgba(4, 27, 59, 0.25);
+  }
+
+  @media (min-width: 768px) {
+    .dive-section {
+      padding-right: clamp(6rem, 13vw, 12rem);
+      padding-left: clamp(2rem, 9vw, 8rem);
+    }
+
+    .dive-connections__inner {
+      grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dive-button {
+      transition: none;
+    }
+  }
+</style>

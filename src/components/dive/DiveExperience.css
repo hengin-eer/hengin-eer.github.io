@@ -1,0 +1,115 @@
+.dive-experience {
+  position: sticky;
+  top: 0;
+  height: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dive-experience.is-hidden {
+  visibility: hidden;
+}
+
+.dive-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+}
+
+.dive-backdrop canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.depth-meter {
+  position: absolute;
+  top: 50svh;
+  right: clamp(1rem, 3vw, 3rem);
+  z-index: 2;
+  display: grid;
+  gap: 0.9rem;
+  align-items: center;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.92);
+  pointer-events: auto;
+}
+
+.depth-meter__reading {
+  display: grid;
+  gap: 0.1rem;
+  text-align: right;
+  text-shadow: 0 1px 12px rgba(2, 12, 30, 0.8);
+}
+
+.depth-meter__reading span {
+  font-family: "Comfortaa Variable", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.depth-meter__reading small {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.depth-meter__track {
+  display: grid;
+  justify-items: end;
+  gap: 0.7rem;
+  list-style: none;
+}
+
+.depth-meter__track li {
+  position: relative;
+}
+
+.depth-meter__track li:not(:last-child)::after {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.32rem;
+  width: 1px;
+  height: 1rem;
+  background: rgba(255, 255, 255, 0.28);
+  content: "";
+}
+
+.depth-meter__track a {
+  display: grid;
+  place-items: center;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.depth-meter__track li.is-passed a,
+.depth-meter__track a[aria-current="step"] {
+  background: var(--primary-green);
+  box-shadow: 0 0 14px rgba(24, 239, 149, 0.9);
+  transform: scale(1.18);
+}
+
+.depth-meter__track a:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .depth-meter {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .depth-meter__track a {
+    transition: none;
+  }
+}
