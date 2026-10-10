@@ -1,4 +1,4 @@
-import ProfileCard from "./ProfileCard.astro";
+import ProfileCard from "./RegacyProfileCard.astro";
 
 export default {
   title: "Profile/ProfileCard",

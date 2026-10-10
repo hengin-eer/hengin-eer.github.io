@@ -1,13 +1,15 @@
 ---
-import ProfileCard from "../../components/profile/ProfileCard.astro";
 import Layout from "src/layouts/Layout.astro";
+import { ProfileCard } from "@components/profile/ProfileCard";
 ---
 
 <Layout
   title="Profile"
-  description="Hiroki Tomoda / timdaik のデジタルプロフィールカード。"
+  description="Hiroki Tomoda(@timdaik)のデジタルプロフィールカードです。このカードから各種SNSを通じてコンタクトが取れます。"
 >
   <main>
-    <ProfileCard />
+    <section class="py-10 grid place-items-center">
+      <ProfileCard />
+    </section>
   </main>
 </Layout>

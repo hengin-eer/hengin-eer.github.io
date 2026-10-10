@@ -1,0 +1,34 @@
+---
+import { Icon } from "astro-iconify";
+import Link from "../../Link.astro";
+import type { SnsProfile } from "./types";
+
+type Props = SnsProfile;
+
+const { label, href, iconName, iconSvg, primaryColor } = Astro.props;
+---
+
+<!--
+TODO: LinkをButtonに差し替えてDiscordのように「外部サイトに飛ぶけど良いですか？」というポップアップを出す
+- だからButtonとしている
+- そしてポップアップには「次回以降表示しない」というチェックボックスを設ける(localstorage管理)
+- ポップアップ非表示は特定のリンクに限らずグローバル
+-->
+<Link
+  className="py-4 grid place-items-center rounded-2xl text-(--sns-primary) hover:bg-(--sns-primary) hover:text-white transition-all duration-200 ease-in"
+  style={`--sns-primary: ${primaryColor}`}
+  href={href}
+  ariaLabel={label}
+>
+  {
+    iconSvg ? (
+      <span
+        class="block size-8 [&>svg]:size-full"
+        aria-hidden="true"
+        set:html={iconSvg}
+      />
+    ) : (
+      <Icon name={iconName} class="size-8" aria-hidden="true" />
+    )
+  }
+</Link>
