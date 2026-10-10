@@ -1,7 +1,6 @@
 ---
 import { SITE_TITLE } from "src/constant/SITE";
 import Link from "../Link.astro";
-import SNSNavButton from "../button/SNSNavButton.astro";
 
 interface Props {
   tone?: "default" | "ocean";
@@ -10,7 +9,6 @@ interface Props {
 const { tone = "default" } = Astro.props;
 ---
 
-<!-- TODO: 背景をグラデーションにしたい -->
 <footer
   class:list={[
     "sticky top-full px-10 md:px-20 pt-10 pb-5 text-white",
@@ -18,9 +16,7 @@ const { tone = "default" } = Astro.props;
   ]}
 >
   <h3 class="mb-2 text-3xl font-averia">{SITE_TITLE}</h3>
-  <div
-    class="pt-6 flex flex-col md:flex-row items-center gap-7 justify-between"
-  >
+  <div class="pt-6">
     <ul class="flex items-center flex-wrap gap-x-5 gap-y-2">
       <li class="text-lg">
         <a href="#about">About</a>
@@ -38,7 +34,6 @@ const { tone = "default" } = Astro.props;
         <a href="#contact">Contact</a>
       </li>
     </ul>
-    <SNSNavButton />
   </div>
   <p class="mt-16 text-base text-center">
     &copy; 2024~ {SITE_TITLE}. Created with
