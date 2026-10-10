@@ -7,16 +7,19 @@ const baseProfile = {
   handleName: "@timdaik",
   bio: `
   キャッチボールとサカナとマークアップをこよなく愛する学生です！
+  最近はNUTMEGと温泉にハマっています。
   `,
 };
 
 const affilicationList = [
   {
+    position: "IMSE B3",
     iconName: "ri:school-line",
     name: "NUT (Nagaoka University of Technology)",
-    href: "https://www.nagaokaut.ac.jp/index.html",
+    href: "https://imse.nagaokaut.ac.jp/",
   },
   {
+    position: "46th副局長",
     iconName: "ri:community-line",
     name: "NUTMEG (NUTfes Modern Engineering Group)",
     href: "https://blog.nutmeg.cloud/",
