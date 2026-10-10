@@ -1,14 +1,17 @@
 ---
 import { Icon } from "astro-iconify";
+
+const MAIL_ADDRESS = "hello@hiro-to.moda";
 ---
 
+<!-- TODO: もっと押したくなるような、楽しいアニメーションを実装する -->
 <a
-  href="mailto:timdaik.tech@gmail.com"
+  href={`mailto:${MAIL_ADDRESS}`}
   class="w-max pl-7 pr-2 py-2 flex items-center gap-3 bg-primary-green hover:bg-primary-blue transition-all duration-300 shadow-md rounded-full"
 >
   <div>
-    <p class="text-lg font-bold">Contact Me</p>
-    <p class="text-sm">timdaik.tech@gmail.com</p>
+    <p class="text-xl">Contact me 👋</p>
+    <p class="text-xs">{MAIL_ADDRESS}</p>
   </div>
   <div class="size-14 p-4 text-black bg-white rounded-full">
     <Icon
