@@ -1,11 +1,102 @@
 ---
+import { Icon } from "astro-iconify";
+import CardBack from "./CardBack.astro";
 import CardBody from "./CardBody.astro";
 import CardHeader from "./CardHeader.astro";
+
+const faceClass =
+  "rounded-3xl bg-white border-2 border-gray-light shadow-lg shadow-ocean-bioluminescent backface-hidden";
+const flipButtonClass =
+  "absolute top-3 right-3 size-11 grid place-items-center rounded-full text-ocean-deep bg-gray-light transition-colors duration-200 hover:bg-ocean-deep hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean-deep";
 ---
 
-<div
-  class="w-full max-w-80 rounded-3xl bg-white border-2 border-gray-light shadow-lg shadow-ocean-bioluminescent"
->
-  <CardHeader />
-  <CardBody />
+<div class="profile-card relative w-full max-w-80 perspective-distant">
+  <div class="profile-card-inner relative transform-3d">
+    <div class:list={["relative", faceClass]} data-card-front>
+      <CardHeader />
+      <CardBody />
+      <button
+        type="button"
+        class={flipButtonClass}
+        aria-label="QRコードを表示する"
+        data-card-flip
+      >
+        <Icon name="ri:qr-code-line" class="size-6" aria-hidden="true" />
+      </button>
+    </div>
+    <div
+      class:list={["absolute inset-0 rotate-y-180", faceClass]}
+      data-card-back
+      inert
+    >
+      <CardBack />
+      <button
+        type="button"
+        class={flipButtonClass}
+        aria-label="QRコードを閉じる"
+        data-card-flip
+      >
+        <Icon name="ri:close-line" class="size-7" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
 </div>
+
+<script>
+  let wakeLock: WakeLockSentinel | null = null;
+
+  const setFlipped = (card: HTMLElement, flipped: boolean) => {
+    const front = card.querySelector<HTMLElement>("[data-card-front]");
+    const back = card.querySelector<HTMLElement>("[data-card-back]");
+    card.toggleAttribute("data-flipped", flipped);
+    front?.toggleAttribute("inert", flipped);
+    back?.toggleAttribute("inert", !flipped);
+    (flipped ? back : front)
+      ?.querySelector<HTMLElement>("[data-card-flip]")
+      ?.focus({ preventScroll: true });
+
+    if (flipped) {
+      navigator.wakeLock
+        ?.request("screen")
+        .then((sentinel) => {
+          wakeLock = sentinel;
+        })
+        .catch(() => {});
+    } else {
+      wakeLock?.release().catch(() => {});
+      wakeLock = null;
+    }
+  };
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const card = event.target
+      .closest("[data-card-flip]")
+      ?.closest<HTMLElement>(".profile-card");
+    if (card) setFlipped(card, !card.hasAttribute("data-flipped"));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const card = document.querySelector<HTMLElement>(
+      ".profile-card[data-flipped]",
+    );
+    if (card) setFlipped(card, false);
+  });
+</script>
+
+<style>
+  .profile-card-inner {
+    transition: transform 700ms cubic-bezier(0.4, 0.1, 0.2, 1);
+  }
+
+  .profile-card[data-flipped] .profile-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .profile-card-inner {
+      transition: none;
+    }
+  }
+</style>
