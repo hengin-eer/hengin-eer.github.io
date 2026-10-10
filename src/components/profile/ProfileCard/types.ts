@@ -4,7 +4,6 @@ interface SnsProfileBase {
   primaryColor: string;
 }
 
-// Iconifyにあるアイコンは iconName、無いものはローカルSVG(?raw)を iconSvg で渡す
 type SnsProfile = SnsProfileBase &
   (
     | { iconName: string; iconSvg?: never }

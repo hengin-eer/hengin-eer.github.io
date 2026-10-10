@@ -4,7 +4,7 @@ import { baseProfile, affilicationList } from "./data";
 import Link from "@components/Link.astro";
 ---
 
-<div class="px-5 pt-8 pb-5">
+<div class="px-5 pt-6 pb-5">
   <div class="flex items-start gap-5">
     <img
       class="size-18 rounded-full"
@@ -29,8 +29,9 @@ import Link from "@components/Link.astro";
           className="text-base flex items-start gap-3"
         >
           <Icon name={affilication.iconName} class="mt-1 size-5 shrink-0" />
-          <p class="text-primary-blue underline line-clamp-1">
-            {affilication.name}
+          <p class="line-clamp-1">
+            {affilication.position} at{" "}
+            <span class="text-primary-blue underline">{affilication.name}</span>
           </p>
         </Link>
       ))
