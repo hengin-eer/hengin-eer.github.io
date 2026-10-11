@@ -1,11 +1,79 @@
 ---
+import { Icon } from "astro-iconify";
+import CardBack from "./CardBack.astro";
 import CardBody from "./CardBody.astro";
 import CardHeader from "./CardHeader.astro";
+
+const faceClass =
+  "rounded-3xl bg-white border-2 border-gray-light shadow-lg shadow-ocean-bioluminescent backface-hidden";
+const cornerButtonClass =
+  "absolute top-3 size-10 grid place-items-center rounded-full text-ocean-deep bg-gray-light transition-colors duration-200 hover:bg-ocean-deep hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean-deep aria-pressed:bg-ocean-deep aria-pressed:text-white";
+const flipButtonClass = `${cornerButtonClass} right-3`;
 ---
 
-<div
-  class="w-full max-w-80 rounded-3xl bg-white border-2 border-gray-light shadow-lg shadow-ocean-bioluminescent"
+<profile-card
+  class="profile-card block relative w-full max-w-80 perspective-distant"
 >
-  <CardHeader />
-  <CardBody />
-</div>
+  <div class="profile-card-inner relative transform-3d">
+    <div class:list={["relative", faceClass]} data-card-front>
+      <CardHeader />
+      <CardBody />
+      <button
+        type="button"
+        class={flipButtonClass}
+        aria-label="QRコードを表示する"
+        data-card-flip
+      >
+        <Icon name="ri:qr-code-line" class="size-6" aria-hidden="true" />
+      </button>
+    </div>
+    <div
+      class:list={["absolute inset-0 rotate-y-180", faceClass]}
+      data-card-back
+      inert
+    >
+      <CardBack />
+      <button
+        type="button"
+        class:list={[cornerButtonClass, "left-3"]}
+        aria-label="相手向きに上下を反転する"
+        aria-pressed="false"
+        data-card-invert
+      >
+        <Icon name="ri:arrow-up-down-line" class="size-6" aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        class={flipButtonClass}
+        aria-label="QRコードを閉じる"
+        data-card-flip
+      >
+        <Icon name="ri:close-line" class="size-6" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+</profile-card>
+
+<script>
+  import "./flip/ProfileCardElement";
+</script>
+
+<style>
+  .profile-card-inner {
+    transition: transform 700ms cubic-bezier(0.4, 0.1, 0.2, 1);
+  }
+
+  .profile-card[data-flipped] .profile-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .profile-card[data-inverted] {
+    rotate: 180deg;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .profile-card-inner {
+      transition: none;
+    }
+  }
+</style>

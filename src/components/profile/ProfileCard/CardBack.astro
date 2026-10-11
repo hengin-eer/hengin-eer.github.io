@@ -1,0 +1,36 @@
+---
+import QRCode from "qrcode";
+import { SITE_URL } from "src/constant/SITE";
+import { baseProfile } from "./data";
+
+const profileUrl = new URL("/profile/", SITE_URL).href;
+const qrSvg = await QRCode.toString(profileUrl, {
+  type: "svg",
+  margin: 0,
+  errorCorrectionLevel: "M",
+  color: { dark: "#071a2d", light: "#ffffff" },
+});
+---
+
+<div
+  class="h-full px-6 py-6 flex flex-col items-center justify-center text-center"
+>
+  <img
+    class="size-18 rounded-full"
+    src="/tim-bird.png"
+    alt="鳥のプロフィールアイコン"
+  />
+  <p class="mt-2 text-lg">{baseProfile.handleName}</p>
+  <h2 class="text-2xl">{baseProfile.name}</h2>
+
+  <div
+    class="mt-8 w-full max-w-52 [&>svg]:block [&>svg]:w-full [&>svg]:h-auto"
+    role="img"
+    aria-label="プロフィールページのQRコード"
+    set:html={qrSvg}
+  />
+  <p class="mt-8 text-base">QRコードを読み取ってね</p>
+  <p class="text-sm text-gray-dark break-all">
+    {profileUrl.replace(/^https?:\/\//, "")}
+  </p>
+</div>
