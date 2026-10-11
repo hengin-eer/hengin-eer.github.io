@@ -11,7 +11,9 @@ const cornerButtonClass =
 const flipButtonClass = `${cornerButtonClass} right-3`;
 ---
 
-<div class="profile-card relative w-full max-w-80 perspective-distant">
+<profile-card
+  class="profile-card block relative w-full max-w-80 perspective-distant"
+>
   <div class="profile-card-inner relative transform-3d">
     <div class:list={["relative", faceClass]} data-card-front>
       <CardHeader />
@@ -50,109 +52,10 @@ const flipButtonClass = `${cornerButtonClass} right-3`;
       </button>
     </div>
   </div>
-</div>
+</profile-card>
 
 <script>
-  const INVERT_BELOW_DEG = 15;
-  const UPRIGHT_ABOVE_DEG = 35;
-  const SPIN_SCALE = 0.5;
-
-  type OrientationPermission = {
-    requestPermission?: () => Promise<"granted" | "denied">;
-  };
-
-  let wakeLock: WakeLockSentinel | null = null;
-  let isManual = false;
-
-  const getFlippedCard = () =>
-    document.querySelector<HTMLElement>(".profile-card[data-flipped]");
-
-  const setInverted = (card: HTMLElement, inverted: boolean) => {
-    if (card.hasAttribute("data-inverted") === inverted) return;
-    card.toggleAttribute("data-inverted", inverted);
-    card
-      .querySelector("[data-card-invert]")
-      ?.setAttribute("aria-pressed", String(inverted));
-
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    card.animate(
-      [
-        { rotate: inverted ? "0deg" : "180deg", scale: 1 },
-        { scale: SPIN_SCALE, offset: 0.25 },
-        { scale: SPIN_SCALE, offset: 0.75 },
-        { rotate: inverted ? "180deg" : "360deg", scale: 1 },
-      ],
-      { duration: 800, easing: "ease-in-out" },
-    );
-  };
-
-  const handleOrientation = (event: DeviceOrientationEvent) => {
-    const card = getFlippedCard();
-    if (!card || isManual || event.beta === null) return;
-    if (event.beta < INVERT_BELOW_DEG) setInverted(card, true);
-    else if (event.beta > UPRIGHT_ABOVE_DEG) setInverted(card, false);
-  };
-
-  const watchOrientation = () => {
-    if (typeof DeviceOrientationEvent === "undefined") return;
-    const { requestPermission } =
-      DeviceOrientationEvent as unknown as OrientationPermission;
-    const listen = () =>
-      window.addEventListener("deviceorientation", handleOrientation);
-
-    if (!requestPermission) return listen();
-    requestPermission()
-      .then((state) => {
-        if (state === "granted") listen();
-      })
-      .catch(() => {});
-  };
-
-  const setFlipped = (card: HTMLElement, flipped: boolean) => {
-    const front = card.querySelector<HTMLElement>("[data-card-front]");
-    const back = card.querySelector<HTMLElement>("[data-card-back]");
-    card.toggleAttribute("data-flipped", flipped);
-    front?.toggleAttribute("inert", flipped);
-    back?.toggleAttribute("inert", !flipped);
-    (flipped ? back : front)
-      ?.querySelector<HTMLElement>("[data-card-flip]")
-      ?.focus({ preventScroll: true });
-
-    if (flipped) {
-      watchOrientation();
-      navigator.wakeLock
-        ?.request("screen")
-        .then((sentinel) => {
-          wakeLock = sentinel;
-        })
-        .catch(() => {});
-    } else {
-      window.removeEventListener("deviceorientation", handleOrientation);
-      isManual = false;
-      setInverted(card, false);
-      wakeLock?.release().catch(() => {});
-      wakeLock = null;
-    }
-  };
-
-  document.addEventListener("click", (event) => {
-    if (!(event.target instanceof Element)) return;
-    const card = event.target.closest<HTMLElement>(".profile-card");
-    if (!card) return;
-
-    if (event.target.closest("[data-card-flip]")) {
-      setFlipped(card, !card.hasAttribute("data-flipped"));
-    } else if (event.target.closest("[data-card-invert]")) {
-      isManual = true;
-      setInverted(card, !card.hasAttribute("data-inverted"));
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    const card = getFlippedCard();
-    if (card) setFlipped(card, false);
-  });
+  import "./flip/ProfileCardElement";
 </script>
 
 <style>
