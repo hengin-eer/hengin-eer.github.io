@@ -30,9 +30,7 @@ const flipButtonClass = `${cornerButtonClass} right-3`;
       data-card-back
       inert
     >
-      <div class="profile-card-rotator h-full">
-        <CardBack />
-      </div>
+      <CardBack />
       <button
         type="button"
         class:list={[cornerButtonClass, "left-3"]}
@@ -57,6 +55,7 @@ const flipButtonClass = `${cornerButtonClass} right-3`;
 <script>
   const INVERT_BELOW_DEG = 15;
   const UPRIGHT_ABOVE_DEG = 35;
+  const SPIN_SCALE = 0.5;
 
   type OrientationPermission = {
     requestPermission?: () => Promise<"granted" | "denied">;
@@ -69,10 +68,22 @@ const flipButtonClass = `${cornerButtonClass} right-3`;
     document.querySelector<HTMLElement>(".profile-card[data-flipped]");
 
   const setInverted = (card: HTMLElement, inverted: boolean) => {
+    if (card.hasAttribute("data-inverted") === inverted) return;
     card.toggleAttribute("data-inverted", inverted);
     card
       .querySelector("[data-card-invert]")
       ?.setAttribute("aria-pressed", String(inverted));
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    card.animate(
+      [
+        { rotate: inverted ? "0deg" : "180deg", scale: 1 },
+        { scale: SPIN_SCALE, offset: 0.25 },
+        { scale: SPIN_SCALE, offset: 0.75 },
+        { rotate: inverted ? "180deg" : "360deg", scale: 1 },
+      ],
+      { duration: 800, easing: "ease-in-out" },
+    );
   };
 
   const handleOrientation = (event: DeviceOrientationEvent) => {
@@ -153,17 +164,12 @@ const flipButtonClass = `${cornerButtonClass} right-3`;
     transform: rotateY(180deg);
   }
 
-  .profile-card-rotator {
-    transition: transform 600ms cubic-bezier(0.34, 1.4, 0.64, 1);
-  }
-
-  .profile-card[data-inverted] .profile-card-rotator {
-    transform: rotate(180deg);
+  .profile-card[data-inverted] {
+    rotate: 180deg;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .profile-card-inner,
-    .profile-card-rotator {
+    .profile-card-inner {
       transition: none;
     }
   }
