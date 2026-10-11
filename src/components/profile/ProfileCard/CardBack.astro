@@ -13,7 +13,7 @@ const qrSvg = await QRCode.toString(profileUrl, {
 ---
 
 <div
-  class="h-full px-6 py-8 flex flex-col items-center justify-center text-center"
+  class="h-full px-6 py-6 flex flex-col items-center justify-center text-center"
 >
   <img
     class="size-18 rounded-full"
@@ -24,12 +24,12 @@ const qrSvg = await QRCode.toString(profileUrl, {
   <h2 class="text-2xl">{baseProfile.name}</h2>
 
   <div
-    class="mt-5 w-full max-w-52 [&>svg]:block [&>svg]:w-full [&>svg]:h-auto"
+    class="mt-8 w-full max-w-52 [&>svg]:block [&>svg]:w-full [&>svg]:h-auto"
     role="img"
     aria-label="プロフィールページのQRコード"
     set:html={qrSvg}
   />
-  <p class="mt-4 text-base">QRコードを読み取ってね</p>
+  <p class="mt-8 text-base">QRコードを読み取ってね</p>
   <p class="text-sm text-gray-dark break-all">
     {profileUrl.replace(/^https?:\/\//, "")}
   </p>
