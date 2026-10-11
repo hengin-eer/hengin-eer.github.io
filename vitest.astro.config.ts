@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     name: "astro-portable-stories",
     setupFiles: [".storybook/vitest.setup.ts"],
-    include: ["src/**/*.portable.test.ts"],
+    include: ["src/**/*.portable.test.ts", "src/components/**/*.test.ts"],
   },
   integrations: [react()],
 });
