@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "hiro-to-moda",
+  "compatibility_date": "2026-10-23",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+  // 本番切り替え（Phase 3）までは routes を追加せず workers.dev のみで確認する。
+  "workers_dev": true,
+  "preview_urls": true,
+}

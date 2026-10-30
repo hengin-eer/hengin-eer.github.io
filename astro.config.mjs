@@ -61,7 +61,7 @@ export default defineConfig({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
-  site: "https://hengin-eer.github.io/",
+  site: "https://hiro-to.moda/",
   base: "/",
   vite: {
     optimizeDeps,

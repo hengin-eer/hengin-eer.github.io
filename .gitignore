@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # local files
 *.local
+
+# Wrangler local state
+.wrangler/

@@ -1,10 +1,16 @@
 .SHELLFLAGS := -c
 SHELL := /bin/bash
 
-.PHONY: dev storybook build test-stories test-storybook test build-storybook format check-format lint check-astro quality verify
+.PHONY: dev storybook build deploy deploy-dry-run test-stories test-storybook test build-storybook format check-format lint check-astro quality verify
 
 build:
 	npm run build
+
+deploy: build
+	npm run deploy
+
+deploy-dry-run: build
+	npm run deploy -- --dry-run
 
 dev:
 	npm run dev
