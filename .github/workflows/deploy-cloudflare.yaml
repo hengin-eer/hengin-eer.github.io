@@ -1,0 +1,94 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
+      - ".storybook/**"
+      - "**/*.stories.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # Dispatches from content repositories must also target main.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check whether Cloudflare deployment is configured
+        id: configured
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Cloudflare deployment skipped: CLOUDFLARE_API_TOKEN is not configured."
+          fi
+
+      - name: Checkout repository and content
+        if: steps.configured.outputs.enabled == 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          submodules: true
+          fetch-depth: 0
+
+      - name: Update content submodule references
+        if: steps.configured.outputs.enabled == 'true' && github.event_name == 'workflow_dispatch'
+        run: |
+          git submodule update --remote src/blogs src/works
+          git add src/blogs src/works
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: コンテンツのサブモジュール参照を更新'
+          if ! git push origin HEAD:main; then
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+          # A retry may have incorporated newer parent-repository pointers.
+          git submodule update --init --recursive
+
+      - name: Set up Node.js
+        if: steps.configured.outputs.enabled == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.configured.outputs.enabled == 'true'
+        run: npm ci
+
+      - name: Cache Astro optimized images
+        if: steps.configured.outputs.enabled == 'true'
+        uses: actions/cache@v5
+        with:
+          path: node_modules/.astro
+          key: ${{ runner.os }}-astro-${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-astro-${{ hashFiles('package-lock.json') }}-
+
+      - name: Build Astro site
+        if: steps.configured.outputs.enabled == 'true'
+        run: npm run build
+
+      - name: Deploy static assets
+        if: steps.configured.outputs.enabled == 'true'
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
