@@ -1,0 +1,18 @@
+# Copy to .github/workflows/dispatch-site-deploy.yaml in blogs and works.
+name: Request site deployment
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch the parent repository deployment
+        env:
+          GH_TOKEN: ${{ secrets.SITE_DEPLOY_PAT }}
+        run: gh workflow run deploy-cloudflare.yaml --repo hengin-eer/hengin-eer.github.io --ref main
