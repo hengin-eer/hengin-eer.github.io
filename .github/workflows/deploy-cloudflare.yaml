@@ -42,12 +42,12 @@ jobs:
         with:
           ref: main
           submodules: true
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Update content submodule references
         if: steps.configured.outputs.enabled == 'true' && github.event_name == 'workflow_dispatch'
         run: |
-          git submodule update --remote src/blogs src/works
+          git submodule update --remote --depth 1 src/blogs src/works
           git add src/blogs src/works
           if git diff --cached --quiet; then
             exit 0
@@ -56,11 +56,13 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'chore: コンテンツのサブモジュール参照を更新'
           if ! git push origin HEAD:main; then
-            git pull --rebase origin main
+            # Only the bot commit is local; do not search for a shallow merge base.
+            git fetch --depth=1 origin main
+            git rebase --onto FETCH_HEAD HEAD^
             git push origin HEAD:main
           fi
           # A retry may have incorporated newer parent-repository pointers.
-          git submodule update --init --recursive
+          git submodule update --init --recursive --depth 1
 
       - name: Set up Node.js
         if: steps.configured.outputs.enabled == 'true'

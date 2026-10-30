@@ -25,7 +25,7 @@ make deploy-dry-run
 gh workflow run deploy-cloudflare.yaml --repo hengin-eer/hengin-eer.github.io --ref main
 ```
 
-dispatch 時だけ `src/blogs` と `src/works` を remote の最新参照へ進め、変更があれば `github-actions[bot]` が `main` にコミットする。`contents: write` の `GITHUB_TOKEN` を使い、この push による workflow の二重起動を防ぐ。push が競合した場合は `git pull --rebase` 後に一度だけ再試行し、それでも失敗すれば停止する。ブランチ保護を使う場合、この bot による push が許可されるか事前に確認する。
+dispatch 時だけ `src/blogs` と `src/works` を remote の最新参照へ進め、変更があれば `github-actions[bot]` が `main` にコミットする。`contents: write` の `GITHUB_TOKEN` を使い、この push による workflow の二重起動を防ぐ。親リポジトリとサブモジュールは depth 1 で取得・更新する。push が競合した場合は `git fetch --depth=1 origin main` で最新 tip だけを取り直し、`git rebase --onto FETCH_HEAD HEAD^` で直前の bot コミット 1 件だけを移して一度だけ push を再試行する。浅い履歴の共通祖先を探さずに済み、通常の更新で全履歴を取得しない。同じサブモジュール参照への競合などで rebase できない場合や再度 push が拒否された場合は停止する。ブランチ保護を使う場合、この bot による push が許可されるか事前に確認する。
 
 実行中のデプロイは中断せず、`deploy-production` グループで直列に処理する。checkout は `main` の最新状態を取得する。npm キャッシュに加え、`npm ci` 後に `node_modules/.astro` の画像キャッシュを復元する。
 
