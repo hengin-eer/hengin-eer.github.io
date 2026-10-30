@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "deploy": "wrangler deploy",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",
@@ -70,6 +71,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "storybook": "^10.6.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "wrangler": "4.156.0"
   }
 }

@@ -18,6 +18,8 @@ Chromium は browser Storybook test と `make verify` に必要です。
 | `make dev` | Astro 開発サーバーを `localhost:4321` で起動する |
 | `make storybook` | Storybook を `localhost:6006` で起動する |
 | `make build` | Astro の production build を作成する |
+| `make deploy` | Astro を build し、Cloudflare Workers にデプロイする（要認証） |
+| `make deploy-dry-run` | Astro を build し、Wrangler の dry run で設定を検証する（認証不要） |
 | `make test-stories` | Astro portable Story tests を実行する |
 | `make test-storybook` | Chromium の Storybook/a11y tests を実行する |
 | `make format` | 対象コードを整形する |
@@ -46,3 +48,7 @@ set exrc
 初回は Neovim の trust prompt で `.nvim.lua` を確認・承認してください。設定は `npm ci` 後の `node_modules/.bin/oxfmt` と `prettier` を使い、`.astro` は Prettier、それ以外の対象拡張子は Oxfmt へ渡します。各 formatter は保存するファイルのパスからリポジトリの設定ファイルを自動検出するため、Neovim 設定側で formatter 設定ファイル名を固定しません。
 
 Storybook の制約と Story の規約は [docs/storybook-astro-spike.md](docs/storybook-astro-spike.md) に記載しています。
+
+## Cloudflare Workers
+
+公開サイトは https://hiro-to.moda/ です。Workers への移行準備中は GitHub Pages で配信を続け、Workers は `workers.dev` のみを使います。`npm run deploy` は build 済みの `dist/` をアップロードします。初期設定、CI、切り替え時の作業は [Cloudflare 移行手順](docs/cloudflare-workers.md) を参照してください。
