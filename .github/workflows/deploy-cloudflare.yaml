@@ -68,7 +68,7 @@ jobs:
         if: steps.configured.outputs.enabled == 'true'
         uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 26
           cache: npm
 
       - name: Install dependencies

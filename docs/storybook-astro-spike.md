@@ -28,7 +28,7 @@ Astro コンポーネント、React、p5 を同じ Storybook で表示し、port
 | Playwright                   | 1.60.0  |
 | p5                           | 2.3.3   |
 
-Storybook CI は Node.js 24 LTS を使用します。既存のデプロイ workflow の Node.js 設定は別管理です。
+現在の GitHub Actions は Astro / Storybook の品質確認と両 deploy workflow を Node.js 26 LTS に統一しています。上表と Node.js 24 に関する記述はローカル検証時の記録です。
 
 ## Compatibility matrix
 
