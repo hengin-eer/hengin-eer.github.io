@@ -17,7 +17,7 @@ make deploy-dry-run
 
 `.github/workflows/deploy-cloudflare.yaml` は `main` への push と `workflow_dispatch` を受け付ける。`docs/**`、ルートの `*.md`、`.storybook/**`、`**/*.stories.*` だけの push は対象外。PR では実行しない。品質確認は既存の Quality / Storybook CI が担当する。
 
-`CLOUDFLARE_API_TOKEN` が未登録なら、最初のステップで理由を表示して後続処理をスキップする。設定後は `CLOUDFLARE_ACCOUNT_ID` も必要。トークンは設定有無の確認と deploy ステップでのみ参照し、アカウント ID は deploy ステップだけに渡す。Secrets の作成・登録はこの変更には含めない。
+`CLOUDFLARE_API_TOKEN` が未登録なら、最初のステップで理由を表示して後続処理をスキップする。`CLOUDFLARE_ACCOUNT_ID` も必要。トークンは設定有無の確認と deploy ステップでのみ参照し、アカウント ID は deploy ステップだけに渡す。両 Secrets は登録済みで、マージ後の `main` push から `workers.dev` への実デプロイが動く。登録値そのものはリポジトリに保存しない。
 
 手動実行（初期設定後）:
 
@@ -27,7 +27,7 @@ gh workflow run deploy-cloudflare.yaml --repo hengin-eer/hengin-eer.github.io --
 
 dispatch 時だけ `src/blogs` と `src/works` を remote の最新参照へ進め、変更があれば `github-actions[bot]` が `main` にコミットする。`contents: write` の `GITHUB_TOKEN` を使い、この push による workflow の二重起動を防ぐ。親リポジトリとサブモジュールは depth 1 で取得・更新する。push が競合した場合は `git fetch --depth=1 origin main` で最新 tip だけを取り直し、`git rebase --onto FETCH_HEAD HEAD^` で直前の bot コミット 1 件だけを移して一度だけ push を再試行する。浅い履歴の共通祖先を探さずに済み、通常の更新で全履歴を取得しない。同じサブモジュール参照への競合などで rebase できない場合や再度 push が拒否された場合は停止する。ブランチ保護を使う場合、この bot による push が許可されるか事前に確認する。
 
-実行中のデプロイは中断せず、`deploy-production` グループで直列に処理する。checkout は `main` の最新状態を取得する。npm キャッシュに加え、`npm ci` 後に `node_modules/.astro` の画像キャッシュを復元する。
+実行中のデプロイは中断せず、`deploy-production` グループで直列に処理する。checkout は `main` の最新状態を取得する。npm キャッシュに加え、`npm ci` 後に `node_modules/.astro` の画像キャッシュを復元する。lockfile が同じ過去のキャッシュを prefix で探し、成功した新しい実行では `github.run_id` を含むキーで保存する。同じ実行の再実行では既存キーが完全一致すると再保存しない。
 
 既存の `.github/workflows/deploy.yaml` は GitHub Pages 用として残す。Cloudflare 側を確認し、Phase 3 の切り替えが終わるまで削除しない。
 
@@ -59,7 +59,6 @@ JSON のフィールドは [Cloudflare の Single Redirects API](https://develop
 
 ## 残作業
 
-- Cloudflare API トークンと GitHub Secrets の作成・登録。
 - blogs / works 用 PAT と dispatch workflow の配置。
 - works 側の `timtim-tech.md` にある `worksLink: "https://hengin-eer.github.io/"` を公開ドメインへ更新する（コンテンツリポジトリでの別作業）。
 - `workers.dev` へ初回デプロイし、表示・404・末尾スラッシュ・OGP 画像・フォントを確認。
