@@ -35,7 +35,25 @@ dispatch 時だけ `src/blogs` と `src/works` を remote の最新参照へ進�
 
 [workflow テンプレート](workflow-templates/dispatch-site-deploy.yaml) を各コンテンツリポジトリの `.github/workflows/dispatch-site-deploy.yaml` に配置する。この PR では配置も push も行わない。
 
-fine-grained PAT は対象を `hengin-eer/hengin-eer.github.io` だけに絞り、Repository permissions の **Actions: write** を付ける。各コンテンツリポジトリに `SITE_DEPLOY_PAT` Secret として登録する。通常の `GITHUB_TOKEN` では別リポジトリの workflow を起動できない。PAT の作成と Secret 登録は別作業とする。本体側の workflow が `main` に存在し、Cloudflare Secrets を設定してから有効化する。
+fine-grained PAT は対象を `hengin-eer/hengin-eer.github.io` だけに絞り、Repository permissions の **Actions: write** を付ける。`SITE_DEPLOY_PAT` Secret は blogs / works の両リポジトリに登録済み。通常の `GITHUB_TOKEN` では別リポジトリの workflow を起動できない。本体側の workflow が `main` に存在してからテンプレートを配置・有効化する。
+
+テンプレートは repository variable をトップレベルの `env` に受け取り、shell では引用した環境変数を使う。未設定または空の場合は以下の既定値を使う。
+
+| Repository variable | 既定値 | 用途 |
+| :-- | :-- | :-- |
+| `SITE_REPOSITORY` | `hengin-eer/hengin-eer.github.io` | 起動先リポジトリ |
+| `SITE_WORKFLOW` | `deploy-cloudflare.yaml` | 起動先 workflow ファイル |
+| `SITE_REF` | `main` | 起動先 ref |
+
+変更する場合は、各コンテンツリポジトリで変数を設定する。以下は blogs の例で、works は `--repo` を `hengin-eer/works` に置き換える。既定値のまま使う場合は設定不要。
+
+```sh
+gh variable set SITE_REPOSITORY --repo hengin-eer/blogs --body 'hengin-eer/hengin-eer.github.io'
+gh variable set SITE_WORKFLOW --repo hengin-eer/blogs --body 'deploy-cloudflare.yaml'
+gh variable set SITE_REF --repo hengin-eer/blogs --body 'main'
+```
+
+この PR では変数の設定や別リポジトリの workflow 配置・実行は行わない。
 
 ## www → apex の Redirect Rule（Phase 3 で適用）
 
@@ -59,7 +77,7 @@ JSON のフィールドは [Cloudflare の Single Redirects API](https://develop
 
 ## 残作業
 
-- blogs / works 用 PAT と dispatch workflow の配置。
+- blogs / works に dispatch workflow を配置する（`SITE_DEPLOY_PAT` は登録済み）。
 - works 側の `timtim-tech.md` にある `worksLink: "https://hengin-eer.github.io/"` を公開ドメインへ更新する（コンテンツリポジトリでの別作業）。
 - `workers.dev` へ初回デプロイし、表示・404・末尾スラッシュ・OGP 画像・フォントを確認。
 - Phase 3: GitHub Pages 向け A レコードの削除、apex のカスタムドメイン設定、配信確認後の `workers_dev: false` への変更。
