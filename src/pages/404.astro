@@ -3,6 +3,7 @@ import "@fontsource/zen-kaku-gothic-new";
 import "@fontsource-variable/comfortaa";
 import "../styles/global.css";
 import { SITE_TITLE } from "../constant/SITE";
+import Icon from "astro-iconify";
 ---
 
 <!doctype html>
@@ -24,7 +25,9 @@ import { SITE_TITLE } from "../constant/SITE";
         <p>お探しのページが見つかりませんでした。</p>
         <p>存在しないか削除された可能性があります。</p>
       </div>
-      <a href="/">トップへ戻る<span aria-hidden="true"> →</span></a>
+      <a href="/" aria-label="トップページへ戻る">
+        <Icon name="ri:home-4-line" class="size-6" aria-hidden="true" />
+      </a>
     </main>
   </body>
 </html>
@@ -63,19 +66,25 @@ import { SITE_TITLE } from "../constant/SITE";
   }
 
   a {
-    color: var(--gray-dark);
-    font-size: 0.875rem;
-    text-underline-offset: 0.3em;
-    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    color: var(--ocean-mid);
+    background: color-mix(in srgb, var(--primary-blue) 8%, var(--white));
+    border: 1px solid color-mix(in srgb, var(--primary-blue) 30%, var(--white));
+    border-radius: 50%;
   }
 
   a:hover {
     color: var(--ocean-deep);
+    background: color-mix(in srgb, var(--primary-blue) 16%, var(--white));
+    border-color: var(--primary-blue);
   }
 
   a:focus-visible {
     outline: 2px solid var(--ocean-mid);
     outline-offset: 0.4rem;
-    border-radius: 0.125rem;
   }
 </style>
