@@ -1,0 +1,81 @@
+---
+import "@fontsource/zen-kaku-gothic-new";
+import "@fontsource-variable/comfortaa";
+import "../styles/global.css";
+import { SITE_TITLE } from "../constant/SITE";
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>404 Not Found | {SITE_TITLE}</title>
+  </head>
+  <body>
+    <main>
+      <div>
+        <h1 class="status-code font-comfortaa">404</h1>
+        <p class="status-label font-comfortaa" lang="en">Not Found</p>
+      </div>
+      <div class="message">
+        <p>お探しのページが見つかりませんでした。</p>
+        <p>存在しないか削除された可能性があります。</p>
+      </div>
+      <a href="/">トップへ戻る<span aria-hidden="true"> →</span></a>
+    </main>
+  </body>
+</html>
+
+<style>
+  main {
+    min-height: 100svh;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .status-code {
+    color: var(--ocean-mid);
+    font-size: clamp(7.5rem, 24vw, 15rem);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    line-height: 1;
+  }
+
+  .status-label {
+    margin-top: 1rem;
+    color: var(--gray-dark);
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+    letter-spacing: 0.08em;
+  }
+
+  .message {
+    max-width: 36rem;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    line-height: 2;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--gray-dark);
+    font-size: 0.875rem;
+    text-underline-offset: 0.3em;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: var(--ocean-deep);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--ocean-mid);
+    outline-offset: 0.4rem;
+    border-radius: 0.125rem;
+  }
+</style>
