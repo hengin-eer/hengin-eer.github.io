@@ -1,6 +1,6 @@
 # Cloudflare Workers への移行
 
-Issue #65 の Phase 1 と Phase 2 のリポジトリ内の準備を行う。公開サイトは引き続き GitHub Pages で配信する。`wrangler.jsonc` にはカスタムドメインを設定せず、`workers_dev: true` にしてある。Astro は adapter を追加せず、静的な `dist/` を配信する。
+Issue #65 で GitHub Pages から Cloudflare Workers へ移行する。`hiro-to.moda` は Worker `hiro-to-moda` の Custom Domain として配信する。切り替え後の確認と切り戻しのため、安定するまで `workers_dev: true` も残す。Astro は adapter を追加せず、静的な `dist/` を配信する。
 
 ## ローカルの確認
 
@@ -29,7 +29,7 @@ dispatch 時だけ `src/blogs` と `src/works` を remote の最新参照へ進�
 
 実行中のデプロイは中断せず、`deploy-production` グループで直列に処理する。checkout は `main` の最新状態を取得する。npm キャッシュに加え、`npm ci` 後に `node_modules/.astro` の画像キャッシュを復元する。lockfile が同じ過去のキャッシュを prefix で探し、成功した新しい実行では `github.run_id` を含むキーで保存する。同じ実行の再実行では既存キーが完全一致すると再保存しない。
 
-既存の `.github/workflows/deploy.yaml` は GitHub Pages 用として残す。Cloudflare 側を確認し、Phase 3 の切り替えが終わるまで削除しない。
+既存の `.github/workflows/deploy.yaml` は GitHub Pages 用として残す。切り戻し先を保つため、Workers での配信が安定してから削除する。
 
 ## blogs / works からの dispatch
 
@@ -55,6 +55,33 @@ gh variable set SITE_REF --repo hengin-eer/blogs --body 'main'
 
 この PR では変数の設定や別リポジトリの workflow 配置・実行は行わない。
 
+## apex の切り替え（Phase 3）
+
+`wrangler.jsonc` の `routes` に `{ "pattern": "hiro-to.moda", "custom_domain": true }` を設定している。この変更が `main` に入ると、`deploy-cloudflare.yaml` の `wrangler deploy` が apex を Custom Domain として割り当てる。
+
+切り替え前の apex には GitHub Pages 向けの proxied A レコードが 4 件ある（`185.199.108.153`〜`185.199.111.153`）。Wrangler は TTY がない CI では、競合する DNS レコードを確認なしで上書きする（`override_existing_dns_record`）。そのため、手動で A レコードを削除する必要はなく、削除から deploy までの空白時間も生じない。MX と TXT（SPF / DKIM）は Custom Domain の対象外で、変更しない。
+
+API トークンには、Workers Scripts の編集権限に加えて、`hiro-to.moda` zone の Workers Routes の編集権限が必要。権限が足りない場合、Worker のアップロード後に Custom Domain の設定で失敗し、DNS は変わらない。
+
+確認:
+
+```sh
+cf dns records list -z hiro-to.moda   # apex の A レコードが消え、MX / TXT が残っていること
+curl -sI https://hiro-to.moda/ | grep -i -E '^(HTTP|server|cf-ray)'
+curl -s -o /dev/null -w '%{http_code}\n' https://hiro-to.moda/not-found-check   # 404
+curl -sI https://hiro-to.moda/blog | grep -i -E '^(HTTP|location)'             # 末尾スラッシュへの転送
+```
+
+ブラウザで、トップ・ブログ記事・Works・OGP 画像・フォント・404 ページを確認する。
+
+切り戻し:
+
+1. Cloudflare ダッシュボードの Workers & Pages → `hiro-to-moda` → Settings → Domains & Routes で `hiro-to.moda` を削除する。
+2. apex に proxied A レコードを 4 件（`185.199.108.153`、`185.199.109.153`、`185.199.110.153`、`185.199.111.153`）作り直す。
+3. `wrangler.jsonc` の `routes` を外す変更を `main` に入れ、次の deploy で再び割り当てられないようにする。
+
+GitHub Pages の設定と `deploy.yaml` は残してあるので、DNS を戻せば Pages の配信に戻る。
+
 ## www → apex の Redirect Rule（Phase 3 で適用）
 
 [www-to-apex.json](cloudflare/www-to-apex.json) は `http_request_dynamic_redirect` の zone ruleset 定義。`www.hiro-to.moda` のリクエストを HTTPS の apex へ 301 で転送し、パスとクエリを保持する。Worker のカスタムドメインには `www` を追加しない。
@@ -79,10 +106,8 @@ JSON のフィールドは [Cloudflare の Single Redirects API](https://develop
 
 - blogs / works に dispatch workflow を配置する（`SITE_DEPLOY_PAT` は登録済み）。
 - works 側の `timtim-tech.md` にある `worksLink: "https://hengin-eer.github.io/"` を公開ドメインへ更新する（コンテンツリポジトリでの別作業）。
-- `workers.dev` へ初回デプロイし、表示・404・末尾スラッシュ・OGP 画像・フォントを確認。
-- Phase 3: GitHub Pages 向け A レコードの削除、apex のカスタムドメイン設定、配信確認後の `workers_dev: false` への変更。
 - Phase 3: `www` の DNS と Redirect Rule の適用・確認。
-- Phase 3: GitHub Pages の無効化、旧 workflow と `github-pages` environment の削除。
+- Phase 3: 配信が安定した後、`workers_dev: false` への変更、GitHub Pages の無効化、旧 workflow と `github-pages` environment の削除。
 - Phase 4: PR プレビューと、adapter なし静的 Astro に対応した後の `cf` 移行。
 
 切り替え時の実作業は Issue #65 の手順に従う。
