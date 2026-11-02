@@ -51,4 +51,4 @@ Storybook の制約と Story の規約は [docs/storybook-astro-spike.md](docs/s
 
 ## Cloudflare Workers
 
-公開サイトは https://hiro-to.moda/ です。Workers への移行準備中は GitHub Pages で配信を続け、Workers は `workers.dev` のみを使います。`npm run deploy` は build 済みの `dist/` をアップロードします。初期設定、CI、切り替え時の作業は [Cloudflare 移行手順](docs/cloudflare-workers.md) を参照してください。
+公開サイトは https://hiro-to.moda/ です。Cloudflare Workers の Custom Domain で配信します。安定するまでは `workers.dev` も残します。`npm run deploy` は build 済みの `dist/` をアップロードします。初期設定、CI、切り替え時の作業は [Cloudflare 移行手順](docs/cloudflare-workers.md) を参照してください。

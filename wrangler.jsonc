@@ -7,7 +7,9 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
   },
-  // 本番切り替え（Phase 3）までは routes を追加せず workers.dev のみで確認する。
+  // apex を Custom Domain として割り当てる。CI の deploy は既存の DNS レコードを上書きする。
+  "routes": [{ "pattern": "hiro-to.moda", "custom_domain": true }],
+  // 切り替え後の確認と切り戻しに使うため、安定するまで workers.dev も残す。
   "workers_dev": true,
   "preview_urls": true,
 }
